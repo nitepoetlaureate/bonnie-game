@@ -19,6 +19,28 @@
 
 ---
 
+## Active Project: BONNIE!
+
+> You are BONNIE — a big black cat with an attitude, a traumatic relationship with
+> indoor plumbing, and an unshakeable belief that you deserve tuna.
+
+**BONNIE!** is a sandbox chaos / puzzle game in active development using this studio.
+Philadelphia-rooted pixel art. Dreamcast-era 2D aesthetics. Polterguy meets
+Maniac Mansion.
+
+| | |
+|---|---|
+| **Stage** | Pre-Production — Sprint 0 complete |
+| **Engine** | Godot 4.6 |
+| **Platform** | PC / Steam |
+| **Developer** | m. raftery (solo) |
+
+**Approved design docs**: [game-concept](design/gdd/game-concept.md) · [systems-index](design/gdd/systems-index.md) · [npc-personality](design/gdd/npc-personality.md) · [bonnie-traversal](design/gdd/bonnie-traversal.md)
+
+**Dev log**: [DEVLOG.md](DEVLOG.md) · **Changelog**: [CHANGELOG.md](CHANGELOG.md)
+
+---
+
 ## Why This Exists
 
 Building a game solo with AI is powerful — but a single chat session has no structure. No one stops you from hardcoding magic numbers, skipping design docs, or writing spaghetti code. There's no QA pass, no design review, no one asking "does this actually fit the game's vision?"

@@ -1,6 +1,6 @@
-kind summary
-title BONNIE! full game concept
+kind observation
+title New mechanics surfaced in NPC design session
 edge applies-to blob:e221d113c952e289ba05dbdf365fb7161ad58463
 edge targets-path path:design/gdd/game-concept.md
 
-Big black cat causes chaos to get fed. Polterguy-style chaos threshold. 5 levels (Germantown, Apartment, Vet, K-Mart, Italian Market). Bidirectional social system: charm AND chaos both fill the meter. NPC model: Maniac Mansion depth — personality, routines, relationships, cascade logic. Mini-games discoverable (Yo! Noid model). End-of-level cutscene per level. Nine-lives framing. PC/Steam, Godot 4.6.
+Pre-emptive environmental manipulation: remove stimuli (phone off hook) to prevent NPC mood events. Hunger stat boost: BONNIE stronger/clumsier past 6hr mark, ambient only (no UI). Levity multiplier: cute-after-chaos has goodwill multiplier effect. comfort_receptivity: drops under high stress, per-NPC floor. VULNERABLE state: low emotional_level, highly receptive to comfort. All to be formalized in npc-personality.md.

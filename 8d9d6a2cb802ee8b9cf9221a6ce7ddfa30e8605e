@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:8d9d6a2cb802ee8b9cf9221a6ce7ddfa30e8605e
+edge targets-path path:NEXT.md
+
+Handoff document for next session. Atomic task breakdown: T-CAM (camera GDD, blocker) → T-PROTO (traversal prototype, highest risk) → T-NPC-FIX + T-FOUND (parallel) → T-CHAOS + T-SOC (parallel) → T-SPRINT. Three parallel subagent sets documented. Locked decisions, Godot 4.6 warnings, key formulas, reading order all included.

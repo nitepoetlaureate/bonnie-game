@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:7644d11a034cdd41d297a2b9f2aeef09ca3fab77
+edge targets-path path:design/gdd/npc-personality.md
+
+NPC Personality System GDD. Approved. 11-state machine (ASLEEP/GROGGY/ROUTINE/AWARE/REACTING/RECOVERING/VULNERABLE/CLOSED_OFF/FLEEING/CHASING/FED). NpcState interface locked (8 fields). MVP NPCs: Michael (owner, no flee, floor 0.15) + Christen (partner, can flee, floor 0.20). Domino Rally cascades depth-2. Levity multiplier 1.5x. Hunger boost ambient. 8 acceptance criteria.

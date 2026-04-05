@@ -1,0 +1,4 @@
+kind context
+edge explains commit:6f8a3cd3c0e3dceeb46cd8b4055ecc08e1d007dd
+
+Pre-production Sprint 0 complete. All four core design documents approved: game-concept, systems-index, npc-personality, bonnie-traversal. Studio infrastructure live. Mycelium wired. Next: /prototype bonnie-traversal to create Godot project and validate physics feel.

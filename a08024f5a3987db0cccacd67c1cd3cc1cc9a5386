@@ -1,6 +1,5 @@
-kind context
-title NPC GDD decisions locked — writing next session
+kind summary
 edge applies-to blob:a08024f5a3987db0cccacd67c1cd3cc1cc9a5386
 edge targets-path path:design/gdd/systems-index.md
 
-All design questions answered. States: ASLEEP/GROGGY/ROUTINE/AWARE/REACTING/RECOVERING/VULNERABLE/CLOSED_OFF/FLEEING/CHASING/FED. Emotion = spectrum (emotional_level float). Per-NPC thresholds. Anger decays toward baseline_tension. NpcState fields: emotional_level, goodwill, current_behavior, comfort_receptivity, active_stimuli, visible_to_bonnie, last_interaction_type, bonnie_hunger_context. Pre-emptive stimulus removal = VS. MVP NPCs: Michael + Christen.
+27-system dependency map. Approved. MVP tier (11 systems): Input, Viewport, Audio, Traversal, Camera, Level Manager, Objects, NPC, Social System, Chaos Meter, Chaos Meter UI. Traversal = highest tech risk, prototype first. NPC = highest design risk. Circular dep NPC/Social resolved via shared NpcState object. Full design order and effort estimates included.

@@ -1,0 +1,6 @@
+kind constraint
+title Nearest-neighbor upscaling always
+edge applies-to tree:bfd9f8d6f2f65b5cfa2faa4c22165603ddb3ff10
+edge targets-treepath treepath:.
+
+Viewport scaling MUST use nearest-neighbor. Never bilinear or Lanczos. Pixel art blurs at sub-integer scales — internal resolution is 720x540 (4:3). The GPU upscales for free.

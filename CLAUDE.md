@@ -47,6 +47,21 @@ See `docs/COLLABORATIVE-DESIGN-PRINCIPLE.md` for full protocol and examples.
 > **First session?** If the project has no engine configured and no game concept,
 > run `/start` to begin the guided onboarding flow.
 
+## Knowledge Persistence (Mycelium)
+
+Notes on files, directories, and commits persist across sessions via mycelium.
+Notes sync to GitHub via the git remote — `git push` pushes notes, `git fetch` pulls them.
+
+**Agents MUST follow the arrival and departure protocol defined below.**
+
+Quick reference:
+- On session start: `mycelium.sh find constraint && mycelium.sh find warning`
+- On file work: `mycelium/scripts/context-workflow.sh <file>`
+- On departure: `mycelium.sh note HEAD -k context -m "..."` + file notes
+- Full primer: `mycelium.sh prime`
+
+@.claude/rules/mycelium.md
+
 ## Coding Standards
 
 @.claude/docs/coding-standards.md

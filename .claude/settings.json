@@ -30,7 +30,21 @@
       "Bash(dotnet build*)",
       "Bash(dotnet test*)",
       "Bash(godot --headless*)",
-      "Bash(unity -batchmode*)"
+      "Bash(unity -batchmode*)",
+      "Bash(mycelium.sh read *)",
+      "Bash(mycelium.sh find *)",
+      "Bash(mycelium.sh follow *)",
+      "Bash(mycelium.sh refs *)",
+      "Bash(mycelium.sh kinds*)",
+      "Bash(mycelium.sh list*)",
+      "Bash(mycelium.sh doctor*)",
+      "Bash(mycelium.sh prime*)",
+      "Bash(mycelium.sh dump*)",
+      "Bash(mycelium.sh log*)",
+      "Bash(mycelium.sh note *)",
+      "Bash(mycelium.sh note HEAD*)",
+      "Bash(mycelium/scripts/context-workflow.sh *)",
+      "Bash(mycelium/scripts/path-history.sh *)"
     ],
     "deny": [
       "Bash(rm -rf *)",

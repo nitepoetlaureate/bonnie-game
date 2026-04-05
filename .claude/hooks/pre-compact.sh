@@ -73,6 +73,16 @@ mkdir -p "$SESSION_LOG_DIR" 2>/dev/null
 echo "Context compaction occurred at $(date)." \
     >> "$SESSION_LOG_DIR/compaction-log.txt" 2>/dev/null
 
+# --- Mycelium: dump recent notes before compaction ---
+if command -v mycelium.sh &>/dev/null && git notes --ref=mycelium list &>/dev/null 2>&1; then
+    echo ""
+    echo "## Mycelium — Recent Notes (last 5 commits)"
+    mycelium.sh log 5 2>/dev/null | head -80 || true
+    echo ""
+    echo "Active constraints:"
+    mycelium.sh find constraint 2>/dev/null | head -30 || true
+fi
+
 echo ""
 echo "## Recovery Instructions"
 echo "After compaction, read $STATE_FILE to recover full working context."

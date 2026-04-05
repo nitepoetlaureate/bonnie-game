@@ -40,4 +40,15 @@ if [ -n "$RECENT_COMMITS" ] || [ -n "$MODIFIED_FILES" ]; then
     } >> "$SESSION_LOG_DIR/session-log.md" 2>/dev/null
 fi
 
+# --- Mycelium: remind to leave departure note ---
+if command -v mycelium.sh &>/dev/null && git notes --ref=mycelium list &>/dev/null 2>&1; then
+    UNCOMMITTED=$(git diff --name-only 2>/dev/null)
+    if [ -n "$UNCOMMITTED" ]; then
+        echo ""
+        echo "Mycelium: Uncommitted changes detected. Consider:"
+        echo "  mycelium.sh note HEAD -k context -m 'What you did and why.'"
+        echo "  mycelium.sh note <changed-file> -k summary -m 'What future agents should know.'"
+    fi
+fi
+
 exit 0

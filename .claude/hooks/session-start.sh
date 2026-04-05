@@ -71,5 +71,21 @@ if [ -f "$STATE_FILE" ]; then
     echo "=== END SESSION STATE PREVIEW ==="
 fi
 
+# --- Mycelium: surface constraints and warnings ---
+if command -v mycelium.sh &>/dev/null && git notes --ref=mycelium list &>/dev/null 2>&1; then
+    NOTE_COUNT=$(git notes --ref=mycelium list 2>/dev/null | wc -l | tr -d ' ')
+    echo ""
+    echo "=== Mycelium Notes ($NOTE_COUNT annotated objects) ==="
+    echo "Constraints:"
+    mycelium.sh find constraint 2>/dev/null | head -40 || true
+    echo ""
+    echo "Warnings:"
+    mycelium.sh find warning 2>/dev/null | head -40 || true
+    echo ""
+    echo "Run: mycelium/scripts/context-workflow.sh <file> for file-specific context"
+    echo "Run: mycelium.sh prime for full agent primer"
+    echo "==================================="
+fi
+
 echo "==================================="
 exit 0

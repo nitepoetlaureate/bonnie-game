@@ -1,0 +1,8 @@
+kind decision
+title Key architecture decisions
+edge applies-to tree:bfd9f8d6f2f65b5cfa2faa4c22165603ddb3ff10
+edge targets-treepath treepath:.
+
+1. NpcState interface breaks Social<->NPC circular dep: Bidirectional Social System and Reactive NPC System are mutually dependent. Resolution: shared NpcState data object that both systems read/write. Neither system calls the other directly.
+2. RetroDiffusion: private HF Space (Docker: ComfyUI + Tailscale client + model weights). Space joins Tailnet; Aseprite extension connects to Tailscale IP:8188. CPU-only: canvas ≤256px, steps 15-20. Same Dockerfile upgrades to GPU tier with no code changes.
+3. Design priority: NPC Personality System first (all NPC design flows from it). BONNIE Traversal second — prototype immediately, physics feel is make-or-break.

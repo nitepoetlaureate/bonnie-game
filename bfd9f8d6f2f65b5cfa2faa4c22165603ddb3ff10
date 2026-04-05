@@ -1,0 +1,6 @@
+kind value
+title Performance target: Dreamcast 2D
+edge applies-to tree:bfd9f8d6f2f65b5cfa2faa4c22165603ddb3ff10
+edge targets-treepath treepath:.
+
+Target integrated graphics, 4GB RAM, 2013+ CPU. 720x540 internal render, nearest-neighbor, pillarboxed. Draw calls ≤50. This is a style choice: 'best Dreamcast 2D game ever made.' Never sacrifice pixel art clarity for 3D rendering features.

@@ -1,0 +1,6 @@
+kind context
+title 27 systems enumerated — design order set
+edge applies-to blob:a08024f5a3987db0cccacd67c1cd3cc1cc9a5386
+edge targets-path path:design/gdd/systems-index.md
+
+NPC Personality System is design priority 1 (most design decisions flow from it). BONNIE Traversal is priority 2 and should be prototyped immediately — physics feel is make-or-break. Circular dep between Social and NPC systems resolved via NpcState interface. See systems-index.md for full dependency layers and priority tiers.

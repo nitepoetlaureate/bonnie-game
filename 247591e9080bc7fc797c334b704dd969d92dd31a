@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:247591e9080bc7fc797c334b704dd969d92dd31a
+edge targets-path path:design/gdd/bonnie-traversal.md
+
+BONNIE Traversal System GDD. Approved. 13 movement states. Controls snappy, physics consequences real. Clumsy feline Ryu Hayabusa. Kaneda slide, apex-locked double jump (post-double air control near zero), pure-parry ledge grab (no auto-grab), wall jump on climbable surfaces only (carpet/fabric not metal/glass/hardwood). Run button default, autorun accessibility toggle. No death — Nine Lives / Looney Tunes physics. CharacterBody2D.

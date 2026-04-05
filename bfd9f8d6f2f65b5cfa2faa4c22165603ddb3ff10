@@ -1,0 +1,9 @@
+kind warning
+title Godot 4.6 breaking changes to know
+edge applies-to tree:bfd9f8d6f2f65b5cfa2faa4c22165603ddb3ff10
+edge targets-treepath treepath:.
+
+1. AudioStreamRandomizer pitch: pitch_min/pitch_max are now SEMITONES not frequency multipliers. Old 1.0 (no change) is now 0.0. Every AudioStreamRandomizer in the project needs migration.
+2. AnimationPlayer: use StringName literals &"animation_name" not plain strings.
+3. Unique Node IDs: use %NodeName syntax instead of long NodePaths.
+4. D3D12 is now default on Windows — test on both D3D12 and Vulkan if targeting PC.

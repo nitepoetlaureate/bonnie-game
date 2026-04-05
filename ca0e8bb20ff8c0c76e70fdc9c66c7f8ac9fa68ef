@@ -1,0 +1,4 @@
+kind context
+edge explains commit:ca0e8bb20ff8c0c76e70fdc9c66c7f8ac9fa68ef
+
+Mycelium integrated into AI-STUDIO-99 agent scaffold for BONNIE!. Hooks updated (session-start/stop/pre-compact), .claude/rules/mycelium.md created, CLAUDE.md updated with Knowledge Persistence section, settings.json has mycelium permissions. 7 notes seeded: Dreamcast performance value, rendering constraints, Godot 4.6 warnings, architecture decisions, design doc summaries. GitHub remote still needed for sync-init — see production/session-state/active.md.

@@ -1,6 +1,9 @@
 kind constraint
-title Nearest-neighbor upscaling always
+title Rendering constraints
 edge applies-to tree:bfd9f8d6f2f65b5cfa2faa4c22165603ddb3ff10
 edge targets-treepath treepath:.
 
-Viewport scaling MUST use nearest-neighbor. Never bilinear or Lanczos. Pixel art blurs at sub-integer scales — internal resolution is 720x540 (4:3). The GPU upscales for free.
+1. NEAREST-NEIGHBOR always — viewport scaling must never be bilinear or Lanczos. GPU upscales for free.
+2. Internal resolution: 720x540 (4:3), pillarboxed on widescreen. Scales cleanly to 1440x1080 (2x) and 2880x2160 (4x). Do not change without deliberate art direction review.
+3. Draw calls ≤50 per frame. Memory ≤256MB total, ≤64MB textures.
+4. Aseprite (.aseprite) is the canonical art format — PNG sprite sheets are exports. CLI export: aseprite -b --sheet out.png --data out.json in.aseprite. All exports use snake_case matching GDScript class names.

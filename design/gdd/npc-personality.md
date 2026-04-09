@@ -289,30 +289,108 @@ when the NPC is in ROUTINE and pause during any other state.
 
 #### Michael — Apartment Routine
 
-| Phase | Activity | Location | Sensitivity Notes |
-|-------|----------|----------|-------------------|
-| Morning | Coffee, slow start | Kitchen | Low sensitivity — still waking |
-| Work | Laptop, phone calls | Desk/living room | HIGH sensitivity — do not interrupt |
-| Lunch | Food prep, eating | Kitchen | Medium — distracted but present |
-| Afternoon | Continued work | Desk | HIGH — crunch window |
-| Evening | TV, decompressing | Couch | Low — winding down, more receptive |
-| Late | Bed | Bedroom | ASLEEP state |
+Michael is present at level start. His routine begins immediately. Routine phases
+advance when he is in ROUTINE state and pause during AWARE, REACTING, RECOVERING,
+VULNERABLE, CLOSED_OFF, or FED.
+
+| Phase | Activity | Location | `phase_duration` | Transition Trigger |
+|-------|----------|----------|------------------|--------------------|
+| Morning | Coffee, slow start, news | Kitchen | `150s` | Timer expires |
+| Work | Laptop, phone calls, video meetings | Desk/living room | `300s` | Timer expires |
+| Lunch | Food prep, eating | Kitchen | `120s` | Timer expires |
+| Afternoon | Continued work, crunch window | Desk | `240s` | Timer expires → **triggers Christen arrival** |
+| Evening | TV, decompressing, talking with Christen | Couch | `300s` | Timer expires |
+| Late | In bed. Lights out. | Bedroom | indefinite | ASLEEP state (no routine timer) |
+
+*`phase_duration` values are ROUTINE-state seconds — they do not advance while
+Michael is in any other state. Christen's arrival is triggered when Michael's
+Afternoon phase timer expires and he transitions to Evening.*
 
 *Work phase is the highest-chaos-value target. Michael's `reaction_threshold` is
-lower during work phase (modifier: `-0.1`) because he's already under stress.*
+lower during work phase (modifier: `-0.1`) because he is already under stress.*
+
+*Afternoon phase has the same high sensitivity as Work. The Work → Lunch → Afternoon
+sequence is a full crunch arc: Michael peaks in stress across these three phases,
+making it the riskiest and most rewarding window for chaos play.*
 
 #### Christen — Apartment Routine
 
-| Phase | Activity | Location | Sensitivity Notes |
-|-------|----------|----------|-------------------|
-| Arrival | Coming in, settling | Entryway → living room | Medium — transition state |
-| Socializing | Talking with Michael, phone | Living room | Low-medium — engaged, not focused |
-| Task-focused | Cooking, working, reading | Variable | Medium — depends on activity |
-| Relaxing | TV, couch time | Living room | Low — receptive to BONNIE |
-| Departure | Leaving or staying over | Variable | Transition state |
+**Arrival Trigger — Michael-phase-based**
 
-*Christen spends less total time in the apartment than Michael — her schedule has
-natural gaps. The player must catch her during her windows.*
+Christen does not appear at level start. She enters the apartment when Michael
+transitions from his **Work** phase to his **Evening** phase (see Michael's
+schedule above). This mirrors her arriving home from work.
+
+*Design note: The Michael-phase trigger was chosen over time-based and
+chaos-threshold alternatives because it is narratively grounded, teaches the
+player to observe Michael's phase cycle (reinforcing the "read the room" pillar),
+and produces the most interesting emotional landscape on arrival — Michael is
+actively decompressing, emotional_level is declining, and Christen enters into a
+calmer baseline. The chaos-threshold trigger was rejected because it would
+punish early chaos play by summoning a second, already-volatile NPC as a
+consequence of the player engaging the system.*
+
+Christen's routine clock starts when she enters. Routine phases advance when she
+is in ROUTINE state and pause during AWARE, REACTING, RECOVERING, VULNERABLE,
+CLOSED_OFF, FLEEING, or FED.
+
+| Phase | Activity | Location | `phase_duration` | Transition Trigger |
+|-------|----------|----------|------------------|--------------------|
+| Arrival | Coming in, changing clothes, decompressing from commute | Entryway → bedroom | `120s` | Timer expires |
+| Socializing | Talking with Michael, scrolling phone, shared decompression | Living room | `180s` | Timer expires |
+| Dinner | Cooking, plating, eating — sometimes Michael cooks, she directs | Kitchen → dining area | `240s` | Timer expires |
+| Relaxing | TV on couch, reading, light conversation | Living room | `300s` | Timer expires |
+| Wind-down | Brushing teeth, getting ready for bed | Bathroom → bedroom | `90s` | Timer expires |
+| Sleep | In bed. Lights out. | Bedroom | indefinite | ASLEEP state (no routine timer) |
+
+*`phase_duration` values are ROUTINE-state seconds — they do not advance while
+Christen is in any other state. A level session may end before she reaches Sleep.*
+
+*Sensitivity modifiers by phase:*
+- **Arrival**: `reaction_threshold += 0.05` — she is tired and slightly lower
+  patience than her resting value
+- **Socializing**: `reaction_threshold += 0.10` — engaged with Michael, relaxed,
+  high tolerance; best window for BONNIE charm play
+- **Dinner**: no modifier — moderate baseline; chaos near food prep area has
+  elevated stimulus weight (kitchen objects) but her tolerance is standard
+- **Relaxing**: `reaction_threshold += 0.10` — mirrors Evening Michael; most
+  receptive to BONNIE, highest goodwill-earning window
+- **Wind-down**: `reaction_threshold -= 0.05` — tired, less patient; lower
+  tolerance for stimulus, parallel to Michael's pre-sleep state
+
+#### Christen — Departure Condition
+
+Christen CAN flee to another room (`can_flee: true`). Michael cannot.
+
+**Flee condition**: Christen enters FLEEING when her `emotional_level` exceeds
+`flee_threshold` (default `0.90`) during REACTING. This is a high bar — she must
+be at near-maximum stress.
+
+**Destination**: Christen flees to the **bedroom**. This is narratively
+grounded — it is the most private room in the apartment, the one space she
+retreats to when the apartment feels unsafe.
+
+**While in bedroom**:
+- Christen is in RECOVERING state. Decay proceeds normally.
+- She is not accessible to BONNIE unless BONNIE enters the bedroom.
+- If BONNIE enters the bedroom, Christen receives BONNIE's proximity as a low-weight
+  stimulus (she is wary, not neutral). Charm interactions still function but
+  `comfort_receptivity` is at its post-flee value (near floor).
+- Christen does NOT re-enter her routine clock while in the bedroom (routine timer
+  pauses in RECOVERING).
+
+**Return condition**: Christen returns to the living room and resumes her
+Socializing phase when `emotional_level` drops below `baseline_tension + 0.05`
+AND at least `christen_bedroom_min_time` seconds have elapsed since entering
+FLEEING (default `60s`). She re-enters ROUTINE in Socializing regardless of
+which phase she was in when she fled — the routine resets to the social context
+because she is rejoining Michael.
+
+**If BONNIE causes a second flee event**: Christen returns but with `baseline_tension`
+elevated by `flee_stress_carry` (default `+0.05`, stacks up to `+0.15` across
+three flee events). Each return she is measurably more on edge than before.
+This creates a natural difficulty ramp for repeated high-chaos play against Christen
+specifically: she becomes progressively easier to re-trigger on subsequent returns.
 
 ---
 
@@ -506,6 +584,31 @@ A stimulus that would wake an NPC in the same room requires double the strength
 to wake them from an adjacent room. Sleeping through chaos in a nearby room is
 expected and intentional.
 
+**Q: Christen is in FLEEING. Can she reach FED?**
+A: No. FED is only checked when an NPC is in ROUTINE, RECOVERING, or VULNERABLE
+(see Section 4.5). FLEEING is not on this list. The FED check resumes when she
+transitions out of FLEEING into RECOVERING in the bedroom.
+
+**Q: Christen flees before she has entered any phase that the player can exploit.**
+A: If Christen enters FLEEING during her Arrival phase — before she has reached
+Socializing — she returns and resumes from Socializing regardless. The routine
+always resets to Socializing on return (not to the phase she fled from). This
+prevents the player from trapping her in a loop where she never has a goodwill-
+buildable window.
+
+**Q: `flee_stress_carry` stacks past its cap. What is the ceiling?**
+A: `baseline_tension` cannot exceed `0.45` (the per-NPC safe range ceiling from
+Section 7). `flee_stress_carry` stacks are clamped: three stacks of `+0.05`
+bring Christen's `baseline_tension` from `0.25` to `0.40`, approaching but not
+exceeding the ceiling. A fourth flee event does not apply additional carry.
+
+**Q: Michael's Afternoon phase timer expires while Michael is in REACTING.**
+A: The phase timer only advances during ROUTINE state. Michael's Afternoon timer
+will not expire while he is REACTING — it resumes when he returns to ROUTINE. This
+means a chaotic Afternoon can significantly delay Christen's arrival. This is
+intentional: sustained chaos during Afternoon keeps Christen away longer, giving
+the player more solo time with Michael but delaying the cascade multiplier she provides.
+
 **Q: Both NPCs reach their `feeding_threshold` simultaneously.**
 A: First-to-check wins. Check order is deterministic per frame (NPC list order).
 In practice this is very rare because Michael and Christen have different thresholds
@@ -589,6 +692,52 @@ after first playtest sessions. Ranges indicate safe tuning bounds.
 | `recovery_rate_multiplier` | Speed boost to decay during RECOVERING | `1.5` | `1.0–3.0` |
 | `min_chaos_events_for_feed` | REACTING events required before FED is possible | `2` | `1–4` |
 
+### Phase Duration Knobs — Michael
+
+`phase_duration` values control how long Michael spends in each ROUTINE phase
+(measured in ROUTINE-state seconds — pauses in other states).
+
+| Knob | Phase | Default | Safe Range | Category |
+|------|-------|---------|------------|----------|
+| `michael_phase_duration_morning` | Morning Routine | `150s` | `60–300s` | gate |
+| `michael_phase_duration_work` | Work (first session) | `300s` | `180–480s` | gate |
+| `michael_phase_duration_lunch` | Lunch | `120s` | `60–180s` | gate |
+| `michael_phase_duration_afternoon` | Afternoon (continued work) | `240s` | `120–420s` | gate |
+| `michael_phase_duration_evening` | Evening (Christen arrives trigger) | `300s` | `180–480s` | gate |
+
+*Note: Michael's Late/Sleep phase has no duration knob — it runs to level end once entered.*
+
+*The transition from Work to Evening phase is the trigger that spawns Christen.
+Shortening `michael_phase_duration_work` or `michael_phase_duration_afternoon`
+reduces the time before Christen arrives. Lengthening either gives the player
+more solo time with Michael before the second NPC enters.*
+
+### Phase Duration Knobs — Christen
+
+`phase_duration` values control how long Christen spends in each ROUTINE phase.
+All values are ROUTINE-state seconds.
+
+| Knob | Phase | Default | Safe Range | Category |
+|------|-------|---------|------------|----------|
+| `christen_phase_duration_arrival` | Arrival (decompressing) | `120s` | `60–240s` | gate |
+| `christen_phase_duration_socializing` | Socializing (with Michael) | `180s` | `90–360s` | gate |
+| `christen_phase_duration_dinner` | Dinner (cooking + eating) | `240s` | `120–360s` | gate |
+| `christen_phase_duration_relaxing` | Relaxing (TV/couch) | `300s` | `180–480s` | gate |
+| `christen_phase_duration_wind_down` | Wind-down (pre-bed) | `90s` | `60–150s` | gate |
+| `christen_bedroom_min_time` | Minimum time in bedroom before returning post-flee | `60s` | `30–120s` | gate |
+| `flee_stress_carry` | baseline_tension increase per flee event | `0.05` | `0.02–0.10` | curve |
+
+*Note: Christen's Sleep phase has no duration knob — it runs to level end once entered.*
+
+### Phase Sensitivity Modifiers — Christen
+
+| Knob | Phase | Default | Safe Range | Category |
+|------|-------|---------|------------|----------|
+| `christen_arrival_threshold_mod` | `reaction_threshold` change in Arrival phase | `-0.05` | `-0.15–0.0` | feel |
+| `christen_socializing_threshold_mod` | `reaction_threshold` change in Socializing phase | `+0.10` | `0.0–+0.20` | feel |
+| `christen_relaxing_threshold_mod` | `reaction_threshold` change in Relaxing phase | `+0.10` | `0.0–+0.20` | feel |
+| `christen_wind_down_threshold_mod` | `reaction_threshold` change in Wind-down phase | `-0.05` | `-0.15–0.0` | feel |
+
 ### Work-Phase Sensitivity Modifier (Michael)
 
 During Michael's Work routine phase, apply:
@@ -647,6 +796,31 @@ All criteria must be verifiable by a QA tester running the MVP prototype.
 - [ ] Trigger Michael's REACTING; cascade stimulus reaches Christen; Christen enters REACTING
 - [ ] Christen's REACTING cascade bleed DOES NOT re-trigger Michael from the same chain
 - [ ] Confirm via debug log: cascade_source_id prevents loop
+
+**AC-09: Christen arrives at the correct trigger**
+- [ ] Michael completes his Afternoon routine phase and transitions to Evening
+- [ ] On that transition, Christen enters the apartment (spawns or becomes visible)
+      in Arrival phase — confirmed by her entering Arrival-phase ROUTINE
+- [ ] If Michael is kept in REACTING for an extended period during Afternoon,
+      Christen's arrival is delayed proportionally (phase timer only advances in ROUTINE)
+- [ ] Christen does NOT appear at level start — she is absent until the trigger fires
+
+**AC-10: Christen's routine phases advance and expose correct sensitivity windows**
+- [ ] Christen's `reaction_threshold` is lower in Arrival and Wind-down phases
+      (modifier active — she is easier to trigger when tired)
+- [ ] Christen's `reaction_threshold` is higher in Socializing and Relaxing phases
+      (modifier active — she is more tolerant and receptive)
+- [ ] During Relaxing, BONNIE charm interactions earn goodwill at or above the
+      rate earned during Michael's Evening phase (comparable receptivity windows)
+
+**AC-11: Christen flees to bedroom and returns correctly**
+- [ ] Drive Christen's `emotional_level` above `flee_threshold` (`0.90`) during REACTING
+- [ ] Christen enters FLEEING and pathfinds to bedroom
+- [ ] While in bedroom, FED check does not fire (FLEEING is not a checked state)
+- [ ] After `christen_bedroom_min_time` elapses AND `emotional_level` drops below
+      `baseline_tension + 0.05`, Christen returns and enters Socializing phase
+- [ ] On second flee event, Christen's `baseline_tension` is elevated by `flee_stress_carry`
+      (confirmed: she is observably quicker to reach AWARE on return)
 
 **AC-08: Sleeping NPC behaves correctly**
 - [ ] Michael in ASLEEP state: BONNIE moving in same room below `wake_threshold` — no response

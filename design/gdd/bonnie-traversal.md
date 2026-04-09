@@ -243,7 +243,7 @@ On a vertical or near-vertical climbable surface.
 - **Slip chance**: if BONNIE is in hunger-boost state, periodic slip events
   reduce velocity briefly. Never causes a fall without player input — slips
   are speed interrupts, not detaches.
-- Exits to: JUMPING/FALLING (push off or wall jump), IDLE (reach top of surface)
+- Exits to: JUMPING/FALLING (push off or wall jump), LEDGE_PULLUP (reach top of surface — same animation as Ledge Parry success, auto-triggered, no input required)
 
 ---
 

@@ -29,9 +29,9 @@ gameplay, and can be developed in parallel with design work.
 | # | System Name | Category | Priority | Status | Design Doc | Depends On |
 |---|-------------|----------|----------|--------|------------|------------|
 | 1 | Input System | Core | MVP | Not Started | — | — |
-| 2 | Viewport / Rendering Config | Core | MVP | Not Started | — | — |
+| 2 | Viewport / Rendering Config | Core | MVP | Approved | design/gdd/viewport-config.md | — |
 | 3 | Audio Manager | Core | MVP | Not Started | — | — |
-| 4 | Camera System | Core | MVP | Not Started | — | BONNIE Traversal (6) |
+| 4 | Camera System | Core | MVP | Approved | design/gdd/camera-system.md | BONNIE Traversal (6), Viewport Config (2), Input (1) |
 | 5 | Level Manager | Core | MVP | Not Started | — | Viewport Config (2) |
 | 6 | BONNIE Traversal System | Gameplay | MVP | Not Started | — | Input (1), Viewport (2) |
 | 7 | Interactive Object System | Gameplay | MVP | Not Started | — | Viewport (2) |
@@ -209,8 +209,8 @@ after their GDD is written — don't wait until Alpha.
 | Total systems identified | 27 |
 | Design docs started | 0 |
 | Design docs reviewed | 0 |
-| Design docs approved | 0 |
-| MVP systems designed | 0 / 11 |
+| Design docs approved | 2 |
+| MVP systems designed | 2 / 11 |
 | Vertical Slice systems designed | 0 / 7 |
 | Alpha systems designed | 0 / 6 |
 | Full Vision systems designed | 0 / 3 |

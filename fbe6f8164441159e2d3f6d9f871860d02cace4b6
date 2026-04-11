@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:fbe6f8164441159e2d3f6d9f871860d02cace4b6
+edge targets-path path:design/gdd/systems-index.md
+
+6/11 MVP systems approved: Input (1), Viewport (2), Audio Manager (3), Camera (4), Traversal (6), NPC (9). Prototype skeleton exists in prototypes/bonnie-traversal/. Remaining MVP: Level Manager (5), Interactive Objects (7), Social System (12), Chaos Meter (13), Chaos Meter UI (23).

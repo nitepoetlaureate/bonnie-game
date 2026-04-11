@@ -1,0 +1,4 @@
+kind context
+edge explains commit:bd508f3aeaeb647e2459296457ab423b5aeb9d26
+
+Created TestLevel.tscn for BONNIE traversal prototype — 10-zone test level covering all 13 movement states. Geometry derived from GDD physics values.

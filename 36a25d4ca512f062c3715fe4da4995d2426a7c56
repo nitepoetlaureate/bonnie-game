@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:36a25d4ca512f062c3715fe4da4995d2426a7c56
+edge targets-path path:prototypes/bonnie-traversal/BonnieController.tscn
+
+Added ParryCast ShapeCast2D child node. CircleShape2D radius=24.0, position=(0,0), collision_mask=1, enabled=true. load_steps bumped from 4 to 5. Required for _check_ledge_parry() via @onready _parry_cast = $ParryCast.

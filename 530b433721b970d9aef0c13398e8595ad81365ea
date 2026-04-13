@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:530b433721b970d9aef0c13398e8595ad81365ea
+edge targets-path path:.claude/hooks/validate-commit.sh
+
+Enhanced in Session 004: (1) GDD section check now validates all 8 required sections by name with missing count. (2) Silent Python failure replaced with visible warning in commit output.

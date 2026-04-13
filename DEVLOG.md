@@ -236,6 +236,56 @@ Playtest feedback → GATE 1 evaluation → T-CHAOS + T-SOC GDDs (parallel)
 
 ---
 
+## [2026-04-13] Session 005 — GATE 1 Playtest + Prototype Fixes + Infrastructure Cleanup
+
+**Developer**: m. raftery
+**Focus**: First GATE 1 playtest → prototype bug audit → fixes → infrastructure cleanup
+
+### Playtest Results
+Conducted first GATE 1 playtest of traversal prototype. Found 4 critical bugs preventing full AC evaluation:
+
+- **B01** — CLIMBING state had no ground-based entry. Only enterable via airborne parry. GDD specified ground approach should work.
+- **B02** — SQUEEZING state completely unreachable. State handler existed but nothing called `_change_state(State.SQUEEZING)`. Auto-trigger never implemented.
+- **B03** — `parry_window_frames` tuning knob existed but `_check_ledge_parry()` was proximity-only. No temporal window around ledge-plane crossing.
+- **B04** — CircleShape2D ParryCast detected floor/ceiling geometry as valid parry targets. Intermittent false positives.
+
+Additionally: no debug feedback layer made playtesting guesswork. User could not distinguish states, speed thresholds, or timer states.
+
+**GATE 1 result: NEEDS WORK** — see `prototypes/bonnie-traversal/PLAYTEST-001.md`
+
+### Prototype Fixes Applied
+- Ground climbing: grab button near Climbable surface → CLIMBING from all ground states
+- Slide auto-climb: SLIDING collision with Climbable auto-grabs without input
+- SQUEEZING: CeilingCast RayCast2D (pointing up, 22px range) added to scene; ground handlers check it
+- Parry: temporal window opened on proximity zone entry, active for `parry_window_frames`; floor contact filtered by contact-point Y offset heuristic
+- Debug HUD: CanvasLayer layer 128, RichTextLabel with BBCode state colors, shows all tuning-relevant runtime data
+
+### Infrastructure Cleanup
+Three areas addressed following comprehensive infrastructure audit:
+
+**Mycelium seeded** — 6 live notes written that didn't exist before:
+- Renderer constraint (project.godot)
+- Audio pitch semitone trap (audio-manager.md)
+- Traversal constraints (bonnie-traversal.md)
+- Performance budget (project root)
+- Prototype warning with 5 known shortcuts (BonnieController.gd)
+- NPC scope warning + NPC↔Social circular dependency (npc-personality.md, design/gdd/)
+
+**Documentation fixes:**
+- `quick-start.md` — stripped Unity/Unreal references, scoped to BONNIE!/Godot
+- `npc-personality.md` — scope note added: Systems 10+11 are VS not MVP
+- `input-system.md` — stale cross-ref resolved
+
+**Pending (user action needed):**
+- `! rm -rf docs/engine-reference/unity docs/engine-reference/unreal` (~7K LOC)
+- Remove 13 Unity/Unreal/post-launch agent files from `.claude/agents/`
+
+### GATE Status
+- GATE 0: CLEARED
+- GATE 1: **NEEDS WORK** — re-playtest after fixes (Session 006)
+
+---
+
 ## [2026-04-13] Session 004 — Playtest Unblock + Infrastructure Hardening
 
 **Developer**: m. raftery

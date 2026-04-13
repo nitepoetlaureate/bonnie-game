@@ -52,7 +52,7 @@ All 10 actions are fully remappable. No system polls hardware directly — all i
 
 **Drop / Clamber-up:** No dedicated `drop` action. `move_down` during CLIMBING = descend; past the bottom edge = drops to FALLING. Reaching the **top** of a Climbable surface while CLIMBING = auto-transition to LEDGE_PULLUP (same animation as Ledge Parry success). No additional input required.
 
-**Cross-system note:** `bonnie-traversal.md` §3.1 CLIMBING exits lists "IDLE (reach top of surface)". This should read "LEDGE_PULLUP (reach top of surface)". Will need correction before implementation.
+**Cross-system note:** `bonnie-traversal.md` §3.1 CLIMBING exits correctly states "LEDGE_PULLUP (reach top of surface) — same animation as Ledge Parry success, auto-triggered, no input required." Verified Session 005.
 
 ### 3.2 Input Buffering Rules
 

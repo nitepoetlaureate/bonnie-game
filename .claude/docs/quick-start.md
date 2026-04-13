@@ -2,14 +2,11 @@
 
 ## What Is This?
 
-This is a complete Claude Code agent architecture for game development. It
-organizes 48 specialized AI agents into a studio hierarchy that mirrors
-real game development teams, with defined responsibilities, delegation
-rules, and coordination protocols. It includes engine-specialist agents
-for Godot, Unity, and Unreal — each with dedicated sub-specialists for
-major engine subsystems. All design agents and templates are grounded in
+This is a Claude Code agent architecture for game development on BONNIE!,
+organized into specialized agents covering design, programming, art, audio,
+narrative, and QA. Engine: Godot 4.6. All design agents are grounded in
 established game design theory (MDA Framework, Self-Determination Theory,
-Flow State, Bartle Player Types). Use whichever engine set matches your project.
+Flow State, Bartle Player Types).
 
 ## How to Use
 
@@ -24,7 +21,7 @@ There are three tiers of agents:
 
 - **Tier 2 (Sonnet)**: Department leads who own their domain
   - `game-designer`, `lead-programmer`, `art-director`, `audio-director`,
-    `narrative-director`, `qa-lead`, `release-manager`, `localization-lead`
+    `narrative-director`, `qa-lead`, `release-manager`
 
 - **Tier 3 (Sonnet/Haiku)**: Specialists who execute within their domain
   - Designers, programmers, artists, writers, testers, engineers
@@ -49,26 +46,13 @@ Ask yourself: "What department would handle this in a real studio?"
 | Resolve a creative conflict | `creative-director` |
 | Make an architecture decision | `technical-director` |
 | Manage a release | `release-manager` |
-| Prepare strings for translation | `localization-lead` |
 | Test a mechanic idea quickly | `prototyper` |
 | Review code for security issues | `security-engineer` |
 | Check accessibility compliance | `accessibility-specialist` |
-| Get Unreal Engine advice | `unreal-specialist` |
-| Get Unity advice | `unity-specialist` |
 | Get Godot advice | `godot-specialist` |
-| Design GAS abilities/effects | `ue-gas-specialist` |
-| Define BP/C++ boundaries | `ue-blueprint-specialist` |
-| Implement UE replication | `ue-replication-specialist` |
-| Build UMG/CommonUI widgets | `ue-umg-specialist` |
-| Design DOTS/ECS architecture | `unity-dots-specialist` |
-| Write Unity shaders/VFX | `unity-shader-specialist` |
-| Manage Addressable assets | `unity-addressables-specialist` |
-| Build UI Toolkit/UGUI screens | `unity-ui-specialist` |
 | Write idiomatic GDScript | `godot-gdscript-specialist` |
 | Create Godot shaders | `godot-shader-specialist` |
 | Build GDExtension modules | `godot-gdextension-specialist` |
-| Plan live events and seasons | `live-ops-designer` |
-| Write patch notes for players | `community-manager` |
 | Brainstorm a new game idea | Use `/brainstorm` skill |
 
 ### 3. Use Slash Commands for Common Tasks
@@ -218,8 +202,8 @@ If you have design docs, prototypes, or code already:
 CLAUDE.md                          -- Master config (read this first, ~60 lines)
 .claude/
   settings.json                    -- Claude Code hooks and project settings
-  agents/                          -- 48 agent definitions (YAML frontmatter)
-  skills/                          -- 37 slash command definitions (YAML frontmatter)
+  agents/                          -- agent definitions (YAML frontmatter) — Godot-focused
+  skills/                          -- slash command definitions (YAML frontmatter)
   hooks/                           -- 8 hook scripts (.sh) wired by settings.json
   rules/                           -- 11 path-specific rule files
   docs/

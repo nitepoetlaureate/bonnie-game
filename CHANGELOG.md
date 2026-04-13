@@ -5,6 +5,32 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Pre-Production 0.5] — 2026-04-13
+
+### Fixed — Prototype Bugs
+- B01: CLIMBING state had no ground-based entry — added grab-near-Climbable from IDLE/WALK/RUN/SNEAK
+- B02: SQUEEZING state was completely unreachable — added CeilingCast RayCast2D auto-trigger
+- B03: `parry_window_frames` tuning knob existed but had no effect — temporal window now implemented
+- B04: ParryCast circle detected floor geometry as valid parry targets — directional filter added
+
+### Added — Prototype
+- Debug HUD (CanvasLayer/RichTextLabel) — shows state, velocity, all timer states, fall distance, proximity flags
+- `prototypes/bonnie-traversal/PLAYTEST-001.md` — Session 005 playtest report documenting GATE 1 NEEDS WORK status
+
+### Added — Infrastructure
+- Mycelium seeded with 6 live notes: renderer constraint, audio pitch semitone constraint, traversal constraints (no auto-grab, skid multiplier, no death), performance budget constraint, prototype warning (5 known shortcuts), NPC scope warning, NPC↔Social circular dependency constraint
+
+### Changed — Documentation
+- `quick-start.md` — removed Unity/Unreal-specific agent references; scoped to Godot/BONNIE!
+- `npc-personality.md` — added scope clarification note: Systems 10+11 are Vertical Slice, not MVP
+- `input-system.md` — resolved stale cross-ref note (CLIMBING exit was already correct in traversal GDD)
+- `NEXT.md` — updated for Session 006 handoff (GATE 1 NEEDS WORK, re-playtest protocol)
+
+### GATE Status
+- GATE 1: **NEEDS WORK** — re-playtest required after prototype fixes
+
+---
+
 ## [Pre-Production 0.4] — 2026-04-13
 
 ### Fixed

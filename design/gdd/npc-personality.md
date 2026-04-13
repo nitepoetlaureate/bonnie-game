@@ -5,6 +5,13 @@
 *System #: 9 (Reactive NPC System) + 10 (NPC Behavior/Routine System)*
 *Priority: MVP*
 
+> **Scope note (Session 005):** This GDD covers Systems 9, 10, and references 11.
+> Per `systems-index.md`, only **System 9 (Reactive NPC)** is MVP scope.
+> **Systems 10 (NPC Behavior/Routine)** and **11 (NPC Relationship Graph)** are Vertical Slice scope.
+> Before implementation: confirm which behavioral features belong to System 9 only.
+> Specifically — the Christen routine phases (arrival trigger, flee behavior, stress-carry)
+> may be System 10 scope and should be deferred if scope pressure exists.
+
 ---
 
 ## 1. Overview

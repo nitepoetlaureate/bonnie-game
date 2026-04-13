@@ -31,3 +31,22 @@ position = Vector2(0, 0)
 shape = SubResource("CircleShape2D_parry")
 collision_mask = 1
 enabled = true
+
+[node name="CeilingCast" type="RayCast2D" parent="."]
+# Points straight up from BONNIE's center. Length covers standing height (32px)
+# minus a few px margin. If this hits, BONNIE can't stand — enter SQUEEZING.
+position = Vector2(0, -8)
+target_position = Vector2(0, -22)
+collision_mask = 1
+enabled = true
+
+[node name="DebugHUD" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="DebugLabel" type="RichTextLabel" parent="DebugHUD"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 340.0
+offset_bottom = 340.0
+bbcode_enabled = true
+fit_content = true

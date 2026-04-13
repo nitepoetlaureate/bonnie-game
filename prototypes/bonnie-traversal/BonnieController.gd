@@ -111,6 +111,8 @@ const LOOK_AHEAD_BY_STATE: Dictionary = {
 # --- Node References ---------------------------------------------------------
 
 @onready var _parry_cast: ShapeCast2D = $ParryCast
+@onready var _ceiling_cast: RayCast2D = $CeilingCast
+@onready var _debug_label: Label = $DebugHUD/DebugLabel
 
 # --- Runtime State -----------------------------------------------------------
 
@@ -151,6 +153,8 @@ var _landing_impact_speed: float = 0.0
 var _jump_hold_timer: int = 0  # frame counter for hold (distinct from legacy float above)
 var _skid_timer: float = 0.0
 var _skid_is_hard: bool = false
+var _parry_window_timer: int = 0  # countdown: frames remaining in parry window
+var _parry_cast_was_colliding: bool = false  # track new proximity entries
 
 # =============================================================================
 # LIFECYCLE
@@ -171,6 +175,8 @@ func _physics_process(delta: float) -> void:
 		coyote_timer -= 1
 	if double_jump_window_timer > 0:
 		double_jump_window_timer -= 1
+	if _parry_window_timer > 0:
+		_parry_window_timer -= 1
 
 	# --- Buffer jump input this frame ---
 	if Input.is_action_just_pressed(&"jump"):
@@ -206,6 +212,15 @@ func _physics_process(delta: float) -> void:
 			_handle_ledge_pullup(delta)
 
 	move_and_slide()
+
+	# --- Parry proximity tracking (open window when entering detection zone) ---
+	var _parry_colliding_now: bool = _parry_cast.is_colliding() and _has_wall_or_ledge_collision()
+	if _parry_colliding_now and not _parry_cast_was_colliding:
+		_parry_window_timer = parry_window_frames
+	_parry_cast_was_colliding = _parry_colliding_now
+
+	# --- Debug HUD ---
+	_update_debug_hud()
 
 # =============================================================================
 # INPUT
@@ -294,6 +309,14 @@ func _handle_idle(delta: float) -> void:
 		_change_state(State.FALLING)
 		return
 
+	# Ground climbing — grab near Climbable surface.
+	if _try_ground_climb():
+		return
+
+	# Squeeze detection — low ceiling auto-trigger.
+	if _check_squeeze_entry():
+		return
+
 	# Jump check (coyote time included — handled in FALLING if coyote active).
 	if (Input.is_action_just_pressed(&"jump") or jump_buffer_timer > 0) and is_on_floor():
 		jump_buffer_timer = 0
@@ -322,6 +345,10 @@ func _handle_sneaking(delta: float) -> void:
 	if not is_on_floor():
 		_change_state(State.FALLING)
 		return
+	if _try_ground_climb():
+		return
+	if _check_squeeze_entry():
+		return
 	if Input.is_action_just_pressed(&"jump") or jump_buffer_timer > 0:
 		jump_buffer_timer = 0
 		velocity.y = -hop_velocity
@@ -345,6 +372,10 @@ func _handle_walking(delta: float) -> void:
 	if not is_on_floor():
 		coyote_timer = coyote_time_frames
 		_change_state(State.FALLING)
+		return
+	if _try_ground_climb():
+		return
+	if _check_squeeze_entry():
 		return
 	if Input.is_action_just_pressed(&"jump") or jump_buffer_timer > 0:
 		jump_buffer_timer = 0
@@ -388,6 +419,10 @@ func _handle_running(delta: float) -> void:
 		coyote_timer = coyote_time_frames
 		_change_state(State.FALLING)
 		return
+	if _try_ground_climb():
+		return
+	if _check_squeeze_entry():
+		return
 	if Input.is_action_just_pressed(&"jump") or jump_buffer_timer > 0:
 		jump_buffer_timer = 0
 		velocity.y = -hop_velocity
@@ -415,6 +450,10 @@ func _handle_sliding(delta: float) -> void:
 		jump_buffer_timer = 0
 		velocity.y = -jump_velocity
 		_change_state(State.JUMPING)
+		return
+
+	# Slide into Climbable surface — auto-grab.
+	if _try_slide_auto_climb():
 		return
 
 	# Wall daze — slide into wall above threshold.
@@ -614,9 +653,13 @@ func _handle_squeezing(delta: float) -> void:
 		facing_direction = sign(input_vec.x)
 	velocity.x = move_toward(velocity.x, input_vec.x * squeeze_speed, ground_acceleration * delta)
 
-	# Prototype exit: no input = passage cleared or BONNIE stopped.
-	if input_vec.x == 0.0:
+	# Exit when ceiling clears — BONNIE can stand up again.
+	if not _ceiling_cast.is_colliding():
 		_change_state(State.IDLE)
+		return
+
+	if not is_on_floor():
+		_change_state(State.FALLING)
 
 
 func _handle_dazed(delta: float) -> void:
@@ -648,6 +691,63 @@ func _handle_ledge_pullup(delta: float) -> void:
 # PHYSICS HELPERS
 # =============================================================================
 
+# =============================================================================
+# GROUND-BASED CLIMBING + SQUEEZING DETECTION
+# =============================================================================
+
+func _try_ground_climb() -> bool:
+	# Enter CLIMBING from ground states when grab is pressed near a Climbable surface.
+	# Uses the existing ParryCast but filters for Climbable group only.
+	if not Input.is_action_just_pressed(&"grab"):
+		return false
+	if not _parry_cast.is_colliding():
+		return false
+	for i: int in _parry_cast.get_collision_count():
+		var collider: Object = _parry_cast.get_collider(i)
+		if collider == null:
+			continue
+		if collider.is_in_group(&"Climbable"):
+			double_jump_available = true
+			_post_double_jumped = false
+			_change_state(State.CLIMBING)
+			return true
+	return false
+
+
+func _try_slide_auto_climb() -> bool:
+	# During SLIDING, auto-grab Climbable surfaces on collision (no grab input needed).
+	for i: int in get_slide_collision_count():
+		var collision: KinematicCollision2D = get_slide_collision(i)
+		var collider: Object = collision.get_collider()
+		if collider and collider.is_in_group(&"Climbable"):
+			double_jump_available = true
+			_post_double_jumped = false
+			velocity.x = 0.0
+			_change_state(State.CLIMBING)
+			return true
+	return false
+
+
+func _check_squeeze_entry() -> bool:
+	# Auto-enter SQUEEZING when ceiling is close above BONNIE on the ground.
+	if _ceiling_cast.is_colliding():
+		_change_state(State.SQUEEZING)
+		return true
+	return false
+
+
+func _has_wall_or_ledge_collision() -> bool:
+	# Returns true if ParryCast is detecting a wall or ledge (not just the floor).
+	# Filters out collisions where the contact is directly below BONNIE.
+	for i: int in _parry_cast.get_collision_count():
+		var point: Vector2 = _parry_cast.get_collision_point(i)
+		var delta_y: float = point.y - global_position.y
+		# If contact point is more than 12px below BONNIE's center, it's likely floor.
+		if delta_y < 12.0:
+			return true
+	return false
+
+
 func _apply_gravity(delta: float) -> void:
 	# Applies gravity when BONNIE is airborne.
 	# Only call from JUMPING and FALLING handlers.
@@ -660,20 +760,86 @@ func _check_ledge_parry() -> void:
 	if not Input.is_action_just_pressed(&"grab"):
 		return
 
+	# Must be within the temporal parry window (opened when entering proximity zone).
+	if _parry_window_timer <= 0:
+		return  # Outside window — missed timing.
+
 	if not _parry_cast.is_colliding():
 		return  # Nothing within parry_detection_radius.
+
+	# Directional filter: ignore collisions that are directly below (floor).
+	if not _has_wall_or_ledge_collision():
+		return
 
 	# Check what we hit — Climbable group = CLIMBING, anything else = LEDGE_PULLUP.
 	for i: int in _parry_cast.get_collision_count():
 		var collider: Object = _parry_cast.get_collider(i)
 		if collider == null:
 			continue
+		# Skip floor-like contacts (collision point well below BONNIE's center).
+		var point: Vector2 = _parry_cast.get_collision_point(i)
+		if point.y - global_position.y >= 12.0:
+			continue
 		if collider.is_in_group(&"Climbable"):
 			double_jump_available = true  # reset on climbable contact
 			_post_double_jumped = false
+			_parry_window_timer = 0
 			_change_state(State.CLIMBING)
 			return
 		else:
 			# Platform edge — lock position and pull up.
+			_parry_window_timer = 0
 			_change_state(State.LEDGE_PULLUP)
 			return
+
+
+# =============================================================================
+# DEBUG HUD
+# =============================================================================
+
+const _STATE_COLORS: Dictionary = {
+	State.IDLE:         Color(0.7, 0.7, 0.7),
+	State.SNEAKING:     Color(0.4, 0.8, 0.4),
+	State.WALKING:      Color(0.6, 0.9, 0.6),
+	State.RUNNING:      Color(0.2, 1.0, 0.2),
+	State.SLIDING:      Color(1.0, 0.8, 0.0),
+	State.JUMPING:      Color(0.4, 0.7, 1.0),
+	State.FALLING:      Color(0.3, 0.5, 1.0),
+	State.LANDING:      Color(0.8, 0.6, 1.0),
+	State.CLIMBING:     Color(0.9, 0.5, 0.2),
+	State.SQUEEZING:    Color(0.2, 0.9, 0.9),
+	State.DAZED:        Color(1.0, 0.3, 0.3),
+	State.ROUGH_LANDING:Color(1.0, 0.1, 0.1),
+	State.LEDGE_PULLUP: Color(1.0, 1.0, 0.3),
+}
+
+func _update_debug_hud() -> void:
+	var speed: float = abs(velocity.x)
+	var state_name: String = State.keys()[current_state]
+	var col: Color = _STATE_COLORS.get(current_state, Color.WHITE)
+
+	var lines: Array[String] = [
+		"[color=#%s]STATE: %s[/color]" % [col.to_html(false), state_name],
+		"vx: %4.0f  vy: %4.0f  spd: %4.0f" % [velocity.x, velocity.y, speed],
+		"─────────────────────────────────",
+		"slide_trigger: %d  (need >%d)" % [int(speed), int(slide_trigger_speed)],
+		"run_max:       %d" % int(run_max_speed),
+		"─────────────────────────────────",
+		"coyote:  %d/%d" % [coyote_timer, coyote_time_frames],
+		"jbuffer: %d/%d" % [jump_buffer_timer, jump_buffer_frames],
+		"parry_w: %d/%d" % [_parry_window_timer, parry_window_frames],
+		"dbl_jmp: %s  (window: %d)" % ["YES" if double_jump_available else " no", double_jump_window_timer],
+		"─────────────────────────────────",
+		"fall_dist: %3.0f  (rough@%d)" % [fall_distance, int(rough_landing_threshold)],
+		"daze: %.1fs" % _daze_timer if current_state == State.DAZED else "daze: —",
+		"rough: %.1fs" % _rough_landing_timer if current_state == State.ROUGH_LANDING else "rough: —",
+		"─────────────────────────────────",
+		"facing: %s" % ("→" if facing_direction > 0 else "←"),
+		"parry_prox: %s  ceil: %s" % [
+			"YES" if _parry_cast.is_colliding() else " no",
+			"YES" if _ceiling_cast.is_colliding() else " no",
+		],
+		"[GRAB=E  SNEAK=Ctrl  RUN=Shift]",
+		"[SLIDE: run+S or run+reverse dir]",
+	]
+	_debug_label.text = "\n".join(lines)

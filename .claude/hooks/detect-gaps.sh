@@ -3,9 +3,39 @@
 # Event: SessionStart
 # Purpose: Detect missing documentation when code/prototypes exist
 # Cross-platform: Windows Git Bash compatible (uses grep -E, not -P)
+#
+# Caching: Skips expensive filesystem scans if design/gdd/, src/, and
+# prototypes/ haven't changed since last run. Pass --force to bypass.
 
 # Exit on error for debugging (but don't fail the session)
 set +e
+
+# --- Caching logic ---
+CACHE_FILE=".claude/.detect-gaps-cache"
+CACHE_KEY_FILE=".claude/.detect-gaps-key"
+
+# Generate cache key: HEAD commit + uncommitted changes in relevant paths
+CURRENT_KEY="$(git rev-parse HEAD 2>/dev/null):$(git diff --name-only -- design/ src/ prototypes/ 2>/dev/null | sort | tr '\n' ':')"
+
+# Check if --force flag was passed (bypass cache)
+FORCE=false
+for arg in "$@"; do
+  if [ "$arg" = "--force" ]; then
+    FORCE=true
+  fi
+done
+
+# Use cache if key matches and --force not set
+if [ "$FORCE" = false ] && [ -f "$CACHE_KEY_FILE" ] && [ -f "$CACHE_FILE" ]; then
+  CACHED_KEY=$(cat "$CACHE_KEY_FILE" 2>/dev/null)
+  if [ "$CURRENT_KEY" = "$CACHED_KEY" ]; then
+    cat "$CACHE_FILE"
+    exit 0
+  fi
+fi
+
+# Run full check and tee output to cache
+exec > >(tee "$CACHE_FILE") 2>&1
 
 echo "=== Checking for Documentation Gaps ==="
 
@@ -151,5 +181,8 @@ fi
 echo ""
 echo "💡 To get a comprehensive project analysis, run: /project-stage-detect"
 echo "==================================="
+
+# Save cache key for next run
+echo "$CURRENT_KEY" > "$CACHE_KEY_FILE" 2>/dev/null
 
 exit 0

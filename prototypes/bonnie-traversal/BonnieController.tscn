@@ -24,7 +24,7 @@ offset_left = -8.0
 offset_top = -16.0
 offset_right = 8.0
 offset_bottom = 16.0
-color = Color(0, 0, 0, 1)
+color = Color(1, 0.4, 0.2, 1)
 
 [node name="ParryCast" type="ShapeCast2D" parent="."]
 position = Vector2(0, 0)

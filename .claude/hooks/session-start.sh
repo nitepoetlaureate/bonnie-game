@@ -54,6 +54,25 @@ if [ -d "src" ]; then
     fi
 fi
 
+# --- Renderer guard: warn if wrong renderer for project type ---
+if [ -f "project.godot" ]; then
+    RENDERER=$(grep -E '^renderer/rendering_method=' project.godot 2>/dev/null | sed 's/.*=//' | tr -d '"')
+    if [ -z "$RENDERER" ]; then
+        echo ""
+        echo "⚠️  RENDERER: project.godot has no renderer/rendering_method set."
+        echo "   Godot defaults to forward_plus (3D). For a 2D game, use gl_compatibility."
+        echo "   Add: renderer/rendering_method=\"gl_compatibility\" under [rendering]"
+    elif [ "$RENDERER" = "forward_plus" ] && [ "$CLAUDE_CODE_PROJECT_TYPE" = "game" ]; then
+        # Check if this is a 2D-only project (no 3D nodes in scenes)
+        HAS_3D=$(grep -rl 'type=".*3D"' . --include="*.tscn" 2>/dev/null | head -1)
+        if [ -z "$HAS_3D" ]; then
+            echo ""
+            echo "⚠️  RENDERER: forward_plus renderer detected for 2D-only project."
+            echo "   Consider switching to gl_compatibility for better performance."
+        fi
+    fi
+fi
+
 # --- Active session state recovery ---
 STATE_FILE="production/session-state/active.md"
 if [ -f "$STATE_FILE" ]; then

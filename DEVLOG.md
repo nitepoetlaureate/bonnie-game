@@ -191,7 +191,26 @@ Reference: *clumsy feline Ryu Hayabusa.*
 
 ---
 
-## Session 003 — 2026-04-11
+## [2026-04-08] Session 002 — Foundation Systems
+
+**Developer**: m. raftery
+**Focus**: Viewport configuration + Camera system GDDs — unblock prototype
+
+### Completed
+- **Viewport Config GDD** (System #2) — Approved. 720×540 internal resolution, nearest-neighbor filtering, 4:3 locked, stretch mode "viewport", integer scaling (2× default, 4× supported).
+- **Camera System GDD** (System #4) — Approved. Look-ahead, ledge bias, recon zoom, per-state camera values.
+
+### GATE Status
+- GATE 0: CLEARED — Camera + Viewport GDDs approved. Prototype stream unblocked.
+
+### What Happened
+Two foundation GDDs that were blocking the traversal prototype. Both small, both approved in a single session. GATE 0 cleared, enabling parallel work streams: prototype implementation (Set A), Phase 3 GDDs (Set B, after GATE 1), and Level Manager / Interactive Object / Chaos Meter UI GDDs (Set C, anytime).
+
+---
+
+---
+
+## [2026-04-11] Session 003 — Foundation GDDs + Traversal Prototype
 
 **Focus**: Foundation GDDs complete + Traversal Prototype implemented
 

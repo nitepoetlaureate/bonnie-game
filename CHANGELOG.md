@@ -5,6 +5,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Pre-Production 0.2] — 2026-04-08
+
+### Added
+- Viewport Config GDD (`design/gdd/viewport-config.md`) — 720×540, nearest-neighbor, 4:3 locked, integer scaling
+- Camera System GDD (`design/gdd/camera-system.md`) — look-ahead, ledge bias, recon zoom, per-state values
+
+### Changed
+- GATE 0 cleared — prototype stream unblocked
+
+---
+
 ## [Pre-Production 0.1] — 2026-04-05
 
 ### Added — BONNIE! Design Sprint 0

@@ -28,16 +28,24 @@ fi
 
 WARNINGS=""
 
-# Check design documents for required sections
+# Check design documents for all 8 required GDD sections (per coding-standards.md)
 DESIGN_FILES=$(echo "$STAGED" | grep -E '^design/gdd/')
 if [ -n "$DESIGN_FILES" ]; then
+    REQUIRED_SECTIONS=("Overview" "Player Fantasy" "Detailed Rules" "Formulas" "Edge Cases" "Dependencies" "Tuning Knobs" "Acceptance Criteria")
     while IFS= read -r file; do
         if [[ "$file" == *.md ]] && [ -f "$file" ]; then
-            for section in "Overview" "Player Fantasy" "Detailed" "Formulas" "Edge Cases" "Dependencies" "Tuning Knobs" "Acceptance Criteria"; do
+            MISSING_COUNT=0
+            MISSING_LIST=""
+            for section in "${REQUIRED_SECTIONS[@]}"; do
                 if ! grep -qi "$section" "$file"; then
-                    WARNINGS="$WARNINGS\nDESIGN: $file missing required section: $section"
+                    MISSING_COUNT=$((MISSING_COUNT + 1))
+                    MISSING_LIST="$MISSING_LIST $section,"
                 fi
             done
+            if [ "$MISSING_COUNT" -gt 0 ]; then
+                MISSING_LIST=${MISSING_LIST%,}  # trim trailing comma
+                WARNINGS="$WARNINGS\nDESIGN: $file missing $MISSING_COUNT/8 required sections:$MISSING_LIST"
+            fi
         fi
     done <<< "$DESIGN_FILES"
 fi
@@ -62,7 +70,7 @@ if [ -n "$DATA_FILES" ]; then
                     exit 2
                 fi
             else
-                echo "WARNING: Cannot validate JSON (python not found): $file" >&2
+                WARNINGS="$WARNINGS\nJSON: Cannot validate $file — Python 3 not found. Install Python to enable JSON validation."
             fi
         fi
     done <<< "$DATA_FILES"

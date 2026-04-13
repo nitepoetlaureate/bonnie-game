@@ -1,0 +1,5 @@
+kind constraint
+edge applies-to blob:c23e37844fa8851824e4dffe53d9f202895086c1
+edge targets-path path:project.godot
+
+renderer/rendering_method must be gl_compatibility. Forward+ compiled 60+ 3D shaders (SSAO/SSR/VoxelGI) for a 2D-only game. Session-start.sh guards against regression. Never change this.

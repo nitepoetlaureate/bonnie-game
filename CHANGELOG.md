@@ -5,6 +5,26 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Pre-Production 0.4] — 2026-04-13
+
+### Fixed
+- BONNIE invisible — PlaceholderSprite changed from black to warm orange for playtesting
+- Wrong renderer — Forward+ (3D) switched to GL Compatibility (2D), eliminating 60+ stale 3D shader caches
+
+### Changed
+- `detect-gaps.sh` — cached output, skips expensive scans if design/src/prototypes unchanged
+- `session-start.sh` — renderer guard warns if wrong renderer for project type
+- `validate-commit.sh` — all 8 GDD sections checked by name, Python absence now surfaces as visible warning
+
+### Added
+- Session 002 entries in DEVLOG.md + CHANGELOG.md (were missing)
+- `production/session-state/active.md` — live session checkpoint file
+
+### Design Decisions Locked
+- GL Compatibility renderer — Forward+ forbidden for this 2D project
+
+---
+
 ## [Pre-Production 0.2] — 2026-04-08
 
 ### Added

@@ -1,11 +1,24 @@
 # BONNIE! — Next Steps Handoff
 
-**For**: Session 004
-**Written by**: Hawaii Zeke (Claude) on 2026-04-11
-**Context**: Session 003 complete. Prototype implemented. Awaiting playtest feedback for GATE 1.
-**Immediate priority**: Receive playtest feedback → evaluate GATE 1 → if cleared, begin Phase 3 GDDs
+**For**: Session 005
+**Written by**: Hawaii Zeke (Claude) on 2026-04-13
+**Context**: Session 004 complete. Playtest blockers fixed. Infrastructure hardened. GATE 1 playtest ready.
+**Immediate priority**: Playtest the traversal prototype → answer feel questions → evaluate GATE 1 → if cleared, begin Phase 3 GDDs
 
 Read this file first. Then read the locked decisions section before touching anything.
+
+---
+
+## Session 004 Summary
+
+Fixed two critical playtest blockers and hardened the infrastructure:
+
+1. **BONNIE invisible** — PlaceholderSprite was black on black background. Changed to warm orange `Color(1, 0.4, 0.2, 1)`.
+2. **Wrong renderer** — project.godot had no renderer set, defaulting to Forward+ (3D). Switched to `gl_compatibility`. Cleared 60+ stale 3D shader caches.
+3. **Hook improvements** — cached detect-gaps.sh (saves 5-10k tokens/session), added renderer guard to session-start.sh, enhanced validate-commit.sh GDD check (all 8 sections, loud Python warning).
+4. **Documentation gaps** — Added missing Session 002 to DEVLOG.md + CHANGELOG.md. Created `production/session-state/active.md`.
+
+**IMPORTANT**: Before opening Godot, delete `.godot/shader_cache/` if not already done. Godot will regenerate with correct GL Compatibility shaders.
 
 ---
 
@@ -23,9 +36,9 @@ Read this file first. Then read the locked decisions section before touching any
 | `design/gdd/camera-system.md` | Approved | Look-ahead, ledge bias, recon zoom. System #4. |
 | `design/gdd/bonnie-traversal.md` | Approved | Full movement vocabulary. System #6. |
 | `design/gdd/npc-personality.md` | Approved | 11-state machine, Michael+Christen fully specified. Systems #9+10. |
-| `project.godot` | Exists | 720x540, input map, GodotPhysics2D, nearest-neighbor. |
+| `project.godot` | Configured | 720x540, input map, GodotPhysics2D, nearest-neighbor, **gl_compatibility renderer**. |
 | `prototypes/bonnie-traversal/BonnieController.gd` | Implemented | Full 13-state traversal. All handlers, parry, coyote, buffer. |
-| `prototypes/bonnie-traversal/BonnieController.tscn` | Exists | CharacterBody2D + ParryCast ShapeCast2D. |
+| `prototypes/bonnie-traversal/BonnieController.tscn` | Fixed | CharacterBody2D + ParryCast ShapeCast2D. **Warm orange placeholder sprite**. |
 | `prototypes/bonnie-traversal/TestLevel.tscn` | Exists | 10 test zones for full state coverage. |
 | `prototypes/bonnie-traversal/README.md` | Exists | Hypothesis, how to run, test coverage. |
 
@@ -44,7 +57,10 @@ Read this file first. Then read the locked decisions section before touching any
 
 ## Locked Decisions — Do Not Re-Litigate
 
-All decisions from NEXT.md Session 002 still apply. Additional Session 003 locks:
+All decisions from Sessions 001-003 still apply. Additional Session 004 locks:
+
+### Renderer
+- **GL Compatibility renderer** — `renderer/rendering_method="gl_compatibility"` in project.godot. Forward+ is forbidden for this 2D project. Session-start.sh hook guards against regression.
 
 ### Audio Manager
 - **Bus hierarchy is final**: Master → Music + SFX. No additional buses.
@@ -79,7 +95,15 @@ T-IMPL (Sprint 1 Implementation)
 
 ---
 
-## Session 004 Opening Protocol
+## Session 005 Opening Protocol
+
+### Step 0: Pre-Flight Check
+
+Before opening Godot:
+1. Delete `.godot/shader_cache/` if not already done (stale Forward+ 3D caches)
+2. Open project in Godot 4.6 — verify no "2D is not supported" error
+3. Verify BONNIE is visible (warm orange rectangle) in TestLevel
+4. Verify no 3D shader warnings in Output panel
 
 ### Step 1: Receive Playtest Feedback
 
@@ -268,18 +292,22 @@ Launch in one message with up to three parallel Agent tool calls:
 
 ## Warnings for Next Session
 
-1. **AudioStreamRandomizer pitch in semitones** — Godot 4.6. NOT frequency multipliers. Documented in audio-manager.md §4.2 and OQ-A01.
-2. **Prototype is throwaway**. BonnieController.gd is not the production implementation. Rewrite to production standards when Sprint 1 begins.
-3. **The circular dependency** (Social System ↔ NPC System) is resolved via NpcState. Neither system calls the other. Design both GDDs before implementing either.
-4. **BONNIE never dies.** No HP. No game-over. Non-negotiable.
-5. **No auto-grab on ledges.** Pure parry only. Non-negotiable.
-6. **720×540 = viewport window, NOT world size.** World is unbounded.
-7. **Commit identity**: `Co-Authored-By: Hawaii Zeke <(302) 319-3895>`
-8. **LOD sprites are Vertical Slice scope.** Prototype uses colored rectangles. Do not block MVP on them.
-9. **Prototype known issues** are documented above — do not fix in `prototypes/`, address in production rewrite.
+1. **Delete `.godot/shader_cache/`** before opening Godot — stale Forward+ 3D shaders will cause errors.
+2. **GL Compatibility renderer** — must remain `gl_compatibility`. Do not change. Session-start.sh guards this.
+3. **AudioStreamRandomizer pitch in semitones** — Godot 4.6. NOT frequency multipliers. Documented in audio-manager.md §4.2 and OQ-A01.
+4. **Prototype is throwaway**. BonnieController.gd is not the production implementation. Rewrite to production standards when Sprint 1 begins.
+5. **The circular dependency** (Social System ↔ NPC System) is resolved via NpcState. Neither system calls the other. Design both GDDs before implementing either.
+6. **BONNIE never dies.** No HP. No game-over. Non-negotiable.
+7. **No auto-grab on ledges.** Pure parry only. Non-negotiable.
+8. **720×540 = viewport window, NOT world size.** World is unbounded.
+9. **Commit identity**: `Co-Authored-By: Hawaii Zeke <(302) 319-3895>`
+10. **LOD sprites are Vertical Slice scope.** Prototype uses colored rectangles. Do not block MVP on them.
+11. **Prototype known issues** are documented above — do not fix in `prototypes/`, address in production rewrite.
+12. **detect-gaps.sh is now cached** — pass `--force` if you need a fresh scan.
 
 ---
 
-*Hawaii Zeke — Session 003 is complete. Six GDDs approved. The prototype is built and waiting for you.
-Open TestLevel.tscn in Godot 4.6. Play it. Answer the four feel questions. Come back with notes.
+*Hawaii Zeke — Session 004 is complete. Playtest blockers cleared. Infrastructure hardened.
+Delete .godot/shader_cache/, open TestLevel.tscn in Godot 4.6, and play it.
+Answer the four feel questions. Come back with notes.
 Everything that comes next depends on how BONNIE feels to move.*

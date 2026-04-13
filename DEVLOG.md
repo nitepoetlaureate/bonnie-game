@@ -231,3 +231,33 @@ Two foundation GDDs that were blocking the traversal prototype. Both small, both
 
 ### Next Session Opens With
 Playtest feedback → GATE 1 evaluation → T-CHAOS + T-SOC GDDs (parallel)
+
+---
+
+---
+
+## [2026-04-13] Session 004 — Playtest Unblock + Infrastructure Hardening
+
+**Developer**: m. raftery
+**Focus**: Fix critical playtest blockers, harden hooks/infrastructure, fill documentation gaps
+
+### Critical Fixes
+- **BONNIE invisible** — PlaceholderSprite was `Color(0,0,0,1)` (black) on black background. Changed to warm orange `Color(1, 0.4, 0.2, 1)`.
+- **Wrong renderer** — `project.godot` had no `renderer/rendering_method` set. Godot defaulted to Forward+ (3D), compiling 60+ 3D shader caches (SSAO, SSR, VoxelGI, volumetric fog) for a pure 2D game. Switched to `gl_compatibility`.
+
+### Infrastructure Improvements
+- **detect-gaps.sh** — Added caching. Saves 5-10k tokens per session start by skipping filesystem scans when `design/`, `src/`, `prototypes/` are unchanged. `--force` flag bypasses cache.
+- **session-start.sh** — Added renderer guard. Warns if `project.godot` has no renderer set or uses Forward+ for a 2D-only project.
+- **validate-commit.sh** — Enhanced GDD section check to validate all 8 required sections by name with a missing count. Fixed silent Python failure (now surfaces as visible warning).
+
+### Documentation Gaps Filled
+- Added missing Session 002 entry to DEVLOG.md (viewport-config + camera-system, 2026-04-08)
+- Added [Pre-Production 0.2] to CHANGELOG.md
+- Created `production/session-state/active.md` (living session checkpoint)
+
+### GATE Status
+- GATE 0: CLEARED
+- GATE 1: **READY FOR PLAYTEST** — blockers resolved
+
+### Next Session Opens With
+Delete `.godot/shader_cache/` → Open Godot → Playtest → Answer feel questions → GATE 1 evaluation

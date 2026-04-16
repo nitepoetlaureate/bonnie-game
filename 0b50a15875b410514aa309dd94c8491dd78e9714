@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:0b50a15875b410514aa309dd94c8491dd78e9714
+edge targets-path path:design/gdd/bonnie-traversal.md
+
+Session 006 amendments: DI-001 LEDGE_PULLUP two-phase — Phase 1 cling reads directional input (pullup_window_frames=10f), Phase 2 resolves as momentum launch (pullup_pop_velocity=260, pullup_pop_vertical=200) or stationary pullup. DI-003 SLIDING claw brake — E tap removes abs(vx)*claw_brake_multiplier (0.30). New ACs: AC-T06c2, AC-T06f.

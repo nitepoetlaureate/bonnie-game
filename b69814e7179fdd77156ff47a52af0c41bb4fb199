@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:b69814e7179fdd77156ff47a52af0c41bb4fb199
+edge targets-path path:.claude/hooks/pre-tool-use-mycelium.sh
+
+PreToolUse hook for Write|Edit. Runs context-workflow.sh before agent edits any committed file. Guards: git rev-parse --verify HEAD:<path> — exits cleanly for new/uncommitted files (avoids mycelium exit 128 on untracked paths). Fail-open: never blocks agent.

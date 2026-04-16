@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:a8f64dc80b876320a002af574ea3d9a8e4bd0876
+edge targets-path path:design/gdd/level-manager.md
+
+Level Manager GDD (System #5). 7-room apartment topology: entryway → living_room/bedroom → kitchen/bathroom → studio/back_stairs. BFS cascade attenuation (4 tiers, ×0.5 per crossing). Music: level_02_calm baseline, Chaos Meter drives mood variants. Room deactivation at radius>1. Post-win: level_complete(fed_by_npc_id: StringName) signal.

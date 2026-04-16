@@ -1,0 +1,5 @@
+kind constraint
+edge applies-to tree:466bd80f49a7f251b4ad439ed1aacb4f16c43ecc
+edge targets-treepath treepath:design/gdd/
+
+Circular dependency NPC (System 9) <> Social System (System 12) resolved via NpcState shared data object. Neither system calls the other directly. Both GDDs must be written before implementing either.

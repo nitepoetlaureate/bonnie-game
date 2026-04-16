@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:b24a3b86133f2d3bdcdb2f24fc741b2fe2a6dc47
+edge targets-path path:prototypes/bonnie-traversal/TestLevel.tscn
+
+Session 006: Removed SqueezeApproachLeft and SqueezeApproachRight (their ramp tops at y=468 = ceiling bottom = zero clearance, blocked BONNIE). SqueezeTrigger now width=500 centered at (3300,485), covers x=3050-3550 (full approach + passage + exit). body_entered/body_exited drive _squeeze_zone_active flag in BonnieController.

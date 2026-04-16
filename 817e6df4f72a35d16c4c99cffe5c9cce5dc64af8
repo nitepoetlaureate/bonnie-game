@@ -1,0 +1,4 @@
+kind context
+edge explains commit:817e6df4f72a35d16c4c99cffe5c9cce5dc64af8
+
+Session 006: GATE 1 near-pass. DI-001 directional ledge pop + DI-003 claw brake designed, implemented, confirmed. Zone 8 squeezing fully resolved (3-layer fix: groups syntax in .tscn header, ramp geometry removal, SqueezeShape position=(0,14)). T-FOUND-04 level-manager.md + T-FOUND-05 interactive-object-system.md approved — 8/11 MVP GDDs done. Pre/post tool-use Mycelium hooks wired. Unity/Unreal cleanup complete. GATE 1 result: CONDITIONALLY NEAR-PASS, 5/12 ACs pass, slide rhythm + camera remain.

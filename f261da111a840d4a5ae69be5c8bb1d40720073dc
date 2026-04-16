@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:f261da111a840d4a5ae69be5c8bb1d40720073dc
+edge targets-path path:prototypes/bonnie-traversal/TestLevel.tscn
+
+Session 006: Zone 8 fixed. SqueezeTrigger groups now in node header (not body property). SqueezeApproachLeft/Right and Shape_PlatApproach removed (tops were at ceiling bottom y=468, zero clearance). SqueezeTrigger size=(500,30) positioned at (3300,485), covering full approach+passage+exit.

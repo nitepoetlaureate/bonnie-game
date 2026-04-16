@@ -1,31 +1,33 @@
 # BONNIE! — Next Steps Handoff
 
-**For**: Session 007
+**For**: Session 008
 **Written by**: Hawaii Zeke (Claude) on 2026-04-15
-**Context**: Session 006 complete. GATE 1 CONDITIONALLY NEAR-PASS. DI-001 + DI-003 implemented and confirmed. T-FOUND-04 + T-FOUND-05 approved (8/11 MVP GDDs). Mycelium pre/post-tool-use hooks wired. Godot CLI MCP to be integrated this session.
-**Immediate priority**: Godot MCP integration → slide rhythm tuning re-test → GATE 1 final call → T-CHAOS + T-SOC GDDs
+**Context**: Session 007 complete. Comprehensive audit executed (URGENTPLAN.md). Phase 0 triage done (6 tasks). Mycelium fully integrated (sync-init, git hooks, enhanced Claude Code hooks). GATE 1 disposition pending user decision on deferrals.
+**Immediate priority**: GATE 1 final call (slide re-test + deferral decisions) → T-CHAOS + T-SOC GDDs
 
 Read this file first. Then read the locked decisions section before touching anything.
 
 ---
 
-## Session 006 Summary
+## Session 007 Summary
 
 ### What Was Done
 
 | Area | Result |
 |------|--------|
-| Squeezing (B02) | FULLY FIXED — 3-layer fix (groups syntax, ramp removal, shape position offset) |
-| Ledge pullup | REDESIGNED — DI-001 directional pop, confirmed working |
-| Claw brake | IMPLEMENTED — DI-003 E-during-SLIDING, confirmed working |
-| Mid-air climbing | IMPLEMENTED — E during JUMPING/FALLING near Climbable |
-| Auto-clamber | IMPLEMENTED — wall top exits CLIMBING without UP input |
-| T-FOUND-04 | APPROVED — `design/gdd/level-manager.md` |
-| T-FOUND-05 | APPROVED — `design/gdd/interactive-object-system.md` |
-| Mycelium hooks | WIRED — pre/post tool-use hooks for Write/Edit |
-| Systems approved | **8/11 MVP** |
+| Mycelium audit | CONFIRMED WORKING — audit CRITICAL-01 was wrong; 51 notes, 4 slots |
+| Mycelium sync-init | DONE — notes now travel with `git push`/`git fetch` |
+| Mycelium git hooks | INSTALLED — post-commit (doctor), post-checkout (awareness), pre-push (gitleaks), reference-transaction (export gating) |
+| Git config cleanup | DONE — deduplicated 4x refspecs, 2x displayref, 2x branch sections |
+| Session hooks enhanced | session-start shows stale count; session-stop runs departure protocol |
+| P0-02: soft_landing | DONE — `_on_landed()` now checks floor group, Zone 4 works as documented |
+| P0-03: icon.svg | DONE — placeholder cat silhouette eliminates editor warning |
+| P0-04: dead variables | DONE — removed legacy `skid_timer` and `jump_hold_timer` |
+| P0-05: _try_airborne_climb | DONE — extracted from duplicate blocks, placed under PHYSICS HELPERS |
+| P0-06: .gdignore files | DONE — mycelium/, production/, docs/, .claude/, .github/ |
+| P0-07: progress tracker | DONE — systems-index.md updated from 0/0 to 8/8 started/reviewed |
 
-### GATE 1 Status — CONDITIONALLY NEAR-PASS
+### GATE 1 Status — CONDITIONALLY NEAR-PASS (unchanged)
 
 **5 ACs passing:**
 - AC-T06 Rough landing ✅
@@ -36,8 +38,8 @@ Read this file first. Then read the locked decisions section before touching any
 
 **Remaining before GATE 1 PASS:**
 1. **Slide rhythm** — claw brake works; slide → brake → stop → pivot cycle needs one targeted re-test
-2. **Camera leads movement** — AC-T08 not yet testable (camera system not yet in prototype)
-3. **Stealth radius** — sneaking stimulus reduction not explicitly verified
+2. **Camera leads movement (AC-T08)** — audit recommends defer to GATE 2 (polish, not traversal-feel)
+3. **Stealth radius** — audit recommends defer to post-T-SOC (no NPCs to perceive BONNIE)
 
 ---
 
@@ -48,7 +50,7 @@ Read this file first. Then read the locked decisions section before touching any
 | File | Status | Notes |
 |------|--------|-------|
 | `design/gdd/game-concept.md` | Approved | Do not redesign. |
-| `design/gdd/systems-index.md` | Approved | 8/11 MVP approved. |
+| `design/gdd/systems-index.md` | Approved | 8/11 MVP approved. Progress tracker fixed Session 007. |
 | `design/gdd/input-system.md` | Approved | E key updated for DI-003 context-sensitivity. |
 | `design/gdd/viewport-config.md` | Approved | 720x540, nearest-neighbor, 60fps. |
 | `design/gdd/audio-manager.md` | Approved | 4 apartment mood variants added Session 006. |
@@ -58,10 +60,11 @@ Read this file first. Then read the locked decisions section before touching any
 | `design/gdd/level-manager.md` | Approved | System #5 — 7-room apartment, BFS attenuation. |
 | `design/gdd/interactive-object-system.md` | Approved | System #7 — 5 weight classes, receive_impact contract. |
 | `project.godot` | Configured | 720x540, input map, GodotPhysics2D, nearest-neighbor, gl_compatibility. |
-| `prototypes/bonnie-traversal/BonnieController.gd` | Fixed | DI-001, DI-003, mid-air climb, auto-clamber, squeeze flag-based. |
+| `prototypes/bonnie-traversal/BonnieController.gd` | Updated S007 | soft_landing, dead vars removed, _try_airborne_climb extracted. |
 | `prototypes/bonnie-traversal/BonnieController.tscn` | Updated | SqueezeShape position=(0,14). |
 | `prototypes/bonnie-traversal/TestLevel.tscn` | Updated | SqueezeTrigger groups header fixed, ramp geometry removed. |
 | `prototypes/bonnie-traversal/PLAYTEST-002.md` | Written | Session 006 report. GATE 1 NEAR-PASS. |
+| `icon.svg` | Created S007 | Placeholder cat silhouette. Eliminates editor warning. |
 
 ### What Does NOT Exist Yet
 
@@ -98,8 +101,7 @@ All decisions from Sessions 001-005 still apply. Session 006 additions:
 ## Critical Path
 
 ```
-Session 007 Priority A: Godot MCP integration (new this session)
-Session 007 Priority B: Slide rhythm re-test → GATE 1 final call
+Session 008 Priority A: GATE 1 final call (slide re-test + deferral decisions)
      |
 T-CHAOS + T-SOC  ← parallel GDDs, immediately after GATE 1 PASS
      |
@@ -114,21 +116,14 @@ T-IMPL (Sprint 1 Implementation)
 
 ---
 
-## Session 007 Opening Protocol
+## Session 008 Opening Protocol
 
-### Priority 0: Godot CLI MCP Integration
+### Priority 0: GATE 1 Final Call
 
-The user will be setting up a Godot CLI MCP this session. All agents will have access to
-the Godot CLI from within Claude Code tool calls. Steps:
-
-1. User installs / configures MCP (on their end)
-2. Create `.claude/skills/godot-mcp.md` — Godot MCP skill reference for the team
-3. Update hooks as needed for MCP-aware workflows
-4. Verify: any agent can call `godot --headless` or the MCP equivalent to run builds/checks
-
-### Priority 1: Slide Rhythm Re-Test
-
-Reopen `prototypes/bonnie-traversal/TestLevel.tscn` (Play button / Cmd+B, NOT F5 on macOS).
+**Remaining items:**
+1. **Slide rhythm re-test** — launch prototype, execute Kaneda slide → claw brake → stop → pivot cycle
+2. **Camera (AC-T08)** — recommend defer to GATE 2 (polish, not traversal-feel)
+3. **Stealth radius** — recommend defer to post-T-SOC (no NPCs exist yet)
 
 **How to trigger the Kaneda slide:**
 1. Hold Shift (run) in any direction
@@ -142,16 +137,7 @@ Reopen `prototypes/bonnie-traversal/TestLevel.tscn` (Play button / Cmd+B, NOT F5
 - Does the rhythm feel "cat-like" or "mechanical"?
 - Try tuning `claw_brake_multiplier` in the Inspector (default 0.30): lower = softer stops
 
-**Report back:** slide feel verdict → GATE 1 final call
-
-### Priority 2: GATE 1 Final Evaluation
-
-Once slide feel is confirmed:
-- Review AC table in PLAYTEST-002.md
-- Determine: camera and stealth — are these blockers or deferrable?
-- Call GATE 1: PASS or still NEEDS WORK
-
-### Priority 3 (Post-GATE 1): T-CHAOS + T-SOC
+### Priority 1 (Post-GATE 1): T-CHAOS + T-SOC
 
 **Agent 1** → `game-designer` + `economy-designer`: `/design-system chaos-meter`
 Key constraints:
@@ -164,6 +150,11 @@ Key constraints:
 - Read `npc-personality.md` Section 3 first — define NpcState write contract carefully
 - Social axis must be visually legible without a UI (NPC body language, reactions)
 - NPC↔Social circular dependency is resolved via NpcState shared object (mycelium constraint)
+
+### Priority 2: Stale Mycelium Notes
+
+21 stale notes on old blob versions. Run `! mycelium/scripts/compost-workflow.sh` interactively
+to renew valid notes and compost outdated ones.
 
 ---
 
@@ -218,5 +209,5 @@ Flag when NPC GDD enters implementation phase.
 
 ---
 
-*Hawaii Zeke — Session 006 complete. Traversal identity confirmed. 8/11 MVP GDDs done.
-GATE 1 near. MCP next. Let's finish the slide and call it.*
+*Hawaii Zeke — Session 007 complete. Audit executed. Phase 0 triage done. Mycelium fully integrated.
+Infrastructure solid. GATE 1 awaiting slide re-test and deferral decisions. Let's close it.*

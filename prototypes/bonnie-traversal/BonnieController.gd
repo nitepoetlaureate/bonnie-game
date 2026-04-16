@@ -141,10 +141,8 @@ var double_jump_window_timer: int = 0
 
 # Landing skid
 var in_skid_window: bool = false
-var skid_timer: float = 0.0  # legacy public — use _skid_timer internally
 
 # Jump hold (duration-based, not pressure-based — see input-system §3.3)
-var jump_hold_timer: float = 0.0
 var is_jump_held: bool = false
 
 # Recovery timers (seconds)
@@ -303,7 +301,6 @@ func _change_state(new_state: State) -> void:
 			fall_origin_y = global_position.y
 		State.JUMPING:
 			is_jump_held = true
-			jump_hold_timer = 0.0
 			_jump_hold_timer = 0
 			double_jump_available = true
 			double_jump_window_timer = 0
@@ -548,18 +545,8 @@ func _handle_jumping(delta: float) -> void:
 		facing_direction = sign(input_vec.x)
 		velocity.x = move_toward(velocity.x, input_vec.x * run_max_speed, air_ctrl * delta)
 
-	# Mid-air grab onto Climbable — hold E while pressing into wall to start climbing.
-	# More forgiving than the parry: no timing window, just contact + grab held.
-	if Input.is_action_pressed(&"grab"):
-		for i: int in get_slide_collision_count():
-			var col: KinematicCollision2D = get_slide_collision(i)
-			var collider: Object = col.get_collider()
-			if collider and collider.is_in_group(&"Climbable"):
-				double_jump_available = true
-				_post_double_jumped = false
-				velocity.x = 0.0
-				_change_state(State.CLIMBING)
-				return
+	if _try_airborne_climb():
+		return
 
 	_check_ledge_parry()
 
@@ -600,17 +587,8 @@ func _handle_falling(delta: float) -> void:
 		double_jump_available = false
 		_post_double_jumped = true
 
-	# Mid-air grab onto Climbable — hold E while pressing into wall to start climbing.
-	if Input.is_action_pressed(&"grab"):
-		for i: int in get_slide_collision_count():
-			var col: KinematicCollision2D = get_slide_collision(i)
-			var collider: Object = col.get_collider()
-			if collider and collider.is_in_group(&"Climbable"):
-				double_jump_available = true
-				_post_double_jumped = false
-				velocity.x = 0.0
-				_change_state(State.CLIMBING)
-				return
+	if _try_airborne_climb():
+		return
 
 	_check_ledge_parry()
 
@@ -622,6 +600,13 @@ func _on_landed() -> void:
 	_landing_impact_speed = abs(velocity.x)
 	_post_double_jumped = false
 	_at_apex = false
+
+	# Soft landing surfaces reset fall distance (Zone 4 — fall → LANDING not ROUGH_LANDING)
+	var _floor_col: KinematicCollision2D = get_last_slide_collision()
+	if _floor_col:
+		var _floor_body: Object = _floor_col.get_collider()
+		if _floor_body and _floor_body.is_in_group(&"soft_landing"):
+			fall_distance = 0.0
 
 	if fall_distance >= rough_landing_threshold:
 		_change_state(State.ROUGH_LANDING)
@@ -787,6 +772,23 @@ func _handle_ledge_pullup(delta: float) -> void:
 # =============================================================================
 # PHYSICS HELPERS
 # =============================================================================
+
+
+func _try_airborne_climb() -> bool:
+	## Mid-air grab onto Climbable — hold grab while contacting wall to start climbing.
+	if not Input.is_action_pressed(&"grab"):
+		return false
+	for i: int in get_slide_collision_count():
+		var col: KinematicCollision2D = get_slide_collision(i)
+		var collider: Object = col.get_collider()
+		if collider and collider.is_in_group(&"Climbable"):
+			double_jump_available = true
+			_post_double_jumped = false
+			velocity.x = 0.0
+			_change_state(State.CLIMBING)
+			return true
+	return false
+
 
 # =============================================================================
 # GROUND-BASED CLIMBING + SQUEEZING DETECTION

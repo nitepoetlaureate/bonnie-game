@@ -207,8 +207,8 @@ after their GDD is written — don't wait until Alpha.
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 27 |
-| Design docs started | 0 |
-| Design docs reviewed | 0 |
+| Design docs started | 8 |
+| Design docs reviewed | 8 |
 | Design docs approved | 8 |
 | MVP systems designed | 8 / 11 |
 | Vertical Slice systems designed | 0 / 7 |

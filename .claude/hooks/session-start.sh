@@ -101,6 +101,15 @@ if command -v mycelium.sh &>/dev/null && git notes --ref=mycelium list &>/dev/nu
     echo "Warnings:"
     mycelium.sh find warning 2>/dev/null | head -40 || true
     echo ""
+    # Graph health
+    DOCTOR=$(mycelium.sh doctor 2>/dev/null)
+    if [ -n "$DOCTOR" ]; then
+        STALE_COUNT=$(echo "$DOCTOR" | grep -oE 'stale:[0-9]+' | grep -oE '[0-9]+')
+        if [ -n "$STALE_COUNT" ] && [ "$STALE_COUNT" -gt 0 ]; then
+            echo "Stale notes: $STALE_COUNT (run: mycelium/scripts/compost-workflow.sh --dry-run)"
+        fi
+    fi
+    echo ""
     echo "Run: mycelium/scripts/context-workflow.sh <file> for file-specific context"
     echo "Run: mycelium.sh prime for full agent primer"
     echo "==================================="

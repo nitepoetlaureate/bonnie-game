@@ -40,14 +40,44 @@ if [ -n "$RECENT_COMMITS" ] || [ -n "$MODIFIED_FILES" ]; then
     } >> "$SESSION_LOG_DIR/session-log.md" 2>/dev/null
 fi
 
-# --- Mycelium: remind to leave departure note ---
+# --- Mycelium: departure protocol ---
 if command -v mycelium.sh &>/dev/null && git notes --ref=mycelium list &>/dev/null 2>&1; then
-    UNCOMMITTED=$(git diff --name-only 2>/dev/null)
-    if [ -n "$UNCOMMITTED" ]; then
-        echo ""
-        echo "Mycelium: Uncommitted changes detected. Consider:"
-        echo "  mycelium.sh note HEAD -k context -m 'What you did and why.'"
-        echo "  mycelium.sh note <changed-file> -k summary -m 'What future agents should know.'"
+    TRACKING_FILE="production/session-state/.mycelium-touched"
+
+    # Report files that were touched but may lack departure notes
+    if [ -f "$TRACKING_FILE" ]; then
+        TOUCHED_FILES=$(sort -u "$TRACKING_FILE" 2>/dev/null)
+        UNANNOTATED=""
+        while IFS= read -r filepath; do
+            [ -z "$filepath" ] && continue
+            # Check if the file has a current-version blob note
+            BLOB_OID=$(git rev-parse "HEAD:${filepath}" 2>/dev/null) || continue
+            HAS_NOTE=$(git notes --ref=mycelium show "$BLOB_OID" 2>/dev/null)
+            if [ -z "$HAS_NOTE" ]; then
+                UNANNOTATED="$UNANNOTATED  $filepath\n"
+            fi
+        done <<< "$TOUCHED_FILES"
+
+        if [ -n "$UNANNOTATED" ]; then
+            {
+                echo ""
+                echo "## Mycelium — Un-annotated Files"
+                echo "These files were edited this session but have no mycelium note on their current blob:"
+                printf "%b" "$UNANNOTATED"
+                echo "Next session should annotate these."
+            } >> "$SESSION_LOG_DIR/session-log.md" 2>/dev/null
+        fi
+
+        # Reset tracking file for next session
+        rm -f "$TRACKING_FILE" 2>/dev/null
+    fi
+
+    # Report stale note count for awareness
+    DOCTOR_OUTPUT=$(mycelium.sh doctor 2>/dev/null)
+    if [ -n "$DOCTOR_OUTPUT" ]; then
+        echo "" >> "$SESSION_LOG_DIR/session-log.md" 2>/dev/null
+        echo "## Mycelium Doctor" >> "$SESSION_LOG_DIR/session-log.md" 2>/dev/null
+        echo "$DOCTOR_OUTPUT" >> "$SESSION_LOG_DIR/session-log.md" 2>/dev/null
     fi
 fi
 

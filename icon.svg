@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <!-- BONNIE! placeholder icon — cat silhouette -->
+  <rect width="128" height="128" rx="16" fill="#1a1a2e"/>
+  <!-- Ears -->
+  <polygon points="32,52 44,20 56,52" fill="#ff6633"/>
+  <polygon points="72,52 84,20 96,52" fill="#ff6633"/>
+  <!-- Inner ears -->
+  <polygon points="38,48 44,28 50,48" fill="#ff9966"/>
+  <polygon points="78,48 84,28 90,48" fill="#ff9966"/>
+  <!-- Head -->
+  <ellipse cx="64" cy="68" rx="32" ry="28" fill="#ff6633"/>
+  <!-- Eyes -->
+  <ellipse cx="52" cy="62" rx="5" ry="6" fill="#1a1a2e"/>
+  <ellipse cx="76" cy="62" rx="5" ry="6" fill="#1a1a2e"/>
+  <!-- Eye shine -->
+  <circle cx="54" cy="60" r="1.5" fill="white"/>
+  <circle cx="78" cy="60" r="1.5" fill="white"/>
+  <!-- Nose -->
+  <polygon points="64,70 61,74 67,74" fill="#cc3300"/>
+  <!-- Mouth -->
+  <path d="M58,76 Q64,82 70,76" stroke="#1a1a2e" stroke-width="1.5" fill="none"/>
+  <!-- Whiskers -->
+  <line x1="28" y1="70" x2="48" y2="72" stroke="#1a1a2e" stroke-width="1"/>
+  <line x1="28" y1="76" x2="48" y2="76" stroke="#1a1a2e" stroke-width="1"/>
+  <line x1="80" y1="72" x2="100" y2="70" stroke="#1a1a2e" stroke-width="1"/>
+  <line x1="80" y1="76" x2="100" y2="76" stroke="#1a1a2e" stroke-width="1"/>
+  <!-- Body hint -->
+  <ellipse cx="64" cy="102" rx="24" ry="18" fill="#ff6633"/>
+  <!-- Text -->
+  <text x="64" y="124" font-family="sans-serif" font-size="10" fill="#ff9966" text-anchor="middle" font-weight="bold">BONNIE!</text>
+</svg>

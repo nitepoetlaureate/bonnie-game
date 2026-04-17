@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:b24a3b86133f2d3bdcdb2f24fc741b2fe2a6dc47
 edge targets-path path:prototypes/bonnie-traversal/TestLevel.tscn
 

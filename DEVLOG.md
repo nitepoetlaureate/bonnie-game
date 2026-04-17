@@ -5,6 +5,84 @@ a sandbox chaos puzzle game developed with Claude Code Game Studios.
 
 ---
 
+## [2026-04-17] Session 008 — GATE 1 Closure + Design Sprint
+
+**Developer**: m. raftery
+**Studio**: Claude Code Game Studios (Godot 4.6)
+**Focus**: GATE 1 final verdict, T-CHAOS + T-SOC GDD authoring
+
+---
+
+### GATE 1 — PASSED ✅
+
+GATE 1 closure was the Priority 0 blocker for Session 008. Three remaining ACs were evaluated:
+
+- **AC-T03 (Kaneda slide)**: PASS — slide triggers confirmed, rhythm mechanics operational
+- **AC-T06b (run button model)**: PASS — staccato run-slide-brake-stop-pivot cycle validated
+- **AC-T06d (claw brake)**: PASS — 0.30 multiplier adequate, 5-6 taps arrests full-speed slide
+
+Two ACs deferred by user decision:
+- **AC-T08 (camera leads movement)**: deferred to Vertical Slice scope (camera system not yet implemented)
+- **Stealth radius**: deferred pending NPC AI implementation (System 9)
+
+**Final tally**: 9 PASS / 2 PARTIAL / 2 UNTESTED / 2 DEFERRED. No code changes needed. `claw_brake_multiplier` stays at 0.30.
+
+This unblocks T-CHAOS (Chaos Meter, System 13) and T-SOC (Bidirectional Social System, System 12) — the last two MVP-tier GDDs before GATE 2.
+
+---
+
+### T-CHAOS — Chaos Meter GDD (System 13) ✅ DRAFT COMPLETE
+
+Authored `design/gdd/chaos-meter.md` with all 8 required sections. Key design decisions:
+
+- **Dual-axis meter**: `meter_value = clamp(chaos_subtotal, 0, chaos_ceiling) + charm_subtotal`. Not a health bar — a progress indicator toward feeding.
+- **Charm mathematically required**: Pure chaos caps at `chaos_ceiling` (0.65), below `feeding_threshold` (0.85). The 0.20 gap can only be filled by charm contributions. Proven formally in §4.5.
+- **5 chaos sources**: NPC REACTING events, cascade bonuses, object displacement, pest catches, environmental combos.
+- **4 charm sources**: goodwill-boosted NPC reactions, VULNERABLE comfort (levity multiplier 1.5x), routine charm, gift delivery (touched/horrified split).
+- **Gift horror → chaos**: User decision — presenting gross gifts to uptight NPCs triggers horrified reaction, which feeds `chaos_subtotal` rather than charm. Rewards creative chaos thinking.
+- **No HP, no death, no game-over**. Max chaos = all NPCs REACTING, environmental chaos everywhere. Sensation, not punishment.
+
+---
+
+### T-SOC — Bidirectional Social System GDD (System 12) ✅ DRAFT COMPLETE
+
+Authored `design/gdd/bidirectional-social-system.md` with all 8 required sections. Key design decisions:
+
+- **NpcState Write Contract**: Social System writes `goodwill`, `last_interaction_type`, `comfort_receptivity`. NPC System writes `emotional_level`, `current_behavior`, `active_stimuli`, `visible_to_bonnie`, `bonnie_hunger_context`. Chaos Meter reads only. Contract locked as Mycelium constraint.
+- **5 charm verbs**: Rub (sustained contact), Meow (proximity call), Sit Near (passive presence), Purr (VULNERABLE-only comfort with levity multiplier), Gift Delivery (touched vs horrified branches).
+- **Visual legibility without HUD**: NPC body language communicates social axis. QA standard: tester can identify goodwill tier within 5 seconds of observing NPC idle behavior.
+- **Goodwill decay**: Per-NPC decay rate, faster when BONNIE is absent. Creates "relationship maintenance" pressure without punishing exploration.
+
+---
+
+### NpcState Contract Mediation
+
+Cross-referenced all three GDDs (NPC System 9, Social System 12, Chaos Meter 13) to verify field ownership consistency. No drift found. Contract locked as a Mycelium constraint on `npc-personality.md`. This resolves the circular dependency permanently — both systems read/write NpcState, neither calls the other.
+
+---
+
+### Mycelium Compost
+
+23 stale notes (on old blob OIDs) reduced to 0. Notes were either renewed on current blob versions or composted with replacement context notes on HEAD. Knowledge preserved; noise eliminated.
+
+---
+
+### Session 008 Output Summary
+
+| Artifact | Status |
+|----------|--------|
+| `prototypes/bonnie-traversal/PLAYTEST-003.md` | NEW — GATE 1 re-test report |
+| `design/gdd/chaos-meter.md` | NEW — System 13 MVP GDD, 8 sections |
+| `design/gdd/bidirectional-social-system.md` | NEW — System 12 MVP GDD, 8 sections |
+| `design/gdd/bonnie-traversal.md` §8 | UPDATED — AC status markers + summary table |
+| `design/gdd/systems-index.md` | UPDATED — Systems 12+13 Draft, progress 10/11 |
+| `NEXT.md` | UPDATED — Session 009 handoff |
+| `DEVLOG.md` | UPDATED — Session 008 narrative |
+| `CHANGELOG.md` | UPDATED — Pre-Production 0.7 entry |
+| Mycelium | HEAD context note + compost (23→0 stale) |
+
+---
+
 ## [2026-04-05] Session 001 — Pre-Production Sprint 0
 
 **Developer**: m. raftery

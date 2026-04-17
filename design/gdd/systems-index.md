@@ -39,8 +39,8 @@ gameplay, and can be developed in parallel with design work.
 | 9 | Reactive NPC System | Gameplay | MVP | Approved | design/gdd/npc-personality.md | Traversal (6), Level Manager (5) |
 | 10 | NPC Behavior / Routine System (inferred) | Gameplay | Vertical Slice | Not Started | — | Reactive NPC (9) |
 | 11 | NPC Relationship Graph (inferred) | Gameplay | Vertical Slice | Not Started | — | Reactive NPC (9) |
-| 12 | Bidirectional Social System | Gameplay | MVP | Not Started | — | Traversal (6), NPC (9) |
-| 13 | Chaos Meter | Gameplay | MVP | Not Started | — | Social (12), Chaos (8), Pest (15) |
+| 12 | Bidirectional Social System | Gameplay | MVP | Draft | design/gdd/bidirectional-social-system.md | Traversal (6), NPC (9) |
+| 13 | Chaos Meter | Gameplay | MVP | Draft | design/gdd/chaos-meter.md | Social (12), Chaos (8), Pest (15) |
 | 14 | Antagonist / Trap System | Gameplay | Vertical Slice | Not Started | — | NPC (9), Chaos (8), Traversal (6) |
 | 15 | Pest / Survival System | Gameplay | Alpha | Not Started | — | Traversal (6), Objects (7) |
 | 16 | Nine Lives System (inferred) | Gameplay | Alpha | Not Started | — | Traversal (6), Level Manager (5) |
@@ -207,10 +207,10 @@ after their GDD is written — don't wait until Alpha.
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 27 |
-| Design docs started | 8 |
+| Design docs started | 10 |
 | Design docs reviewed | 8 |
 | Design docs approved | 8 |
-| MVP systems designed | 8 / 11 |
+| MVP systems designed | 10 / 11 |
 | Vertical Slice systems designed | 0 / 7 |
 | Alpha systems designed | 0 / 6 |
 | Full Vision systems designed | 0 / 3 |

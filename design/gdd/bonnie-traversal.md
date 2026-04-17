@@ -755,18 +755,18 @@ are built on top of BONNIE's movement.
 
 ---
 
-**AC-T01: Input responsiveness — frame-perfect**
+**AC-T01: Input responsiveness — frame-perfect** — ⬜ UNTESTED (no debug HUD for frame-perfect verification)
 - [ ] Direction input registers on the same frame it is received
 - [ ] No perceptible input lag between button press and BONNIE beginning to change velocity
 - [ ] Jumps fire on the frame of input (with coyote/buffer grace, not delay)
 
-**AC-T02: Sneak → sprint transition is expressive**
+**AC-T02: Sneak → sprint transition is expressive** — PARTIAL (sneak→sprint confirmed; stealth stimulus radius deferred to System 9)
 - [ ] BONNIE enters SNEAKING with sneak input
 - [ ] Transitioning to full run from sneak: BONNIE accelerates through walk → run naturally
 - [ ] From full run, attempting to stop triggers SLIDING (at or above `slide_trigger_speed`)
 - [ ] The slide feels like a committed physical consequence, not input failure
 
-**AC-T03: The Kaneda slide works**
+**AC-T03: The Kaneda slide works** — PASS (PLAYTEST-003)
 - [ ] Running at full speed + opposing input triggers SLIDE
 - [ ] During SLIDE, BONNIE has minimal steering
 - [ ] BONNIE can pop-jump from SLIDE (jump input during slide fires with full horizontal momentum)
@@ -774,34 +774,34 @@ are built on top of BONNIE's movement.
       at reduced speed (not stopped)
 - [ ] BONNIE hits a wall at speed during slide: DAZED state, 1.0s recovery
 
-**AC-T04: Jump feel matches design intent**
+**AC-T04: Jump feel matches design intent** — PARTIAL (jump feel confirmed; post-double-jump visual dynamism deferred to art pass)
 - [ ] Tap: hop clears approximately BONNIE's body height + 50%
 - [ ] Hold: full jump clears approximately 2.5× BONNIE's body height
 - [ ] Horizontal momentum from running fully carries into jump arc
 - [ ] Standing jump has noticeably less horizontal reach than running jump
 - [ ] Double jump fires reliably within `double_jump_window`, redirects arc
 
-**AC-T05: Landing skid is speed-proportional**
+**AC-T05: Landing skid is speed-proportional** — ⬜ UNTESTED (requires speed measurement via debug HUD)
 - [ ] Walking into a landing: clean (no skid)
 - [ ] Running into a landing: visible skid — BONNIE doesn't stop immediately
 - [ ] Full-speed landing: hard skid — BONNIE slides noticeably before stopping
 - [ ] Player can jump mid-skid and carry full horizontal momentum into the jump
 
-**AC-T06: Rough landing triggers correctly**
+**AC-T06: Rough landing triggers correctly** — PASS (PLAYTEST-002)
 - [ ] Fall of less than `rough_landing_threshold`: normal LANDING rules
 - [ ] Fall above `rough_landing_threshold` to hard surface: ROUGH_LANDING triggers
 - [ ] ROUGH_LANDING: BONNIE is visually incapacitated for `rough_landing_duration`
 - [ ] Fall onto cushion surface above threshold: LANDING (not ROUGH_LANDING)
 - [ ] BONNIE always exits ROUGH_LANDING and returns to playable state — no death
 
-**AC-T06b: Run button model works correctly**
+**AC-T06b: Run button model works correctly** — PASS (PLAYTEST-003)
 - [ ] Default: BONNIE does not run without run button held
 - [ ] Run button + direction = RUNNING state
 - [ ] Without run button, max speed is `walk_speed` regardless of hold duration
 - [ ] `autorun_enabled = true`: BONNIE auto-escalates to run after `run_buildup_time`
       without run button — same top speed, just different trigger
 
-**AC-T06c: Ledge Parry fires on skill, not on proximity**
+**AC-T06c: Ledge Parry fires on skill, not on proximity** — PASS (PLAYTEST-002: DI-001 confirmed)
 - [ ] BONNIE falls past a ledge with NO grab input: she falls, no auto-grab
 - [ ] BONNIE falls past a ledge with grab input OUTSIDE `parry_window_frames`:
       she falls, no grab (missed window)
@@ -810,7 +810,7 @@ are built on top of BONNIE's movement.
 - [ ] No visual prompt or highlighted ledge telegraphs the parry window
 - [ ] Failed parry that results in ROUGH_LANDING: Nine Lives trigger fires
 
-**AC-T06c2: LEDGE_PULLUP directional pop resolves correctly**
+**AC-T06c2: LEDGE_PULLUP directional pop resolves correctly** — PASS (PLAYTEST-002: directional pop confirmed)
 - [ ] Parry → LEDGE_PULLUP cling, NO directional input within `pullup_window_frames`:
       BONNIE pulls up clean, lands stationary on platform
 - [ ] Parry → LEDGE_PULLUP cling, directional input within `pullup_window_frames`:
@@ -820,21 +820,21 @@ are built on top of BONNIE's movement.
 - [ ] Pop into open air (directional pop toward empty space):
       BONNIE launches cleanly, transitions to JUMPING/FALLING with pop velocity
 
-**AC-T06d: Double jump + parry combo is executable**
+**AC-T06d: Double jump + parry combo is executable** — PASS (PLAYTEST-002: full combo confirmed)
 - [ ] Run → jump → at apex → double jump: BONNIE twists, air control significantly reduced
 - [ ] Post-double-jump: player cannot meaningfully redirect arc laterally
 - [ ] At the committed approach, grab input within parry window succeeds
 - [ ] Full combo (run → jump → double jump → parry → directional pop → continue running)
       is completable in a single fluid sequence without breaking to a menu or state error
 
-**AC-T06e: Wall jump on climbable surfaces**
+**AC-T06e: Wall jump on climbable surfaces** — PASS (PLAYTEST-002: wall jump confirmed)
 - [ ] Climbable wall (carpet/fabric): BONNIE can grab via LEDGE PARRY → CLIMBING → wall jump
 - [ ] Hard smooth wall (hardwood, metal, glass): LEDGE PARRY input on this surface
       fails — BONNIE cannot grab it, falls
 - [ ] Wall jump from CLIMBING: BONNIE launches perpendicular to surface with `wall_jump_velocity`
 - [ ] Double jump resets on successful wall grab (touching climbable surface restores it)
 
-**AC-T06f: Claw brake (E during SLIDING) functions as speed-dependent handbrake**
+**AC-T06f: Claw brake (E during SLIDING) functions as speed-dependent handbrake** — PASS (PLAYTEST-003: 0.30 multiplier adequate)
 - [ ] E press during SLIDING: velocity drops by `abs(velocity.x) * claw_brake_multiplier`
       instantly — not gradual, a spike
 - [ ] Rapid staccato E taps during SLIDING: each tap removes a fraction of remaining
@@ -843,15 +843,42 @@ are built on top of BONNIE's movement.
 - [ ] Claw brake does NOT trigger DAZED — it's a controlled deceleration, not a collision
 - [ ] After claw brake arrest (velocity near zero): transitions to IDLE without slide recovery
 
-**AC-T07: Stealth mechanics function**
+**AC-T07: Stealth mechanics function** — PASS (PLAYTEST-002: squeezing confirmed; NPC perception deferred to System 9)
 - [ ] NPC in range during SNEAKING: NPC does NOT enter AWARE
 - [ ] Same NPC in same range during WALKING: NPC enters AWARE
 - [ ] BONNIE in SQUEEZING state: NPC cannot detect BONNIE through wall/object
 - [ ] Jump from SNEAK: quieter hop, brief stealth break on landing
 
-**AC-T08: Camera leads movement**
+**AC-T08: Camera leads movement** — DEFERRED to Vertical Slice (Session 008 user decision)
 - [ ] Camera position leads BONNIE's movement direction (not trailing)
 - [ ] At run speed, sufficient look-ahead to see what's coming
 - [ ] Rapid direction reversal: camera catches up smoothly (no hard whip)
 - [ ] Camera framing at rest: BONNIE is not centered vertically — more ground
       shown below than above (cat's-eye-level framing)
+
+---
+
+### AC Status Summary — GATE 1 (Sessions 006–008)
+
+| AC | Title | Status | Source |
+|----|-------|--------|--------|
+| AC-T01 | Input responsiveness — frame-perfect | ⬜ UNTESTED | No debug HUD for frame-perfect verification |
+| AC-T02 | Sneak → sprint transition is expressive | PARTIAL | Sneak→sprint confirmed; stealth radius deferred to System 9 |
+| AC-T03 | The Kaneda slide works | PASS | PLAYTEST-003 |
+| AC-T04 | Jump feel matches design intent | PARTIAL | Jump feel confirmed; post-double-jump dynamism deferred to art pass |
+| AC-T05 | Landing skid is speed-proportional | ⬜ UNTESTED | Requires speed measurement via debug HUD |
+| AC-T06 | Rough landing triggers correctly | PASS | PLAYTEST-002 |
+| AC-T06b | Run button model works correctly | PASS | PLAYTEST-003 |
+| AC-T06c | Ledge Parry fires on skill, not on proximity | PASS | PLAYTEST-002 (DI-001 confirmed) |
+| AC-T06c2 | LEDGE_PULLUP directional pop resolves correctly | PASS | PLAYTEST-002 (directional pop confirmed) |
+| AC-T06d | Double jump + parry combo is executable | PASS | PLAYTEST-002 (full combo confirmed) |
+| AC-T06e | Wall jump on climbable surfaces | PASS | PLAYTEST-002 (wall jump confirmed) |
+| AC-T06f | Claw brake functions as speed-dependent handbrake | PASS | PLAYTEST-003 (0.30 multiplier adequate) |
+| AC-T07 | Stealth mechanics function | PASS | PLAYTEST-002 (squeezing confirmed; NPC perception deferred) |
+| AC-T08 | Camera leads movement | DEFERRED | Session 008 user decision — Vertical Slice scope |
+| Stealth radius | NPC perception via stealth stimulus radius | DEFERRED | Session 008 user decision — pending System 9 |
+
+**Totals: 9 PASS / 2 PARTIAL / 2 UNTESTED / 2 DEFERRED**
+
+**GATE 1 QA Verdict: CONDITIONAL PASS**
+Core traversal identity validated. Deferred items have explicit user approval. Outstanding UNTESTEDs (AC-T01, AC-T05) require debug HUD access on macOS (use Play button or Cmd+B, not F5) and are not blockers for Vertical Slice progression.

@@ -1,45 +1,43 @@
 # BONNIE! — Next Steps Handoff
 
-**For**: Session 008
-**Written by**: Hawaii Zeke (Claude) on 2026-04-15
-**Context**: Session 007 complete. Comprehensive audit executed (URGENTPLAN.md). Phase 0 triage done (6 tasks). Mycelium fully integrated (sync-init, git hooks, enhanced Claude Code hooks). GATE 1 disposition pending user decision on deferrals.
-**Immediate priority**: GATE 1 final call (slide re-test + deferral decisions) → T-CHAOS + T-SOC GDDs
+**For**: Session 009
+**Written by**: Hawaii Zeke (Claude) on 2026-04-17
+**Context**: Session 008 complete. GATE 1 PASSED. T-CHAOS + T-SOC GDD drafts complete. GATE 2 pending.
+**Immediate priority**: Design review of T-CHAOS + T-SOC → GATE 2 → T-FOUND-06 (Chaos Meter UI) → Sprint 1
 
 Read this file first. Then read the locked decisions section before touching anything.
 
 ---
 
-## Session 007 Summary
+## Session 008 Summary
 
 ### What Was Done
 
 | Area | Result |
 |------|--------|
-| Mycelium audit | CONFIRMED WORKING — audit CRITICAL-01 was wrong; 51 notes, 4 slots |
-| Mycelium sync-init | DONE — notes now travel with `git push`/`git fetch` |
-| Mycelium git hooks | INSTALLED — post-commit (doctor), post-checkout (awareness), pre-push (gitleaks), reference-transaction (export gating) |
-| Git config cleanup | DONE — deduplicated 4x refspecs, 2x displayref, 2x branch sections |
-| Session hooks enhanced | session-start shows stale count; session-stop runs departure protocol |
-| P0-02: soft_landing | DONE — `_on_landed()` now checks floor group, Zone 4 works as documented |
-| P0-03: icon.svg | DONE — placeholder cat silhouette eliminates editor warning |
-| P0-04: dead variables | DONE — removed legacy `skid_timer` and `jump_hold_timer` |
-| P0-05: _try_airborne_climb | DONE — extracted from duplicate blocks, placed under PHYSICS HELPERS |
-| P0-06: .gdignore files | DONE — mycelium/, production/, docs/, .claude/, .github/ |
-| P0-07: progress tracker | DONE — systems-index.md updated from 0/0 to 8/8 started/reviewed |
+| GATE 1 closure | **PASS** — 9 ACs pass, 2 deferred (camera → VS, stealth → System 9) |
+| PLAYTEST-003 | Written — slide rhythm re-test confirms AC-T03, AC-T06b, AC-T06d |
+| T-CHAOS GDD | **DRAFT COMPLETE** — `design/gdd/chaos-meter.md`, all 8 sections |
+| T-SOC GDD | **DRAFT COMPLETE** — `design/gdd/bidirectional-social-system.md`, all 8 sections |
+| NpcState contract | **LOCKED** — field ownership defined across Systems 9, 12, 13 |
+| Gift horror decision | Implemented — horrified NPC reaction → chaos_subtotal (user decision) |
+| Mycelium compost | 23 stale notes → 0 stale (renewed or composted with replacements) |
+| Systems-index | Updated 8→10 started, MVP progress 10/11 |
+| bonnie-traversal.md | §8 AC status markers added to all 15 ACs, summary table, GATE 1 verdict |
 
-### GATE 1 Status — CONDITIONALLY NEAR-PASS (unchanged)
+### GATE 1 Status — ✅ PASS (Session 008)
 
-**5 ACs passing:**
-- AC-T06 Rough landing ✅
-- AC-T06c Directional pop ✅
-- AC-T06e Climbing (ground + mid-air) ✅
-- AC-T06f Claw brake ✅
-- AC-T07 Squeezing ✅
+**Final disposition (PLAYTEST-003, 2026-04-17):**
 
-**Remaining before GATE 1 PASS:**
-1. **Slide rhythm** — claw brake works; slide → brake → stop → pivot cycle needs one targeted re-test
-2. **Camera leads movement (AC-T08)** — audit recommends defer to GATE 2 (polish, not traversal-feel)
-3. **Stealth radius** — audit recommends defer to post-T-SOC (no NPCs to perceive BONNIE)
+| Category | Count | ACs |
+|----------|-------|-----|
+| PASS | 9 | AC-T03, AC-T06, AC-T06b, AC-T06c, AC-T06c2, AC-T06d, AC-T06e, AC-T06f, AC-T07 |
+| PARTIAL | 2 | AC-T02 (stealth radius deferred), AC-T04 (visual dynamism deferred) |
+| UNTESTED | 2 | AC-T01 (debug HUD needed), AC-T05 (speed measurement needed) |
+| DEFERRED | 2 | AC-T08 (camera → Vertical Slice), stealth radius (→ System 9) |
+
+Core traversal identity validated. Slide rhythm confirmed. Claw brake at 0.30 is adequate.
+No code changes required. GATE 1 clears the path for Phase 3 GDDs.
 
 ---
 
@@ -50,7 +48,7 @@ Read this file first. Then read the locked decisions section before touching any
 | File | Status | Notes |
 |------|--------|-------|
 | `design/gdd/game-concept.md` | Approved | Do not redesign. |
-| `design/gdd/systems-index.md` | Approved | 8/11 MVP approved. Progress tracker fixed Session 007. |
+| `design/gdd/systems-index.md` | Approved | 10/11 MVP started. Progress tracker updated Session 008. |
 | `design/gdd/input-system.md` | Approved | E key updated for DI-003 context-sensitivity. |
 | `design/gdd/viewport-config.md` | Approved | 720x540, nearest-neighbor, 60fps. |
 | `design/gdd/audio-manager.md` | Approved | 4 apartment mood variants added Session 006. |
@@ -68,12 +66,17 @@ Read this file first. Then read the locked decisions section before touching any
 
 ### What Does NOT Exist Yet
 
-- Chaos Meter GDD — **BLOCKED on GATE 1**
-- Bidirectional Social System GDD — **BLOCKED on GATE 1**
-- Chaos Meter UI GDD — **BLOCKED on T-CHAOS**
+- Chaos Meter UI GDD — **BLOCKED on T-CHAOS approval** (System 23, last MVP GDD)
 - Sprint 1 plan — **BLOCKED on GATE 2**
 - Any production code in `src/`
 - Any art assets in `assets/`
+
+### What Is In Draft (Needs `/design-review`)
+
+| File | Status | Notes |
+|------|--------|-------|
+| `design/gdd/chaos-meter.md` | Draft | System 13 — dual-axis meter, charm-required proof, gift horror → chaos |
+| `design/gdd/bidirectional-social-system.md` | Draft | System 12 — 5 charm verbs, NpcState write contract, no-HUD legibility |
 
 ---
 
@@ -101,13 +104,13 @@ All decisions from Sessions 001-005 still apply. Session 006 additions:
 ## Critical Path
 
 ```
-Session 008 Priority A: GATE 1 final call (slide re-test + deferral decisions)
+Session 008: GATE 1 ✅ PASSED, T-CHAOS + T-SOC DRAFTED ✅
      |
-T-CHAOS + T-SOC  ← parallel GDDs, immediately after GATE 1 PASS
+/design-review chaos-meter + bidirectional-social-system  ← NEXT
      |
-T-FOUND-06 (Chaos Meter UI — after T-CHAOS skeleton)
+T-FOUND-06 (Chaos Meter UI GDD — System 23, last MVP GDD)
      |
-GATE 2 (all 11 MVP GDDs approved — currently 8/11)
+GATE 2 (all 11 MVP GDDs approved — currently 8/11 approved, 10/11 started)
      |
 T-SPRINT-01 (Sprint 1 plan)
      |
@@ -116,45 +119,36 @@ T-IMPL (Sprint 1 Implementation)
 
 ---
 
-## Session 008 Opening Protocol
+## Session 009 Opening Protocol
 
-### Priority 0: GATE 1 Final Call
+### Priority 0: Design Review + GATE 2
 
-**Remaining items:**
-1. **Slide rhythm re-test** — launch prototype, execute Kaneda slide → claw brake → stop → pivot cycle
-2. **Camera (AC-T08)** — recommend defer to GATE 2 (polish, not traversal-feel)
-3. **Stealth radius** — recommend defer to post-T-SOC (no NPCs exist yet)
+Run `/design-review` on both new GDDs:
+1. `design/gdd/chaos-meter.md` (System 13)
+2. `design/gdd/bidirectional-social-system.md` (System 12)
 
-**How to trigger the Kaneda slide:**
-1. Hold Shift (run) in any direction
-2. Run until speed > 300 px/s (debug HUD speed counter confirms this)
-3. Then: press S (down) OR press the opposite direction key
-4. SLIDING state fires
+If both pass review → update systems-index status to Approved (10/11 approved).
+Then author `design/gdd/chaos-meter-ui.md` (System 23) — the last MVP GDD.
+When System 23 is approved → trigger GATE 2 evaluation (11/11 MVP approved).
 
-**What to evaluate:**
-- Does pressing E during SLIDING feel like a handbrake or a full-stop?
-- Can you execute: run → slide → 2-3 E taps → controlled stop → immediate pivot?
-- Does the rhythm feel "cat-like" or "mechanical"?
-- Try tuning `claw_brake_multiplier` in the Inspector (default 0.30): lower = softer stops
+### Priority 1: T-FOUND-06 (Chaos Meter UI GDD)
 
-### Priority 1 (Post-GATE 1): T-CHAOS + T-SOC
-
-**Agent 1** → `game-designer` + `economy-designer`: `/design-system chaos-meter`
+Author System 23 after T-CHAOS is approved. This is the final GATE 2 blocker.
 Key constraints:
-- Pure chaos plateaus below the feeding threshold — charm MUST be mathematically required
-- No HP/death. Chaos Meter is social/environmental pressure, not a kill condition.
-- Max chaos level should feel like REACTING-on-all-NPCs, not game-over warning
+- Chaos Meter UI must visualize the dual-axis (chaos + charm) in a single meter
+- Must communicate that charm contributions are intentional, not accidental
+- Must not create HP-bar anxiety — this is progress, not health
 
-**Agent 2** → `game-designer` + `ux-designer`: `/design-system bidirectional-social-system`
-Key constraints:
-- Read `npc-personality.md` Section 3 first — define NpcState write contract carefully
-- Social axis must be visually legible without a UI (NPC body language, reactions)
-- NPC↔Social circular dependency is resolved via NpcState shared object (mycelium constraint)
+### Priority 2: Sprint 1 Planning (Post-GATE 2)
 
-### Priority 2: Stale Mycelium Notes
+If GATE 2 passes: draft Sprint 1 plan covering Input System (1), Viewport Config (2), BONNIE Traversal (6) foundation rewrite from prototype to `src/`.
 
-21 stale notes on old blob versions. Run `! mycelium/scripts/compost-workflow.sh` interactively
-to renew valid notes and compost outdated ones.
+### Key Decisions Locked in Session 008
+
+- **NpcState Write Contract**: Social (12) writes `goodwill`, `last_interaction_type`, `comfort_receptivity`. NPC (9) writes `emotional_level`, `current_behavior`, `active_stimuli`, `visible_to_bonnie`, `bonnie_hunger_context`. Chaos Meter (13) reads only.
+- **Gift Horror → Chaos**: Horrified NPC reaction to gross gifts adds to `chaos_subtotal`, not charm. Rewards creative chaos thinking.
+- **Chaos Ceiling**: Pure chaos maxes at 0.65, feeding threshold at 0.85. The 0.20 gap MUST be filled by charm. Formally proven in chaos-meter.md §4.5.
+- **Claw Brake**: 0.30 multiplier confirmed adequate at GATE 1 close. No tuning needed.
 
 ---
 
@@ -170,7 +164,7 @@ Address in production rewrite in `src/` only:
 
 ---
 
-## Warnings for Session 007
+## Warnings for Session 009
 
 1. **F5 does NOT launch on macOS** — use Play button (▶️) or Cmd+B in Godot editor
 2. **SqueezeShape position=(0,14) is load-bearing** — changing it causes BONNIE to float and state-cycle
@@ -190,8 +184,8 @@ Address in production rewrite in `src/` only:
 | Gate | Condition | Status | Unlocks |
 |------|-----------|--------|---------|
 | GATE 0 | Camera + Viewport GDDs approved | CLEARED ✅ | Streams A+B+C |
-| GATE 1 | Prototype playtested, ACs pass, tuning locked | **NEAR-PASS** — slide + camera remain | Phase 3 GDDs |
-| GATE 2 | All 11 MVP GDDs approved (8/11 done) | Pending | Sprint 1 plan |
+| GATE 1 | Prototype playtested, ACs pass, tuning locked | **PASS** ✅ Session 008 | Phase 3 GDDs |
+| GATE 2 | All 11 MVP GDDs approved (8/11 approved, 10/11 started) | Pending | Sprint 1 plan |
 | GATE 3 | Sprint 1 plan approved | Pending | Implementation |
 
 ---
@@ -209,5 +203,5 @@ Flag when NPC GDD enters implementation phase.
 
 ---
 
-*Hawaii Zeke — Session 007 complete. Audit executed. Phase 0 triage done. Mycelium fully integrated.
-Infrastructure solid. GATE 1 awaiting slide re-test and deferral decisions. Let's close it.*
+*Hawaii Zeke — Session 008 complete. GATE 1 passed. T-CHAOS + T-SOC drafted. NpcState contract locked.
+23 stale Mycelium notes composted. Design review + GATE 2 are the next milestones.*

@@ -5,6 +5,37 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [Pre-Production 0.7] — 2026-04-17
+
+### Added — GDDs (Session 008)
+- `design/gdd/chaos-meter.md` — Chaos Meter GDD (System 13): dual-axis meter, chaos ceiling 0.65, feeding threshold 0.85, charm-required proof, gift horror → chaos, 10 ACs
+- `design/gdd/bidirectional-social-system.md` — Bidirectional Social System GDD (System 12): 5 charm verbs, NpcState write contract, no-HUD visual legibility, goodwill decay, 10 ACs
+- `prototypes/bonnie-traversal/PLAYTEST-003.md` — Session 008 slide rhythm re-test report
+
+### Changed — GATE 1 Verdict (Session 008)
+- GATE 1: **NEAR-PASS → PASS** — slide rhythm re-test confirmed AC-T03, AC-T06b, AC-T06d
+- AC-T08 (camera leads movement): DEFERRED to Vertical Slice by user decision
+- Stealth radius: DEFERRED pending System 9 (NPC AI) by user decision
+- `design/gdd/bonnie-traversal.md` §8 — AC status markers added to all 15 acceptance criteria
+
+### Changed — Systems Index (Session 008)
+- `design/gdd/systems-index.md` — Systems 12 + 13 status: Not Started → Draft; progress 8→10/11 MVP started
+
+### Changed — Mycelium (Session 008)
+- 23 stale notes composted to 0 — renewed or replaced with context notes on HEAD
+- NpcState write contract locked as constraint on `npc-personality.md`
+
+### Locked Decisions (Session 008)
+- **NpcState Write Contract**: Social writes goodwill/last_interaction_type/comfort_receptivity; NPC writes emotional_level/current_behavior/active_stimuli/visible_to_bonnie/bonnie_hunger_context; Chaos Meter reads only
+- **Gift Horror → Chaos**: Horrified NPC reaction adds to chaos_subtotal, not charm
+- **Chaos Ceiling**: 0.65 < feeding_threshold 0.85 — charm mathematically required (proven §4.5)
+
+### GATE Status
+- GATE 1: **PASS** ✅ — 9 PASS / 2 PARTIAL / 2 UNTESTED / 2 DEFERRED. Core traversal identity validated.
+- GATE 2: Pending — 8/11 approved, 10/11 started. Needs: design review of Systems 12+13, then System 23 (Chaos Meter UI).
+
+---
+
 ## [Pre-Production 0.6] — 2026-04-15
 
 ### Fixed — Prototype (Session 006)

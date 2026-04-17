@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:7644d11a034cdd41d297a2b9f2aeef09ca3fab77
 edge targets-path path:design/gdd/npc-personality.md
 

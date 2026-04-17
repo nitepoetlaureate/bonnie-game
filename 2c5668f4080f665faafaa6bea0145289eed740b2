@@ -1,0 +1,5 @@
+kind constraint
+edge applies-to blob:2c5668f4080f665faafaa6bea0145289eed740b2
+edge targets-path path:design/gdd/audio-manager.md
+
+AudioStreamRandomizer pitch uses semitones (Godot 4.6), NOT frequency multipliers. OQ-A01. Training data (pre-4.4) used different property name. Verify exact property before implementing AudioManager.

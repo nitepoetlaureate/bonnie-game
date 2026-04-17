@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:d354d3b0e084aaa9d8845da7ed3f7cca1a84c73e
+edge targets-path path:design/gdd/chaos-meter.md
+
+System 13 Chaos Meter MVP GDD: dual-axis meter (chaos_subtotal capped at 0.65 + uncapped charm_subtotal). Charm mathematically required to reach feeding_threshold 0.85. Gift horror adds to chaos. No HP, no death. 10 ACs.

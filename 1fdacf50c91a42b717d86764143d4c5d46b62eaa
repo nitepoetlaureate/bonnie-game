@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:1fdacf50c91a42b717d86764143d4c5d46b62eaa
+edge targets-path path:NEXT.md
+
+Session 008: GATE 1 PASS. T-CHAOS + T-SOC unblocked. Critical path updated.

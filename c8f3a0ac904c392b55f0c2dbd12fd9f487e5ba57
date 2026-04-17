@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:c8f3a0ac904c392b55f0c2dbd12fd9f487e5ba57
+edge targets-path path:CHANGELOG.md
+
+Pre-Production 0.7: GATE 1 verdict, AC status markers, PLAYTEST-003.

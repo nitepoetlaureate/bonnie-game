@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:530b433721b970d9aef0c13398e8595ad81365ea
 edge targets-path path:.claude/hooks/validate-commit.sh
 

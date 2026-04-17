@@ -1,4 +1,5 @@
 kind warning
+status composted
 edge applies-to blob:d696782575c9d76a9308cbead7e79f17fa5472a9
 edge targets-path path:design/gdd/npc-personality.md
 

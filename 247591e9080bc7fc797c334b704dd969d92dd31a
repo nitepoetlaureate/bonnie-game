@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:247591e9080bc7fc797c334b704dd969d92dd31a
 edge targets-path path:design/gdd/bonnie-traversal.md
 

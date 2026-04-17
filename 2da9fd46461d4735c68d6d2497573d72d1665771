@@ -1,4 +1,4 @@
 kind context
 edge explains commit:2da9fd46461d4735c68d6d2497573d72d1665771
 
-GATE 1 verdict: PASS. 9/15 ACs pass, 2 deferred (AC-T08, stealth radius), 2 partial, 2 untested. No code changes. Unblocks T-CHAOS + T-SOC.
+Session 008: GATE 1 PASS (9 ACs pass, 2 deferred). T-CHAOS (System 13) and T-SOC (System 12) GDDs authored. NpcState write contract locked. Gift horror adds to chaos_subtotal. 23 stale notes composted to 0. Systems-index 10/8/8.

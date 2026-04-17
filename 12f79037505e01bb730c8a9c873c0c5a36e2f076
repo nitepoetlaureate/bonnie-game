@@ -1,0 +1,6 @@
+kind decision
+title GL Compatibility renderer
+edge applies-to blob:12f79037505e01bb730c8a9c873c0c5a36e2f076
+edge targets-path path:project.godot
+
+Set renderer/rendering_method=gl_compatibility. Forward+ was defaulting, compiling 60+ 3D shader caches (SSAO, SSR, VoxelGI, volumetric fog) for a pure 2D game. GL Compatibility is the lightest renderer, matches hardware floor (integrated graphics), and has zero visual difference for 2D CanvasItem rendering.

@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:e14a00ce5c116b28921b9a2c1eb775a974d79f00
 edge targets-path path:design/gdd/audio-manager.md
 

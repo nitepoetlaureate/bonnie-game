@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:a23d529e11303d24e9f7d55650a3bf010758fd07
+edge targets-path path:.claude/hooks/session-start.sh
+
+Renderer guard added in Session 004. Checks project.godot for renderer/rendering_method. Warns if missing (Forward+ default) or if forward_plus detected on a 2D-only project (no 3D nodes in .tscn files).

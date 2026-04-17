@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:2e616c7b98713dbccf67741cf346df07f27f1e52
+edge targets-path path:design/gdd/systems-index.md
+
+27-system dependency map. Approved. MVP tier (11 systems): Input, Viewport, Audio, Traversal, Camera, Level Manager, Objects, NPC, Social System, Chaos Meter, Chaos Meter UI. Traversal = highest tech risk, prototype first. NPC = highest design risk. Circular dep NPC/Social resolved via shared NpcState object. Full design order and effort estimates included.

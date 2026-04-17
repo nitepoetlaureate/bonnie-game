@@ -1,4 +1,5 @@
 kind warning
+status composted
 edge applies-to blob:c9b1c764feed183b4e641823ea17f1e1db73d129
 edge targets-path path:prototypes/bonnie-traversal/BonnieController.gd
 

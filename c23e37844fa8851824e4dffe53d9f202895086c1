@@ -1,4 +1,5 @@
 kind constraint
+status composted
 edge applies-to blob:c23e37844fa8851824e4dffe53d9f202895086c1
 edge targets-path path:project.godot
 

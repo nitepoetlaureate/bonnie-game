@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:d951f22262e72fc2ead63b1e0ec7e6580c355c55
+edge targets-path path:design/gdd/bidirectional-social-system.md
+
+System 12 Social System MVP GDD: 5 charm verbs (Rub/Meow/Sit Near/Purr/Gift Delivery). NpcState write contract: Social writes goodwill, last_interaction_type, comfort_receptivity. No-HUD visual legibility via body language. 10 ACs.

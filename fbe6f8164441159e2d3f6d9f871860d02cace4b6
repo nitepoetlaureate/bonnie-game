@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:fbe6f8164441159e2d3f6d9f871860d02cace4b6
 edge targets-path path:design/gdd/systems-index.md
 

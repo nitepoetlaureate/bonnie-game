@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:8d9d6a2cb802ee8b9cf9221a6ce7ddfa30e8605e
 edge targets-path path:NEXT.md
 

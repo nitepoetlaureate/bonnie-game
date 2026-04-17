@@ -1,4 +1,5 @@
 kind constraint
+status composted
 edge applies-to blob:d328f842c93343c70b02440c852ab5223c9a3f2c
 edge targets-path path:design/gdd/audio-manager.md
 

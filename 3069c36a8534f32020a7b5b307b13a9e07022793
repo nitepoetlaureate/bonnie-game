@@ -1,4 +1,5 @@
 kind decision
+status composted
 title GL Compatibility renderer
 edge applies-to blob:3069c36a8534f32020a7b5b307b13a9e07022793
 edge targets-path path:project.godot

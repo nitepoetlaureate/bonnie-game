@@ -1,0 +1,4 @@
+kind context
+edge explains commit:2da9fd46461d4735c68d6d2497573d72d1665771
+
+GATE 1 verdict: PASS. 9/15 ACs pass, 2 deferred (AC-T08, stealth radius), 2 partial, 2 untested. No code changes. Unblocks T-CHAOS + T-SOC.

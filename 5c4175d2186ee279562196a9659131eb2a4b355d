@@ -1,4 +1,5 @@
 kind summary
+status composted
 edge applies-to blob:5c4175d2186ee279562196a9659131eb2a4b355d
 edge targets-path path:.claude/hooks/session-start.sh
 

@@ -1,4 +1,5 @@
 kind constraint
+status composted
 edge applies-to blob:5771c3baca1205b04b81fde2619b91baef6ce953
 edge targets-path path:design/gdd/bonnie-traversal.md
 

@@ -1,4 +1,5 @@
 kind constraint
+status composted
 edge applies-to tree:466bd80f49a7f251b4ad439ed1aacb4f16c43ecc
 edge targets-treepath treepath:design/gdd/
 

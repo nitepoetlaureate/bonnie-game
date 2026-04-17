@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:47746a56717d9d996d38a9baf071002204cf4812
+edge targets-path path:prototypes/bonnie-traversal/BonnieController.gd
+
+Session 006 state: SqueezeShape uses position=(0,14) offset so bottom stays floor-aligned on shape swap. Squeeze is Area2D flag-based (_squeeze_zone_active), not CeilingCast. Climbing: E-press burst (claw_burst_timer), mid-air grab from JUMPING/FALLING. LEDGE_PULLUP: two-phase directional pop (_pullup_direction). SLIDING: claw brake (claw_brake_multiplier=0.30). _sprite: ColorRect squashes to 24x8 in SQUEEZING.

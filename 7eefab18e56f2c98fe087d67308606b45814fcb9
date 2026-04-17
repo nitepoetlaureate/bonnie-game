@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:7eefab18e56f2c98fe087d67308606b45814fcb9
+edge targets-path path:.claude/hooks/detect-gaps.sh
+
+Caching added in Session 004. Stores output to .claude/.detect-gaps-cache with key based on HEAD + git diff of design/src/prototypes. Skips expensive filesystem scans if nothing changed. Pass --force to bypass cache.

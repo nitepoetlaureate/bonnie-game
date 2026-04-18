@@ -106,8 +106,8 @@ gameplay, and can be developed in parallel with design work.
 10. **Reactive NPC System** — depends on: Traversal (6), Level Manager (5)
 11. **NPC Behavior / Routine System** — depends on: Reactive NPC (9)
 12. **NPC Relationship Graph** — depends on: Reactive NPC (9)
-13. **Bidirectional Social System** — depends on: Traversal (6), NPC (9) *[see circular dep note]*
-14. **Chaos Meter** — depends on: Social (13), Chaos (8), Pest (15)
+12. **Bidirectional Social System** — depends on: Traversal (6), NPC (9) *[see circular dep note]*
+13. **Chaos Meter** — depends on: Social (12), NPC (9), Chaos (8), Pest (15)
 15. **Pest / Survival System** — depends on: Traversal (6), Objects (7)
 16. **Nine Lives System** — depends on: Traversal (6), Level Manager (5)
 17. **Antagonist / Trap System** — depends on: NPC (9), Chaos (8), Traversal (6)
@@ -120,11 +120,11 @@ gameplay, and can be developed in parallel with design work.
 
 ### Presentation Layer (depends on Features)
 
-21. **Chaos Meter UI** — depends on: Chaos Meter (13)
-22. **Dialogue UI System** — depends on: Dialogue (17), Audio Manager (3)
-23. **Feeding Cutscene System** — depends on: Dialogue (17), Chaos Meter (13)
-24. **HUD / Game UI** — depends on: Chaos Meter UI (21), Nine Lives (16)
-25. **Save / Load System** — depends on: Notoriety (20), Level Manager (5)
+23. **Chaos Meter UI** — depends on: Chaos Meter (13), Viewport Config (2)
+18. **Dialogue UI System** — depends on: Dialogue (17), Audio Manager (3)
+19. **Feeding Cutscene System** — depends on: Dialogue (17), Chaos Meter (13)
+24. **HUD / Game UI** — depends on: Chaos Meter UI (23), Nine Lives (16)
+22. **Save / Load System** — depends on: Notoriety (21), Level Manager (5)
 
 ### Art Pipeline Layer (depends on Foundation — parallel track)
 

@@ -269,7 +269,7 @@ meter_value = clamp( clamp(chaos_subtotal, 0.0, C_ceil) + charm_subtotal, 0.0, 1
 |--------|------------|------|-------|-------------|
 | `M` | `meter_value` | float | [0.0, 1.0] | Final meter value exposed to UI and threshold evaluator |
 | `CS` | `chaos_subtotal` | float | [0.0, ∞) | Accumulated sum of all chaos contributions; not internally clamped |
-| `XS` | `charm_subtotal` | float | [0.0, 1.0] | Accumulated sum of all charm contributions; uncapped |
+| `XS` | `charm_subtotal` | float | [0.0, +inf) | Accumulated sum of all charm contributions; uncapped |
 | `C_ceil` | `chaos_ceiling` | float | (0.0, 1.0) | Maximum meter value reachable from chaos contributions alone; default `0.65` |
 | `F_thresh` | `feeding_threshold` | float | (0.0, 1.0) | Meter value at which `feeding_threshold_reached` is emitted; default `0.85` |
 

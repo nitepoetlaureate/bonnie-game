@@ -1,0 +1,4 @@
+kind context
+edge explains commit:fcef2fbdf8d32657ccf3c83dfe14c3c3112935f6
+
+Session 008 final: GATE 1 PASS + GATE 2 PASS. T-CHAOS (13), T-SOC (12), T-FOUND-06 (23) all authored and approved. NpcState write contract locked. Design reviews passed with fixes. 11/11 MVP GDDs approved. Sprint 1 planning unblocked.

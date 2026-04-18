@@ -61,6 +61,37 @@ Cross-referenced all three GDDs (NPC System 9, Social System 12, Chaos Meter 13)
 
 ---
 
+### Chaos Meter UI GDD (System 23) ✅ DRAFT COMPLETE + APPROVED
+
+Authored `design/gdd/chaos-meter-ui.md` with all 8 required sections. Key design decisions:
+
+- **Vertical fill gauge**: 12x80px in bottom-right corner. Narrow, unobtrusive, always visible.
+- **Dual-color fill**: Orange (chaos) from bottom, teal (charm) stacked on top. Player sees where progress came from at a glance.
+- **Threshold markers**: Subtle grey tick for chaos ceiling, prominent gold tick for feeding threshold. Gold marker moves when hunger reduces effective threshold.
+- **Contribution flash**: White flash (6 frames) on new contributions. Additive for rapid events, capped at 18 frames.
+- **Feeding-ready pulse**: Gold-white pulse when meter reaches effective threshold. Communicates "ready" without urgency.
+- **No HP-bar anxiety**: No red, no warnings, no urgency. Progress only goes up. The meter waits patiently.
+
+---
+
+### Design Reviews — All Three GDDs Approved
+
+Ran parallel design reviews on all three new GDDs (Systems 12, 13, 23). All passed with warnings (no blockers):
+
+- **Chaos Meter (13)**: Fixed hunger context attribution (B-01), added dependent-range note to chaos_ceiling safe range (B-02)
+- **Social System (12)**: Reconciled goodwill formula with NPC Personality (comfort_receptivity scaling), clarified purr example assumes comfort_receptivity=1.0
+- **Chaos Meter UI (23)**: Added individual charm fill height clamp, added hunger-aware effective_threshold for marker positioning
+
+All three GDDs marked Approved. Systems-index updated to 11/11 MVP approved.
+
+---
+
+### GATE 2 — PASSED ✅
+
+All 11 MVP GDDs are now approved. GATE 2 clears the path for Sprint 1 planning and production implementation.
+
+---
+
 ### Mycelium Compost
 
 23 stale notes (on old blob OIDs) reduced to 0. Notes were either renewed on current blob versions or composted with replacement context notes on HEAD. Knowledge preserved; noise eliminated.
@@ -80,6 +111,10 @@ Cross-referenced all three GDDs (NPC System 9, Social System 12, Chaos Meter 13)
 | `DEVLOG.md` | UPDATED — Session 008 narrative |
 | `CHANGELOG.md` | UPDATED — Pre-Production 0.7 entry |
 | Mycelium | HEAD context note + compost (23→0 stale) |
+| `design/gdd/chaos-meter-ui.md` | NEW — System 23 MVP GDD, 8 sections |
+| Design reviews (3x) | PASSED — all 3 GDDs reviewed and approved with fixes |
+| `design/gdd/systems-index.md` | UPDATED — 11/11 MVP approved |
+| GATE 2 | **PASSED** — all 11 MVP GDDs approved |
 
 ---
 

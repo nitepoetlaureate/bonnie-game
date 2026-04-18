@@ -66,17 +66,17 @@ No code changes required. GATE 1 clears the path for Phase 3 GDDs.
 
 ### What Does NOT Exist Yet
 
-- Chaos Meter UI GDD — **BLOCKED on T-CHAOS approval** (System 23, last MVP GDD)
-- Sprint 1 plan — **BLOCKED on GATE 2**
+- Sprint 1 plan — **UNBLOCKED** (GATE 2 passed)
 - Any production code in `src/`
 - Any art assets in `assets/`
 
-### What Is In Draft (Needs `/design-review`)
+### Newly Approved This Session
 
 | File | Status | Notes |
 |------|--------|-------|
-| `design/gdd/chaos-meter.md` | Draft | System 13 — dual-axis meter, charm-required proof, gift horror → chaos |
-| `design/gdd/bidirectional-social-system.md` | Draft | System 12 — 5 charm verbs, NpcState write contract, no-HUD legibility |
+| `design/gdd/chaos-meter.md` | Approved | System 13 — dual-axis meter, charm-required proof, gift horror → chaos |
+| `design/gdd/bidirectional-social-system.md` | Approved | System 12 — 5 charm verbs, NpcState write contract, no-HUD legibility |
+| `design/gdd/chaos-meter-ui.md` | Approved | System 23 — vertical fill gauge, dual-color, hunger-aware threshold marker |
 
 ---
 
@@ -106,11 +106,7 @@ All decisions from Sessions 001-005 still apply. Session 006 additions:
 ```
 Session 008: GATE 1 ✅ PASSED, T-CHAOS + T-SOC DRAFTED ✅
      |
-/design-review chaos-meter + bidirectional-social-system  ← NEXT
-     |
-T-FOUND-06 (Chaos Meter UI GDD — System 23, last MVP GDD)
-     |
-GATE 2 (all 11 MVP GDDs approved — currently 8/11 approved, 10/11 started)
+GATE 2 ✅ PASSED (all 11 MVP GDDs approved — 11/11)
      |
 T-SPRINT-01 (Sprint 1 plan)
      |
@@ -121,27 +117,24 @@ T-IMPL (Sprint 1 Implementation)
 
 ## Session 009 Opening Protocol
 
-### Priority 0: Design Review + GATE 2
+### Priority 0: Sprint 1 Planning
 
-Run `/design-review` on both new GDDs:
-1. `design/gdd/chaos-meter.md` (System 13)
-2. `design/gdd/bidirectional-social-system.md` (System 12)
+GATE 2 passed Session 008. All 11 MVP GDDs are approved. The critical path is now:
+1. Draft Sprint 1 plan covering foundation systems: Input System (1), Viewport Config (2), BONNIE Traversal (6) production rewrite from prototype to `src/`
+2. Consider which systems can be implemented in parallel vs. which must be sequential
+3. Identify the first playable milestone: BONNIE moving in a production scene with input + viewport + camera
 
-If both pass review → update systems-index status to Approved (10/11 approved).
-Then author `design/gdd/chaos-meter-ui.md` (System 23) — the last MVP GDD.
-When System 23 is approved → trigger GATE 2 evaluation (11/11 MVP approved).
+### Priority 1: Production Code Setup
 
-### Priority 1: T-FOUND-06 (Chaos Meter UI GDD)
+Create the `src/` directory structure per `directory-structure.md`. Set up:
+- Core autoloads (InputManager, AudioManager)
+- Scene structure for the production level
+- GUT test framework integration
 
-Author System 23 after T-CHAOS is approved. This is the final GATE 2 blocker.
-Key constraints:
-- Chaos Meter UI must visualize the dual-axis (chaos + charm) in a single meter
-- Must communicate that charm contributions are intentional, not accidental
-- Must not create HP-bar anxiety — this is progress, not health
+### Priority 2: Begin Sprint 1 Implementation (Post-Plan Approval)
 
-### Priority 2: Sprint 1 Planning (Post-GATE 2)
-
-If GATE 2 passes: draft Sprint 1 plan covering Input System (1), Viewport Config (2), BONNIE Traversal (6) foundation rewrite from prototype to `src/`.
+Once Sprint 1 plan is approved (GATE 3), begin implementing foundation systems.
+Target: BONNIE traversal rewrite from `prototypes/bonnie-traversal/BonnieController.gd` to production-quality `src/gameplay/bonnie_controller.gd` with full type annotations, dependency injection, and GUT test coverage.
 
 ### Key Decisions Locked in Session 008
 
@@ -185,7 +178,7 @@ Address in production rewrite in `src/` only:
 |------|-----------|--------|---------|
 | GATE 0 | Camera + Viewport GDDs approved | CLEARED ✅ | Streams A+B+C |
 | GATE 1 | Prototype playtested, ACs pass, tuning locked | **PASS** ✅ Session 008 | Phase 3 GDDs |
-| GATE 2 | All 11 MVP GDDs approved (8/11 approved, 10/11 started) | Pending | Sprint 1 plan |
+| GATE 2 | All 11 MVP GDDs approved (11/11) | **PASS** ✅ Session 008 | Sprint 1 plan |
 | GATE 3 | Sprint 1 plan approved | Pending | Implementation |
 
 ---
@@ -203,5 +196,6 @@ Flag when NPC GDD enters implementation phase.
 
 ---
 
-*Hawaii Zeke — Session 008 complete. GATE 1 passed. T-CHAOS + T-SOC drafted. NpcState contract locked.
-23 stale Mycelium notes composted. Design review + GATE 2 are the next milestones.*
+*Hawaii Zeke — Session 008 complete. GATE 1 passed. GATE 2 passed. All 11 MVP GDDs approved.
+T-CHAOS + T-SOC + T-FOUND-06 authored and reviewed. NpcState contract locked.
+23 stale Mycelium notes composted. Sprint 1 planning is the next milestone.*

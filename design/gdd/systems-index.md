@@ -39,8 +39,8 @@ gameplay, and can be developed in parallel with design work.
 | 9 | Reactive NPC System | Gameplay | MVP | Approved | design/gdd/npc-personality.md | Traversal (6), Level Manager (5) |
 | 10 | NPC Behavior / Routine System (inferred) | Gameplay | Vertical Slice | Not Started | — | Reactive NPC (9) |
 | 11 | NPC Relationship Graph (inferred) | Gameplay | Vertical Slice | Not Started | — | Reactive NPC (9) |
-| 12 | Bidirectional Social System | Gameplay | MVP | Draft | design/gdd/bidirectional-social-system.md | Traversal (6), NPC (9) |
-| 13 | Chaos Meter | Gameplay | MVP | Draft | design/gdd/chaos-meter.md | Social (12), Chaos (8), Pest (15) |
+| 12 | Bidirectional Social System | Gameplay | MVP | Approved | design/gdd/bidirectional-social-system.md | Traversal (6), NPC (9) |
+| 13 | Chaos Meter | Gameplay | MVP | Approved | design/gdd/chaos-meter.md | Social (12), Chaos (8), Pest (15) |
 | 14 | Antagonist / Trap System | Gameplay | Vertical Slice | Not Started | — | NPC (9), Chaos (8), Traversal (6) |
 | 15 | Pest / Survival System | Gameplay | Alpha | Not Started | — | Traversal (6), Objects (7) |
 | 16 | Nine Lives System (inferred) | Gameplay | Alpha | Not Started | — | Traversal (6), Level Manager (5) |
@@ -50,7 +50,7 @@ gameplay, and can be developed in parallel with design work.
 | 20 | Mini-Game Framework | Gameplay | Alpha | Not Started | — | Input (1), Nine Lives (16) |
 | 21 | Notoriety System | Progression | Alpha | Not Started | — | Chaos Meter (13), Level Manager (5) |
 | 22 | Save / Load System (inferred) | Persistence | Full Vision | Not Started | — | Notoriety (21), Level Manager (5) |
-| 23 | Chaos Meter UI (inferred) | UI | MVP | Not Started | — | Chaos Meter (13) |
+| 23 | Chaos Meter UI | UI | MVP | Approved | design/gdd/chaos-meter-ui.md | Chaos Meter (13), Viewport Config (2) |
 | 24 | HUD / Game UI (inferred) | UI | Full Vision | Not Started | — | Chaos Meter UI (23), Nine Lives (16) |
 | 25 | Parallax Background System (inferred) | Rendering | Alpha | Not Started | — | Viewport Config (2), Camera (4) |
 | 26 | Aseprite Export Pipeline (inferred) | Art Pipeline | Vertical Slice | Not Started | — | Viewport Config (2) |
@@ -207,10 +207,10 @@ after their GDD is written — don't wait until Alpha.
 | Metric | Count |
 |--------|-------|
 | Total systems identified | 27 |
-| Design docs started | 10 |
-| Design docs reviewed | 8 |
-| Design docs approved | 8 |
-| MVP systems designed | 10 / 11 |
+| Design docs started | 11 |
+| Design docs reviewed | 11 |
+| Design docs approved | 11 |
+| MVP systems designed | 11 / 11 |
 | Vertical Slice systems designed | 0 / 7 |
 | Alpha systems designed | 0 / 6 |
 | Full Vision systems designed | 0 / 3 |

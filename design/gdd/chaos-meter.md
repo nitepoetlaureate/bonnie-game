@@ -1,6 +1,6 @@
 # Chaos Meter
 
-> **Status**: Draft
+> **Status**: Approved
 > **System**: #13 — Chaos Meter
 > **Priority**: MVP
 > **Authors**: game-designer (Session 008)
@@ -654,7 +654,7 @@ The proof is robust: no combination of chaos-only contributions can satisfy `M >
 | Reactive NPC System (9) | Chaos Meter reads from | Reads `current_behavior` transitions to detect REACTING events; reads `goodwill` for charm bonus evaluation; reads `bonnie_hunger_context` for threshold modifier |
 | Bidirectional Social System (12) | Chaos Meter reads from | VULNERABLE comfort events generate charm contributions; goodwill values determine charm-boosted reaction eligibility |
 | Environmental Chaos System (8) | Chaos Meter reads from | Reads `object_displaced` signals and `weight_class_multiplier` per object |
-| Pest / Survival System (15) | Chaos Meter reads from | Reads pest catch events for `pest_catch_base` contributions; reads `bonnie_hunger_context` flag |
+| Pest / Survival System (15) | Chaos Meter reads from | Reads pest catch events for `pest_catch_base` contributions. Note: `bonnie_hunger_context` is read from NpcState (System 9), not from the Pest system directly — System 15 triggers the hunger timer, but the flag lives on NpcState. |
 | Chaos Meter UI (23) | Depends on Chaos Meter | Reads `meter_value` each frame for display; listens for atmosphere signals |
 | Audio Manager (3) | Depends on Chaos Meter (indirect) | Atmosphere signals (`chaos_meter_low/mid/high`) drive music layer transitions |
 | Level Manager (5) | Depends on Chaos Meter (indirect) | `feeding_threshold_reached` enables level completion via FED state |
@@ -674,7 +674,7 @@ The proof is robust: no combination of chaos-only contributions can satisfy `M >
 
 | Parameter | Default | Safe Range | Effect of Increase | Effect of Decrease |
 |-----------|---------|------------|-------------------|-------------------|
-| `chaos_ceiling` | 0.65 | [0.40, 0.80] | More meter reachable via pure chaos; charm less critical. At 0.80+: charm becomes trivially easy. | Less meter from chaos; charm becomes dominant path. At 0.40-: chaos feels unrewarding. |
+| `chaos_ceiling` | 0.65 | [0.40, 0.80] — **dependent range**: upper bound must satisfy `chaos_ceiling < feeding_threshold - hunger_threshold_reduction` at all times. At defaults: `0.65 < 0.85 - 0.10 = 0.75`. At extremes: `feeding_threshold=0.70, hunger_threshold_reduction=0.20` → ceiling must be `< 0.50`. | More meter reachable via pure chaos; charm less critical. At 0.80+: charm becomes trivially easy. | Less meter from chaos; charm becomes dominant path. At 0.40-: chaos feels unrewarding. |
 | `feeding_threshold` | 0.85 | [0.70, 0.95] | Harder to reach feeding; longer sessions. At 0.95: frustrating grind. | Easier feeding; shorter sessions. At 0.70: too easy, no tension. |
 | **CONSTRAINT**: `chaos_ceiling` must ALWAYS be less than `feeding_threshold - hunger_threshold_reduction`. If violated, the charm-required proof breaks and pure chaos can reach FED. | | | | |
 

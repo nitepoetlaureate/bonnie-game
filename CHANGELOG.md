@@ -30,9 +30,18 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - **Gift Horror → Chaos**: Horrified NPC reaction adds to chaos_subtotal, not charm
 - **Chaos Ceiling**: 0.65 < feeding_threshold 0.85 — charm mathematically required (proven §4.5)
 
+### Added — GDD (Session 008, continued)
+- `design/gdd/chaos-meter-ui.md` — Chaos Meter UI GDD (System 23): vertical fill gauge, dual-color chaos/charm, hunger-aware threshold marker, contribution flash, feeding-ready pulse, 10 ACs
+
+### Changed — Design Review Fixes (Session 008)
+- `design/gdd/chaos-meter.md` — Fixed hunger context attribution in §6, added dependent-range constraint note to chaos_ceiling in §7
+- `design/gdd/bidirectional-social-system.md` — Added comfort_receptivity scaling to goodwill formula in §4.1, clarified purr example in §4.4
+- `design/gdd/chaos-meter-ui.md` — Added individual charm fill height clamp in §4.1, hunger-aware effective_threshold for marker positioning in §3.1/§3.4/§3.6/§4.2
+- `design/gdd/systems-index.md` — All 11 MVP GDDs now Approved (11/11/11)
+
 ### GATE Status
 - GATE 1: **PASS** ✅ — 9 PASS / 2 PARTIAL / 2 UNTESTED / 2 DEFERRED. Core traversal identity validated.
-- GATE 2: Pending — 8/11 approved, 10/11 started. Needs: design review of Systems 12+13, then System 23 (Chaos Meter UI).
+- GATE 2: **PASS** ✅ — All 11 MVP GDDs approved. Sprint 1 planning unblocked.
 
 ---
 

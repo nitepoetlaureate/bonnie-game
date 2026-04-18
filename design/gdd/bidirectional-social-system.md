@@ -1,6 +1,6 @@
 # Bidirectional Social System
 
-> **Status**: Draft
+> **Status**: Approved
 > **System**: #12
 > **Priority**: MVP
 > **Created**: 2026-04-17
@@ -328,11 +328,15 @@ action.
 
 ### 4.1 Goodwill Modification
 
-All goodwill changes are applied as additive deltas, clamped to `[0.0, 1.0]`:
+All goodwill changes from charm verbs are scaled by the NPC's current `comfort_receptivity` (read from NpcState), then applied as additive deltas, clamped to `[0.0, 1.0]`:
 
 ```
-goodwill_new = clamp(goodwill + Δgoodwill, 0.0, 1.0)
+goodwill_new = clamp(goodwill + (Δgoodwill × comfort_receptivity), 0.0, 1.0)
 ```
+
+This means charm interactions are less effective on NPCs who are currently unreceptive (e.g., RECOVERING at `comfort_receptivity = 0.15` yields only 15% of the base delta). Chaos goodwill penalties are NOT scaled by `comfort_receptivity` — they apply at full strength regardless of NPC state.
+
+**Note**: `npc-personality.md` §4.2 uses the same formula. This system (Social) is the writer; NPC Personality defines the receptivity values. Both must agree on this contract.
 
 **Charm verb deltas:**
 
@@ -416,9 +420,10 @@ effective_purr_rate = purr_goodwill_rate × levity_multiplier
 | `purr_goodwill_rate` | 0.025/s | Social System | Base purr goodwill rate |
 | `levity_multiplier` | 1.5 | NPC personality (System 9) | Post-chaos emotional contrast bonus |
 
-**Example — full VULNERABLE purr sequence:**
+**Example — full VULNERABLE purr sequence** (assumes `comfort_receptivity = 1.0`):
 BONNIE sits near VULNERABLE NPC for 2s (onset) → sits for 4s (purr onset) → purrs for 10s.
-Goodwill earned: `(2s × 0.02) + (4s × 0.02) + (10s × 0.0375) = 0.04 + 0.08 + 0.375 = 0.495`
+Goodwill earned: `(2s × 0.02 × 1.0) + (4s × 0.02 × 1.0) + (10s × 0.0375 × 1.0) = 0.04 + 0.08 + 0.375 = 0.495`
+Note: At `comfort_receptivity = 0.5` (partially receptive), total would be `0.2475`.
 
 ---
 

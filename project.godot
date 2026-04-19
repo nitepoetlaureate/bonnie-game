@@ -11,9 +11,15 @@ config_version=5
 [application]
 
 config/name="BONNIE!"
-run/main_scene="res://prototypes/bonnie-traversal/TestLevel.tscn"
+run/main_scene="res://src/level/level_02_apartment.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+InputManager="*res://src/core/input_manager.gd"
+ViewportGuard="*res://src/core/viewport_guard.gd"
+AudioManager="*res://src/core/audio_manager.gd"
 
 [display]
 
@@ -23,6 +29,10 @@ window/size/initial_position_type=0
 window/size/window_width_override=1440
 window/size/window_height_override=1080
 window/stretch/mode="viewport"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 

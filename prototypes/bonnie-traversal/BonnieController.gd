@@ -1,4 +1,4 @@
-class_name BonnieController
+## Prototype — class_name removed to avoid conflict with production src/gameplay/bonnie_controller.gd
 extends CharacterBody2D
 
 # =============================================================================

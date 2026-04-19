@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://gwhsnf3n9zqnx"]
+
+[ext_resource type="Script" path="res://src/gameplay/bonnie_controller.gd" id="1_gnpbk"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mqy30"]
+radius = 8.0
+height = 32.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ovt2r"]
+radius = 4.0
+height = 8.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnlls"]
+radius = 24.0
+
+[node name="BonnieController" type="CharacterBody2D"]
+script = ExtResource("1_gnpbk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_mqy30")
+
+[node name="SqueezeShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 14)
+disabled = true
+shape = SubResource("CapsuleShape2D_ovt2r")
+
+[node name="PlaceholderSprite" type="ColorRect" parent="."]
+offset_left = -8.0
+offset_top = -16.0
+offset_right = 8.0
+offset_bottom = 16.0
+color = Color(1, 0.4, 0.2, 1)
+
+[node name="ParryCast" type="ShapeCast2D" parent="."]
+max_results = 4
+target_position = Vector2(0, 0)
+shape = SubResource("CircleShape2D_dnlls")
+
+[node name="CeilingCast" type="RayCast2D" parent="."]
+target_position = Vector2(0, -20)
+enabled = true

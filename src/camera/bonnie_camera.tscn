@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ls8xmdp7tnux6"]
+
+[ext_resource type="Script" path="res://src/camera/bonnie_camera.gd" id="1_93l8t"]
+
+[node name="BonnieCamera" type="Camera2D"]
+script = ExtResource("1_93l8t")

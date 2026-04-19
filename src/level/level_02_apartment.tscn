@@ -1,0 +1,92 @@
+[gd_scene load_steps=12 format=3 uid="uid://cmsggd53goc5h"]
+
+[ext_resource type="Script" path="res://src/level/level_manager.gd" id="1_ygilw"]
+
+[ext_resource type="Script" path="res://src/level/room.gd" id="2_njqnl"]
+
+[ext_resource type="PackedScene" path="res://src/gameplay/bonnie_controller.tscn" id="4_w4xwy"]
+
+[ext_resource type="PackedScene" path="res://src/camera/bonnie_camera.tscn" id="5_b3ho7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0gp1k"]
+size = Vector2(2200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rdjnw"]
+size = Vector2(20, 540)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jsv07"]
+size = Vector2(20, 540)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rn53c"]
+size = Vector2(2200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ouefb"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p9kjm"]
+size = Vector2(20, 180)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_95u48"]
+size = Vector2(60, 40)
+
+[node name="Level02Apartment" type="Node2D"]
+script = ExtResource("1_ygilw")
+
+[node name="LivingRoom" type="Node2D" parent="."]
+script = ExtResource("2_njqnl")
+room_id = &"living_room"
+bounds = Rect2(0, 0, 1200, 540)
+adjacent_rooms = Array[StringName]([&"kitchen"])
+
+[node name="Kitchen" type="Node2D" parent="."]
+script = ExtResource("2_njqnl")
+room_id = &"kitchen"
+bounds = Rect2(1200, 0, 1000, 540)
+adjacent_rooms = Array[StringName]([&"living_room"])
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(1100, 540)
+
+[node name="FloorShape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_0gp1k")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-10, 270)
+
+[node name="LeftWallShape" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_rdjnw")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(2210, 270)
+
+[node name="RightWallShape" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_jsv07")
+
+[node name="Ceiling" type="StaticBody2D" parent="."]
+position = Vector2(1100, -10)
+
+[node name="CeilingShape" type="CollisionShape2D" parent="Ceiling"]
+shape = SubResource("RectangleShape2D_rn53c")
+
+[node name="HighPlatform" type="StaticBody2D" parent="."]
+position = Vector2(300, 380)
+
+[node name="HighPlatformShape" type="CollisionShape2D" parent="HighPlatform"]
+shape = SubResource("RectangleShape2D_ouefb")
+
+[node name="ClimbableWall" type="StaticBody2D" parent="." groups=["Climbable"]]
+position = Vector2(600, 370)
+
+[node name="ClimbableWallShape" type="CollisionShape2D" parent="ClimbableWall"]
+shape = SubResource("RectangleShape2D_p9kjm")
+
+[node name="SqueezeTrigger" type="Area2D" parent="." groups=["SqueezeTrigger"]]
+position = Vector2(1200, 510)
+
+[node name="SqueezeTriggerShape" type="CollisionShape2D" parent="SqueezeTrigger"]
+shape = SubResource("RectangleShape2D_95u48")
+
+[node name="Bonnie" parent="." instance=ExtResource("4_w4xwy")]
+position = Vector2(200, 520)
+
+[node name="Camera" parent="." instance=ExtResource("5_b3ho7")]

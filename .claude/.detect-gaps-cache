@@ -1,4 +1,6 @@
 === Checking for Documentation Gaps ===
+⚠️  GAP: Core engine/systems exist but no docs/architecture/ directory
+    Suggested action: Create docs/architecture/ and run /architecture-decision
 
 💡 To get a comprehensive project analysis, run: /project-stage-detect
 ===================================

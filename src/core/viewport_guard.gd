@@ -20,7 +20,9 @@ const TARGET_FPS: int = 60
 
 ## Returns the largest integer scale that fits the given display size.
 func get_integer_scale(display_size: Vector2) -> int:
+	@warning_ignore("integer_division")
 	var scale_x: int = int(display_size.x) / INTERNAL_WIDTH
+	@warning_ignore("integer_division")
 	var scale_y: int = int(display_size.y) / INTERNAL_HEIGHT
 	return maxi(1, mini(scale_x, scale_y))
 
@@ -28,6 +30,7 @@ func get_integer_scale(display_size: Vector2) -> int:
 ## Returns the width of each pillarbox bar (one side) for a widescreen display.
 func get_pillarbox_width(display_width: int, scale: int) -> int:
 	var rendered_width: int = INTERNAL_WIDTH * scale
+	@warning_ignore("integer_division")
 	return (display_width - rendered_width) / 2
 
 

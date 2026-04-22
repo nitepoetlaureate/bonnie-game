@@ -126,7 +126,6 @@ const LOOK_AHEAD_BY_STATE: Dictionary = {
 @onready var _squeeze_shape: CollisionShape2D = $SqueezeShape
 @onready var _sprite: ColorRect = $PlaceholderSprite
 @onready var _parry_cast: ShapeCast2D = $ParryCast
-@onready var _ceiling_cast: RayCast2D = $CeilingCast
 
 
 # -- Runtime State ------------------------------------------------------------
@@ -524,18 +523,18 @@ func _handle_jumping(delta: float) -> void:
 		_at_apex = true
 		double_jump_window_timer = double_jump_window_frames
 
+	# Air control
+	var input_vec: Vector2 = InputManager.get_movement_vector()
+
 	# Double jump
 	if _at_apex and double_jump_available and double_jump_window_timer > 0:
 		if Input.is_action_just_pressed(&"jump"):
-			var input_vec: Vector2 = InputManager.get_movement_vector()
 			velocity.y = -double_jump_velocity
 			velocity.x = lerpf(velocity.x, input_vec.x * run_max_speed, double_jump_redirect_factor)
 			double_jump_available = false
 			_post_double_jumped = true
 			double_jump_window_timer = 0
 
-	# Air control
-	var input_vec: Vector2 = InputManager.get_movement_vector()
 	var air_ctrl: float = post_double_jump_air_control if _post_double_jumped else air_control_force
 	if input_vec.x != 0.0:
 		facing_direction = sign(input_vec.x)

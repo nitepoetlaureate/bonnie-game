@@ -66,8 +66,8 @@ func set_room_bounds(bounds: Rect2) -> void:
 
 
 ## Set ledge bias offset (called by physics-aware systems, not camera itself).
-func set_ledge_bias(offset: Vector2) -> void:
-	_ledge_bias_offset = offset
+func set_ledge_bias(bias: Vector2) -> void:
+	_ledge_bias_offset = bias
 
 
 # -- Engine Callbacks ---------------------------------------------------------
@@ -76,6 +76,13 @@ func _ready() -> void:
 	_current_zoom = zoom_normal
 	# Disable Godot's built-in camera smoothing — we do our own lerp
 	position_smoothing_enabled = false
+
+	# Auto-find BONNIE if target not set in inspector
+	if target == null:
+		var bonnie: Node = get_tree().get_first_node_in_group(&"Bonnie")
+		if bonnie is CharacterBody2D:
+			target = bonnie
+			global_position = target.global_position
 
 
 func _process(delta: float) -> void:

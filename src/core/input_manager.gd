@@ -38,8 +38,6 @@ signal input_device_changed(device_type: StringName)
 var _jump_buffer_timer: int = 0
 ## Counts down each physics frame. Set to coyote_time_frames when leaving ground.
 var _coyote_timer: int = 0
-## Whether BONNIE was on the floor last physics frame (for coyote detection).
-var _was_on_floor: bool = false
 ## Tracks which device was last used for input_device_changed signal.
 var _last_device: StringName = &"keyboard"
 

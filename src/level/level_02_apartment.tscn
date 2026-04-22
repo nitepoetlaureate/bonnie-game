@@ -90,3 +90,59 @@ shape = SubResource("RectangleShape2D_95u48")
 position = Vector2(200, 520)
 
 [node name="Camera" parent="." instance=ExtResource("5_b3ho7")]
+
+[node name="FloorVisual" type="ColorRect" parent="Floor"]
+offset_left = -1100.0
+offset_top = -10.0
+offset_right = 1100.0
+offset_bottom = 10.0
+color = Color(0.3, 0.25, 0.2, 1)
+
+[node name="LeftWallVisual" type="ColorRect" parent="LeftWall"]
+offset_left = -10.0
+offset_top = -270.0
+offset_right = 10.0
+offset_bottom = 270.0
+color = Color(0.35, 0.3, 0.25, 1)
+
+[node name="RightWallVisual" type="ColorRect" parent="RightWall"]
+offset_left = -10.0
+offset_top = -270.0
+offset_right = 10.0
+offset_bottom = 270.0
+color = Color(0.35, 0.3, 0.25, 1)
+
+[node name="CeilingVisual" type="ColorRect" parent="Ceiling"]
+offset_left = -1100.0
+offset_top = -10.0
+offset_right = 1100.0
+offset_bottom = 10.0
+color = Color(0.4, 0.35, 0.3, 1)
+
+[node name="HighPlatformVisual" type="ColorRect" parent="HighPlatform"]
+offset_left = -100.0
+offset_top = -10.0
+offset_right = 100.0
+offset_bottom = 10.0
+color = Color(0.5, 0.4, 0.3, 1)
+
+[node name="ClimbableWallVisual" type="ColorRect" parent="ClimbableWall"]
+offset_left = -10.0
+offset_top = -90.0
+offset_right = 10.0
+offset_bottom = 90.0
+color = Color(0.2, 0.5, 0.3, 1)
+
+[node name="SqueezeGapVisual" type="ColorRect" parent="SqueezeTrigger"]
+offset_left = -30.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 20.0
+color = Color(0.6, 0.2, 0.2, 0.4)
+
+[node name="DoorwayVisual" type="ColorRect" parent="."]
+offset_left = 1190.0
+offset_top = 0.0
+offset_right = 1210.0
+offset_bottom = 540.0
+color = Color(0.15, 0.15, 0.15, 0.3)

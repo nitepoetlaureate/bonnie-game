@@ -1,201 +1,136 @@
-# BONNIE! — Next Steps Handoff
+# BONNIE! -- Next Steps Handoff
 
-**For**: Session 009
-**Written by**: Hawaii Zeke (Claude) on 2026-04-17
-**Context**: Session 008 complete. GATE 1 PASSED. T-CHAOS + T-SOC GDD drafts complete. GATE 2 pending.
-**Immediate priority**: Design review of T-CHAOS + T-SOC → GATE 2 → T-FOUND-06 (Chaos Meter UI) → Sprint 1
+**For**: Session 010
+**Written by**: Hawaii Zeke (Claude) on 2026-04-22
+**Context**: Session 009 complete. Sprint 1 First Playable BUILT. All production code in src/. 184 GUT tests written. Game launches and BONNIE is visible in 2-room graybox. Aseprite MCP pipeline proven.
+**Immediate priority**: GATE 3 manual playtest -> Sprite integration -> RetroDiffusion pipeline -> Sprint 2 planning
 
 Read this file first. Then read the locked decisions section before touching anything.
 
 ---
 
-## Session 008 Summary
+## What Session 009 Accomplished
 
-### What Was Done
+### Sprint 1: First Playable -- COMPLETE
+- **7 production systems** in `src/`: InputManager (#1), ViewportGuard (#2), AudioManager (#3), BonnieCamera (#4), LevelManager (#5), BonnieController (#6), Room
+- **184 GUT tests** across 7 test files (unit + integration)
+- **3 scene files** via gdcli MCP: `bonnie_controller.tscn`, `bonnie_camera.tscn`, `level_02_apartment.tscn`
+- **Graybox apartment**: 2 rooms with visible collision geometry (ColorRect children on StaticBody2D)
+- **Aseprite pipeline proven**: 16x32 cat placeholder sprite, 10 frames, 3 animations (idle/walk/run), exported to spritesheet + JSON
 
-| Area | Result |
-|------|--------|
-| GATE 1 closure | **PASS** — 9 ACs pass, 2 deferred (camera → VS, stealth → System 9) |
-| PLAYTEST-003 | Written — slide rhythm re-test confirms AC-T03, AC-T06b, AC-T06d |
-| T-CHAOS GDD | **DRAFT COMPLETE** — `design/gdd/chaos-meter.md`, all 8 sections |
-| T-SOC GDD | **DRAFT COMPLETE** — `design/gdd/bidirectional-social-system.md`, all 8 sections |
-| NpcState contract | **LOCKED** — field ownership defined across Systems 9, 12, 13 |
-| Gift horror decision | Implemented — horrified NPC reaction → chaos_subtotal (user decision) |
-| Mycelium compost | 23 stale notes → 0 stale (renewed or composted with replacements) |
-| Systems-index | Updated 8→10 started, MVP progress 10/11 |
-| bonnie-traversal.md | §8 AC status markers added to all 15 ACs, summary table, GATE 1 verdict |
-
-### GATE 1 Status — ✅ PASS (Session 008)
-
-**Final disposition (PLAYTEST-003, 2026-04-17):**
-
-| Category | Count | ACs |
-|----------|-------|-----|
-| PASS | 9 | AC-T03, AC-T06, AC-T06b, AC-T06c, AC-T06c2, AC-T06d, AC-T06e, AC-T06f, AC-T07 |
-| PARTIAL | 2 | AC-T02 (stealth radius deferred), AC-T04 (visual dynamism deferred) |
-| UNTESTED | 2 | AC-T01 (debug HUD needed), AC-T05 (speed measurement needed) |
-| DEFERRED | 2 | AC-T08 (camera → Vertical Slice), stealth radius (→ System 9) |
-
-Core traversal identity validated. Slide rhythm confirmed. Claw brake at 0.30 is adequate.
-No code changes required. GATE 1 clears the path for Phase 3 GDDs.
+### Key Commits
+- `9588c42` -- Fix charm_subtotal range notation
+- `0de7590` -- Session 009: Sprint 1 First Playable (225 files, 19937 insertions)
+- (Final commit with warning fixes, graybox visuals, sprite assets -- pending at session end)
 
 ---
 
-## Current State
+## What Needs Doing Next (Priority Order)
 
-### What Is Done and Approved
+### 1. GATE 3 Manual Playtest (BLOCKING)
+GUT tests are written but not yet run in-engine. Manual playtest checklist:
+- [ ] Game launches from editor (press Play)
+- [ ] BONNIE (orange rectangle) visible on brown floor
+- [ ] A/D or arrows move BONNIE left/right
+- [ ] Space jumps, hold for higher
+- [ ] Shift+direction = run
+- [ ] Walk to right side = enters kitchen area (past doorway at x=1200)
+- [ ] Camera follows smoothly with look-ahead
+- [ ] Right-click = recon zoom out
 
-| File | Status | Notes |
-|------|--------|-------|
-| `design/gdd/game-concept.md` | Approved | Do not redesign. |
-| `design/gdd/systems-index.md` | Approved | 10/11 MVP started. Progress tracker updated Session 008. |
-| `design/gdd/input-system.md` | Approved | E key updated for DI-003 context-sensitivity. |
-| `design/gdd/viewport-config.md` | Approved | 720x540, nearest-neighbor, 60fps. |
-| `design/gdd/audio-manager.md` | Approved | 4 apartment mood variants added Session 006. |
-| `design/gdd/camera-system.md` | Approved | Look-ahead, ledge bias, recon zoom. |
-| `design/gdd/bonnie-traversal.md` | Approved | DI-001 + DI-003 amendments applied. |
-| `design/gdd/npc-personality.md` | Approved | Systems 9 vs 10/11 scope note. |
-| `design/gdd/level-manager.md` | Approved | System #5 — 7-room apartment, BFS attenuation. |
-| `design/gdd/interactive-object-system.md` | Approved | System #7 — 5 weight classes, receive_impact contract. |
-| `project.godot` | Configured | 720x540, input map, GodotPhysics2D, nearest-neighbor, gl_compatibility. |
-| `prototypes/bonnie-traversal/BonnieController.gd` | Updated S007 | soft_landing, dead vars removed, _try_airborne_climb extracted. |
-| `prototypes/bonnie-traversal/BonnieController.tscn` | Updated | SqueezeShape position=(0,14). |
-| `prototypes/bonnie-traversal/TestLevel.tscn` | Updated | SqueezeTrigger groups header fixed, ramp geometry removed. |
-| `prototypes/bonnie-traversal/PLAYTEST-002.md` | Written | Session 006 report. GATE 1 NEAR-PASS. |
-| `icon.svg` | Created S007 | Placeholder cat silhouette. Eliminates editor warning. |
+**Known issue**: GUT tests not yet run in Godot headless. Run: `godot --headless -s addons/gut/gut_cmdln.gd`
 
-### What Does NOT Exist Yet
+### 2. Sprite Integration
+Placeholder sprite exists at `assets/art/sprites/bonnie/bonnie_placeholder.aseprite` but is NOT wired in.
+- Swap `PlaceholderSprite` (ColorRect) in `bonnie_controller.tscn` for `AnimatedSprite2D`
+- Load spritesheet PNG + JSON into SpriteFrames resource
+- Wire animation changes to `state_changed` signal
+- Flip sprite based on `facing_direction`
 
-- Sprint 1 plan — **UNBLOCKED** (GATE 2 passed)
-- Any production code in `src/`
-- Any art assets in `assets/`
+### 3. RetroDiffusion Pipeline Setup
+- Configure ComfyUI on HF Space (private, Tailscale)
+- RetroDiffusion model weights (SD 1.5 fine-tuned)
+- Aseprite RetroDiffusion extension connecting to ComfyUI
+- Canvas <= 256px, steps 15-20 for CPU-only Space
+- Generate proper BONNIE cat sprites to replace placeholder
 
-### Newly Approved This Session
-
-| File | Status | Notes |
-|------|--------|-------|
-| `design/gdd/chaos-meter.md` | Approved | System 13 — dual-axis meter, charm-required proof, gift horror → chaos |
-| `design/gdd/bidirectional-social-system.md` | Approved | System 12 — 5 charm verbs, NpcState write contract, no-HUD legibility |
-| `design/gdd/chaos-meter-ui.md` | Approved | System 23 — vertical fill gauge, dual-color, hunger-aware threshold marker |
-
----
-
-## Locked Decisions — Do Not Re-Litigate
-
-All decisions from Sessions 001-005 still apply. Session 006 additions:
-
-### DI-001 — LEDGE_PULLUP Directional Pop (LOCKED)
-- Phase 1 (cling): `pullup_window_frames` (default 10) — reads directional input
-- Phase 2 (pop): directional input → `pullup_pop_velocity` launch + `pullup_pop_vertical` arc; no input → stationary clean pullup
-- This is a skill-expression layer, not a QoL auto-feature. Keep the timing window honest.
-
-### DI-003 — E Claw Brake during SLIDING (LOCKED, rhythm TBD)
-- E during SLIDING removes `abs(velocity.x) * claw_brake_multiplier` per tap
-- Default multiplier: 0.30. ~3 taps from full speed to stop. Tunable.
-- The "staccato rhythm" at high speed is a design aspiration — Session 007 determines if `claw_brake_multiplier` alone achieves it or if adaptive timing is needed.
-
-### Zone 8 SQUEEZING (LOCKED implementation)
-- SqueezeShape position=(0,14) MUST NOT change — this offset is load-bearing
-- SqueezeTrigger groups=["SqueezeTrigger"] is in node header — do not move to body
-- _squeeze_zone_active flag replaces CeilingCast for entry/exit — do not revert
+### 4. Sprint 2 Planning
+Systems to implement next:
+- NPC System (#9) -- depends on NpcState shared data object
+- Social System (#12) -- circular dependency with NPC resolved via NpcState
+- Chaos Meter (#13 + #23) -- UI + logic
+- Review which NPC behaviors are System 9 (MVP) vs System 10/11 (deferred)
 
 ---
 
-## Critical Path
+## Locked Decisions (DO NOT CHANGE)
+
+These values were confirmed during GATE 1 playtesting and Session 009 implementation:
+
+| Value | Setting | Why |
+|-------|---------|-----|
+| `claw_brake_multiplier` | 0.30 | GATE 1 confirmed. GDD says 0.55, prototype had 0.30. Playtest chose 0.30. |
+| `skid_friction_multiplier` | 0.15 | NOT 0.85. The prototype skeleton had a bug. 0.15 gives the "cat on hardwood" skid. |
+| `SqueezeShape.position` | (0, 14) | +14px offset aligns squeeze capsule bottom with normal capsule bottom. Removing causes float/fall cycle. |
+| Renderer | gl_compatibility | Forward+ compiled 60+ useless 3D shaders. gl_compatibility only. |
+| Resolution | 720x540, 4:3 | Nearest-neighbor, integer scale. Pillarbox on widescreen. |
+| Ledge parry | Frame-exact, NO buffer | Core identity mechanic. Never add input buffering to grab. |
+| InputManager owns | Jump buffer + coyote time + movement vector | Raw Input.is_action_pressed() only for hold-state queries in BonnieController |
+
+---
+
+## Warnings for Session 010
+
+1. **Stale worktrees**: 3 failed agent worktrees in `.claude/worktrees/agent-*`. They contain old prototype `class_name BonnieController`. Prototype was fixed (class_name removed) but worktrees persist. Delete them: `rm -rf .claude/worktrees/agent-*/ && git worktree prune`
+
+2. **Class cache**: If linter shows "Room not found" or "BonnieController hides global class", just open the project in Godot editor -- it rebuilds `.godot/global_script_class_cache.cfg` automatically.
+
+3. **5 prototype shortcuts NOT yet fixed** in production BonnieController:
+   - #1: CLIMBING top-edge uses `is_on_ceiling()` not proper Area2D detect
+   - #2: LEDGE_PULLUP has no position snap
+   - #3: SQUEEZING exit uses `_squeeze_zone_active` flag (prototype approx)
+   - #4: Surface detection implemented via `get_surface_type()` (DONE)
+   - #5: ParryCast uses Y-offset heuristic, not directional raycasts
+
+4. **AudioManager stub**: `play_music(&"level_02_calm")` logs warning -- no music registered. Harmless.
+
+5. **Aseprite sprite not wired**: The placeholder sprite exists as files but BonnieController still uses ColorRect.
+
+---
+
+## File Map (Session 009 Production Code)
 
 ```
-Session 008: GATE 1 ✅ PASSED, T-CHAOS + T-SOC DRAFTED ✅
-     |
-GATE 2 ✅ PASSED (all 11 MVP GDDs approved — 11/11)
-     |
-T-SPRINT-01 (Sprint 1 plan)
-     |
-T-IMPL (Sprint 1 Implementation)
+src/
+  core/
+    input_manager.gd          -- Autoload: movement, jump buffer, coyote, device detect
+    viewport_guard.gd          -- Autoload: 720x540 validation, integer scale
+    audio_manager.gd           -- Autoload: bus hierarchy, SFX/music stubs
+  gameplay/
+    bonnie_controller.gd       -- 13-state traversal, ~565 lines
+    bonnie_controller.tscn     -- CharacterBody2D + 5 child nodes
+  camera/
+    bonnie_camera.gd           -- State-aware follow, recon zoom, room bounds
+    bonnie_camera.tscn         -- Camera2D
+  level/
+    level_manager.gd           -- Room registration, spatial queries, signals
+    level_02_apartment.tscn    -- 2-room graybox with all geometry + instances
+    room.gd                    -- Node2D with room_id, bounds, adjacent_rooms
+    room_data.gd               -- Resource version of Room exports
+
+tests/
+  unit/
+    test_input_manager.gd      -- 18 tests
+    test_viewport_guard.gd     -- 12 tests
+    test_audio_manager.gd      -- 14 tests
+    test_bonnie_controller.gd  -- 98 tests
+    test_bonnie_camera.gd      -- 13 tests
+    test_level_manager.gd      -- 13 tests
+  integration/
+    test_first_playable.gd     -- 16 tests
+
+assets/art/sprites/bonnie/
+    bonnie_placeholder.aseprite  -- Source (16x32, 10 frames, 3 tags)
+    bonnie_placeholder.png       -- Spritesheet (160x32)
+    bonnie_placeholder.json      -- Frame metadata
 ```
-
----
-
-## Session 009 Opening Protocol
-
-### Priority 0: Sprint 1 Planning
-
-GATE 2 passed Session 008. All 11 MVP GDDs are approved. The critical path is now:
-1. Draft Sprint 1 plan covering foundation systems: Input System (1), Viewport Config (2), BONNIE Traversal (6) production rewrite from prototype to `src/`
-2. Consider which systems can be implemented in parallel vs. which must be sequential
-3. Identify the first playable milestone: BONNIE moving in a production scene with input + viewport + camera
-
-### Priority 1: Production Code Setup
-
-Create the `src/` directory structure per `directory-structure.md`. Set up:
-- Core autoloads (InputManager, AudioManager)
-- Scene structure for the production level
-- GUT test framework integration
-
-### Priority 2: Begin Sprint 1 Implementation (Post-Plan Approval)
-
-Once Sprint 1 plan is approved (GATE 3), begin implementing foundation systems.
-Target: BONNIE traversal rewrite from `prototypes/bonnie-traversal/BonnieController.gd` to production-quality `src/gameplay/bonnie_controller.gd` with full type annotations, dependency injection, and GUT test coverage.
-
-### Key Decisions Locked in Session 008
-
-- **NpcState Write Contract**: Social (12) writes `goodwill`, `last_interaction_type`, `comfort_receptivity`. NPC (9) writes `emotional_level`, `current_behavior`, `active_stimuli`, `visible_to_bonnie`, `bonnie_hunger_context`. Chaos Meter (13) reads only.
-- **Gift Horror → Chaos**: Horrified NPC reaction to gross gifts adds to `chaos_subtotal`, not charm. Rewards creative chaos thinking.
-- **Chaos Ceiling**: Pure chaos maxes at 0.65, feeding threshold at 0.85. The 0.20 gap MUST be filled by charm. Formally proven in chaos-meter.md §4.5.
-- **Claw Brake**: 0.30 multiplier confirmed adequate at GATE 1 close. No tuning needed.
-
----
-
-## Known Prototype Shortcuts (Do NOT Fix in `prototypes/`)
-
-Address in production rewrite in `src/` only:
-
-1. **CLIMBING top-edge detect**: `is_on_ceiling()` approximation. Production needs Area2D or raycast top-edge detect.
-2. **LEDGE_PULLUP position snap**: no ledge-top snap in prototype. Production needs snap.
-3. **SQUEEZING exit**: `_squeeze_zone_active` flag (improved but still approximate). Production needs proper overlap test.
-4. **Surface detection for footsteps**: not implemented.
-5. **Parry directional filter**: contact-point Y offset heuristic. Production needs proper raycasts.
-
----
-
-## Warnings for Session 009
-
-1. **F5 does NOT launch on macOS** — use Play button (▶️) or Cmd+B in Godot editor
-2. **SqueezeShape position=(0,14) is load-bearing** — changing it causes BONNIE to float and state-cycle
-3. **GL Compatibility renderer** — `gl_compatibility` only. Session-start.sh guards.
-4. **AudioStreamRandomizer pitch in semitones** — Godot 4.6. NOT frequency multipliers.
-5. **Prototype is throwaway** — BonnieController.gd is not production code. Rewrite in src/.
-6. **Systems 10+11 are Vertical Slice** — System 9 only for MVP NPC work.
-7. **Both T-CHAOS + T-SOC must be designed before implementing either NPC or Social System.**
-8. **BONNIE never dies.** Non-negotiable.
-9. **No auto-grab on ledges.** Pure parry only. Non-negotiable.
-10. **Commit identity**: `Co-Authored-By: Hawaii Zeke <(302) 319-3895>`
-
----
-
-## Verification Gates
-
-| Gate | Condition | Status | Unlocks |
-|------|-----------|--------|---------|
-| GATE 0 | Camera + Viewport GDDs approved | CLEARED ✅ | Streams A+B+C |
-| GATE 1 | Prototype playtested, ACs pass, tuning locked | **PASS** ✅ Session 008 | Phase 3 GDDs |
-| GATE 2 | All 11 MVP GDDs approved (11/11) | **PASS** ✅ Session 008 | Sprint 1 plan |
-| GATE 3 | Sprint 1 plan approved | Pending | Implementation |
-
----
-
-## DI-002 — Deferred Design Idea (Post-GATE 1)
-
-**Underside Platform Clinging (HANGING state)**
-
-Tester vision: BONNIE can cling to the underside of platforms, shelves, counters.
-Stealth mechanic — dodge the aftermath of her own chaos. "Dodge the aftermath of
-her own chaos" is the design image.
-
-Deferred scope: GATE 2+. Natural fit with NPC perception system (System 9).
-Flag when NPC GDD enters implementation phase.
-
----
-
-*Hawaii Zeke — Session 008 complete. GATE 1 passed. GATE 2 passed. All 11 MVP GDDs approved.
-T-CHAOS + T-SOC + T-FOUND-06 authored and reviewed. NpcState contract locked.
-23 stale Mycelium notes composted. Sprint 1 planning is the next milestone.*

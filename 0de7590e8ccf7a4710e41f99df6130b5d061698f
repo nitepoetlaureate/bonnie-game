@@ -1,0 +1,4 @@
+kind context
+edge explains commit:0de7590e8ccf7a4710e41f99df6130b5d061698f
+
+Session 009: Sprint 1 First Playable complete. All 7 MVP systems implemented in src/ (InputManager, ViewportGuard, AudioManager, BonnieController, BonnieCamera, LevelManager, Room). 184 GUT tests written. 3 scene files created via gdcli MCP. Graybox visuals added. Aseprite MCP pipeline proven — placeholder cat sprite with idle/walk/run animations exported to spritesheet. Camera auto-finds BONNIE via Bonnie group. Prototype class_name removed to avoid conflict. Stale worktrees from failed Phase 2 agents still exist in .claude/worktrees/ (user denied rm -rf).

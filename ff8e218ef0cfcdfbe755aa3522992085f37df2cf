@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:ff8e218ef0cfcdfbe755aa3522992085f37df2cf
+edge targets-path path:src/level/level_02_apartment.tscn
+
+2-room graybox apartment. LivingRoom (0,0,1200,540) + Kitchen (1200,0,1000,540). Floor, walls, ceiling as StaticBody2D with ColorRect visuals. One climbable wall (green, Climbable group), one squeeze trigger (Area2D, SqueezeTrigger group), one high platform. BONNIE instance at (200,520). Camera instance. Doorway visual divider at x=1190.

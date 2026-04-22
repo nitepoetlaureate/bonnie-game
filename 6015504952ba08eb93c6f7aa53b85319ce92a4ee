@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:6015504952ba08eb93c6f7aa53b85319ce92a4ee
+edge targets-path path:assets/art/sprites/bonnie/bonnie_placeholder.aseprite
+
+Aseprite MCP pipeline proof. 16x32 cat, 10 frames, 3 tags (idle 2f pingpong, walk 4f, run 4f). Exported to .png spritesheet + .json. NOT yet wired into BonnieController scene. Session 010: swap ColorRect for AnimatedSprite2D, set up RetroDiffusion for real art.

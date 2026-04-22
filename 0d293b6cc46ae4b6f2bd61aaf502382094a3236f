@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:0d293b6cc46ae4b6f2bd61aaf502382094a3236f
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+Production traversal controller. 13 states, monolithic match-dispatch. All input via InputManager except hold-state queries (run/sneak/grab/zoom/move_down). LOCKED: claw_brake=0.30, skid_friction=0.15, SqueezeShape pos=(0,14). Public API: get_look_ahead_distance(), get_facing_direction(), get_stimulus_radius(), get_surface_type(). Signal: state_changed(old, new). 5 prototype shortcuts NOT yet fixed (still uses is_on_ceiling, _squeeze_zone_active flag, Y-offset parry heuristic).

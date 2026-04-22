@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:003ea622988677f059f4fbcaa77d4fb455a8d967
+edge targets-path path:src/camera/bonnie_camera.gd
+
+State-aware camera following BONNIE. Auto-finds target via Bonnie group in _ready(). Look-ahead per state, vertical anchor at 70% (y=378/540), recon zoom 0.33-1.0, room-bound clamping via set_room_bounds(). Ledge bias infrastructure ready but unused in Sprint 1.

@@ -1,0 +1,5 @@
+kind summary
+edge applies-to tree:57fb86c321f5a8cc8fae45d8b1b52d0f2ae74349
+edge targets-treepath treepath:production
+
+sprint-01 COMPLETE, sprint-02 NOT STARTED. stage.txt = Pre-Production (GATE 3 pending user in-engine confirmation). sprint-02 critical path: S2-001 NpcState design before any NPC/Social implementation.

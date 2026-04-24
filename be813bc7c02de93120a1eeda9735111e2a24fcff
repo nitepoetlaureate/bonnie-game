@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:be813bc7c02de93120a1eeda9735111e2a24fcff
+edge targets-path path:src/gameplay/bonnie_controller.tscn
+
+Added ClimbTopCast RayCast2D at position (0,-20), target (16,0), enabled=false. Used by _handle_climbing() to detect wall top edge by horizontal cast in facing direction. Replaces is_on_ceiling() heuristic.

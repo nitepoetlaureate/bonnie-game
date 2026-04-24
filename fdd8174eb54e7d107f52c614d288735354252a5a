@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:fdd8174eb54e7d107f52c614d288735354252a5a
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+BonnieController: 4 prototype shortcuts replaced. (1) ClimbTopCast RayCast2D at (0,-20) replaces is_on_ceiling() for climb top detection — fires horizontally in facing direction. (2) LEDGE_PULLUP snap: 6px horizontal + 2px vertical nudge prevents edge straddling. (3) SQUEEZING uses overlaps_body() direct check instead of cached _squeeze_zone_active flag. (4) _has_wall_or_ledge_collision filters by facing direction (delta.x*facing>-8) and capsule geometry (delta.y<8) instead of 12px Y heuristic.

@@ -1,0 +1,4 @@
+kind context
+edge explains commit:773033b7dd45c55d02f7cf5f2ac34f4bd9b96b33
+
+Session 010: 7 ADRs for all Sprint 1 systems (docs/architecture/). GUT Logger→GutLogger fix (Godot 4.6 compat). Sprint files created (sprint-01 retrospective, sprint-02 plan). Climbing mount redesigned: E-at-ledge triggers mount (_at_climb_top flag), _pullup_from_climb differentiates mount vs parry resolve. 177 unit + 16 integration tests passing.

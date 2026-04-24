@@ -6,7 +6,7 @@ extends GutTest
 const LEVEL_SCENE: PackedScene = preload("res://src/level/level_02_apartment.tscn")
 
 
-var _level: Node2D
+var _level: Node
 
 
 func before_each() -> void:

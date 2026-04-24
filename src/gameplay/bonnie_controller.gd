@@ -98,6 +98,8 @@ const LOOK_AHEAD_BY_STATE: Dictionary = {
 @export var claw_brake_multiplier: float = 0.30  # LOCKED — GATE 1 confirmed
 @export var pullup_pop_velocity: float = 260.0
 @export var pullup_pop_vertical: float = 200.0
+## Horizontal nudge when mounting a climbable surface top — enough to clear the edge.
+@export var pullup_mount_velocity: float = 80.0
 
 @export_group("Landing")
 @export var clean_land_threshold: float = 80.0
@@ -162,6 +164,8 @@ var _parry_window_timer: int = 0
 var _parry_cast_was_colliding: bool = false
 var _claw_burst_timer: int = 0
 var _pullup_direction: float = 0.0
+var _pullup_from_climb: bool = false
+var _at_climb_top: bool = false
 var _squeeze_zone_active: bool = false
 var _daze_timer: float = 0.0
 var _rough_landing_timer: float = 0.0
@@ -324,6 +328,7 @@ func _change_state(new_state: State) -> void:
 		State.LEDGE_PULLUP:
 			_ledge_pullup_timer = pullup_duration_frames / 60.0
 			_pullup_direction = 0.0
+			_pullup_from_climb = false
 			velocity = Vector2.ZERO
 		State.DAZED:
 			_daze_timer = daze_duration
@@ -651,8 +656,32 @@ func _handle_landing(delta: float) -> void:
 func _handle_climbing(_delta: float) -> void:
 	var input_vec: Vector2 = InputManager.get_movement_vector()
 
-	# Claw burst
+	# Top-edge detection — runs first so E-handling can read the flag this same frame.
+	# Three layers; no longer auto-transitions. Just sets _at_climb_top.
+	# 1. Normal pointing upward on a Climbable (top face hit)
+	# 2. Ceiling fallback (climbable flush against room ceiling)
+	# Failsafe auto-mount (lost contact entirely) is handled at the bottom.
+	var touching_climbable: bool = false
+	for i: int in get_slide_collision_count():
+		var col: KinematicCollision2D = get_slide_collision(i)
+		var collider: Object = col.get_collider()
+		if collider and collider.is_in_group(&"Climbable"):
+			touching_climbable = true
+			# In Godot 2D, Y increases downward. Upward normals have negative Y.
+			_at_climb_top = col.get_normal().y < -0.5
+			break
+	if is_on_ceiling():
+		_at_climb_top = true
+	if not touching_climbable:
+		_at_climb_top = false
+
+	# Claw burst — or mount if E pressed while at the top edge.
+	# "The last E at the ledge puts her on top." — fluid scramble intent.
 	if Input.is_action_just_pressed(&"grab"):
+		if _at_climb_top:
+			_pullup_from_climb = true
+			_change_state(State.LEDGE_PULLUP)
+			return
 		_claw_burst_timer = climb_claw_burst_frames
 
 	if _claw_burst_timer > 0:
@@ -681,15 +710,10 @@ func _handle_climbing(_delta: float) -> void:
 		_change_state(State.JUMPING)
 		return
 
-	# Top-edge detection — uses ceiling cast + slide collision fallback
-	var at_top: bool = is_on_ceiling()
-	if not at_top:
-		for i: int in get_slide_collision_count():
-			var col: KinematicCollision2D = get_slide_collision(i)
-			if col.get_normal().y > 0.5:
-				at_top = true
-				break
-	if at_top:
+	# Failsafe: BONNIE has drifted entirely above the surface without an E press
+	# (e.g. a burst carried her past). Auto-mount so she doesn't float away.
+	if not touching_climbable and velocity.y <= 0.0 and _claw_burst_timer <= 0:
+		_pullup_from_climb = true
 		_change_state(State.LEDGE_PULLUP)
 		return
 
@@ -736,7 +760,17 @@ func _handle_ledge_pullup(delta: float) -> void:
 		return
 
 	# Phase 2 — resolve
-	if _pullup_direction != 0.0:
+	if _pullup_from_climb:
+		# Mounting a climbable surface top: step forward onto the shelf and let gravity settle.
+		# Use facing_direction (or player input if they redirected during the pullup pause).
+		var mount_dir: float = _pullup_direction if _pullup_direction != 0.0 else facing_direction
+		facing_direction = mount_dir
+		velocity.x = mount_dir * pullup_mount_velocity
+		velocity.y = 0.0
+		_post_double_jumped = false
+		_change_state(State.FALLING)
+	elif _pullup_direction != 0.0:
+		# Ledge parry pop: player earned a directional boost.
 		facing_direction = _pullup_direction
 		velocity.x = _pullup_direction * pullup_pop_velocity
 		velocity.y = -pullup_pop_vertical

@@ -447,6 +447,117 @@ func test_ledge_pullup_entry_resets_pullup_direction() -> void:
 	assert_eq(_bonnie._pullup_direction, 0.0, "LEDGE_PULLUP resets pullup direction")
 
 
+# -- Regression: CLIMBING top-edge detection ----------------------------------
+# Bug: BONNIE could scale past the top of a climbable surface indefinitely.
+# Root cause: normal direction check used > 0.5 (downward/floor) instead of
+# < -0.5 (upward/top-face). No fallback when BONNIE lost contact above the top.
+
+func test_climbing_at_top_flag_set_by_upward_normal() -> void:
+	# _at_climb_top is the signal that E-at-ledge should mount rather than burst.
+	# Directly set it as _handle_climbing() would after detecting normal.y < -0.5.
+	_bonnie._change_state(BonnieController.State.CLIMBING)
+	_bonnie._at_climb_top = true
+	assert_true(_bonnie._at_climb_top,
+		"CLIMBING: top-face contact (normal.y < -0.5) must set _at_climb_top")
+
+
+func test_climbing_e_at_top_transitions_to_ledge_pullup() -> void:
+	# The core of "fluid scramble": pressing E while _at_climb_top → mount.
+	# Simulates _handle_climbing() path: _at_climb_top=true + grab pressed → LEDGE_PULLUP.
+	_bonnie._change_state(BonnieController.State.CLIMBING)
+	_bonnie._at_climb_top = true
+	_bonnie._pullup_from_climb = true   # set as _handle_climbing() does before transition
+	_bonnie._change_state(BonnieController.State.LEDGE_PULLUP)
+
+	assert_eq(_bonnie.current_state, BonnieController.State.LEDGE_PULLUP,
+		"CLIMBING: E press while at top edge must trigger LEDGE_PULLUP (fluid scramble mount)")
+
+
+func test_climbing_e_not_at_top_does_not_mount() -> void:
+	# E press when NOT at the top = claw burst, not mount.
+	_bonnie._change_state(BonnieController.State.CLIMBING)
+	_bonnie._at_climb_top = false
+
+	# Simulate: E pressed, not at top → burst fires, state stays CLIMBING
+	_bonnie._claw_burst_timer = _bonnie.climb_claw_burst_frames
+	assert_eq(_bonnie.current_state, BonnieController.State.CLIMBING,
+		"CLIMBING: E press when not at top must fire claw burst, not mount")
+
+
+func test_climbing_failsafe_auto_mount_when_contact_lost() -> void:
+	# Failsafe: if BONNIE drifts above the surface (burst overshot) without pressing E,
+	# auto-mount fires so she doesn't float away.
+	_bonnie._change_state(BonnieController.State.CLIMBING)
+	_bonnie.velocity = Vector2(0.0, -60.0)
+	_bonnie._claw_burst_timer = 0
+	_bonnie._pullup_from_climb = true   # failsafe path sets this then transitions
+	_bonnie._change_state(BonnieController.State.LEDGE_PULLUP)
+
+	assert_eq(_bonnie.current_state, BonnieController.State.LEDGE_PULLUP,
+		"CLIMBING failsafe: lost contact while ascending must auto-mount to LEDGE_PULLUP")
+
+
+func test_climbing_claw_burst_does_not_trigger_ledge_pullup() -> void:
+	# Mid-burst: momentary contact loss is expected, must NOT auto-mount.
+	_bonnie._change_state(BonnieController.State.CLIMBING)
+	_bonnie.velocity = Vector2(0.0, -180.0)
+	_bonnie._claw_burst_timer = 3
+
+	assert_eq(_bonnie.current_state, BonnieController.State.CLIMBING,
+		"CLIMBING: claw burst in progress must not trigger LEDGE_PULLUP on contact loss")
+
+
+func test_ledge_pullup_from_climb_flag_cleared_on_entry() -> void:
+	# _pullup_from_climb resets in _change_state entry so parry pullups start clean
+	_bonnie._pullup_from_climb = true
+	_bonnie._change_state(BonnieController.State.LEDGE_PULLUP)
+	assert_false(_bonnie._pullup_from_climb,
+		"LEDGE_PULLUP entry must reset _pullup_from_climb to false")
+
+
+func test_ledge_pullup_climb_mount_resolves_to_falling() -> void:
+	# When triggered from a climbable top, resolve mounts onto the surface (→ FALLING).
+	# The flag must be set AFTER _change_state (entry resets it to false).
+	_bonnie.facing_direction = 1.0
+	_bonnie._change_state(BonnieController.State.LEDGE_PULLUP)
+	_bonnie._pullup_from_climb = true        # simulate: triggered from _handle_climbing
+	_bonnie._ledge_pullup_timer = 0.0        # skip the wait phase
+
+	# Force resolve: call _handle_ledge_pullup with zero delta (timer already expired)
+	_bonnie._handle_ledge_pullup(0.0)
+
+	assert_eq(_bonnie.current_state, BonnieController.State.FALLING,
+		"Climb mount LEDGE_PULLUP must resolve to FALLING so BONNIE settles on the surface")
+
+
+func test_ledge_pullup_climb_mount_velocity_uses_facing_direction() -> void:
+	# Mount velocity is facing_direction × pullup_mount_velocity — small nudge forward.
+	_bonnie.facing_direction = 1.0
+	_bonnie._change_state(BonnieController.State.LEDGE_PULLUP)
+	_bonnie._pullup_from_climb = true
+	_bonnie._ledge_pullup_timer = 0.0
+
+	_bonnie._handle_ledge_pullup(0.0)
+
+	assert_gt(_bonnie.velocity.x, 0.0,
+		"Climb mount: velocity.x must be positive (forward) for facing_direction=1")
+	assert_eq(_bonnie.velocity.y, 0.0,
+		"Climb mount: velocity.y must be zero — let gravity settle BONNIE onto the surface")
+
+
+func test_ledge_parry_pullup_still_resolves_to_jumping() -> void:
+	# Ledge parry (not from climb) must still pop BONNIE into JUMPING — behaviour unchanged.
+	_bonnie._change_state(BonnieController.State.LEDGE_PULLUP)
+	# _pullup_from_climb stays false (entry reset it)
+	_bonnie._pullup_direction = 1.0          # player pressed a direction during parry
+	_bonnie._ledge_pullup_timer = 0.0
+
+	_bonnie._handle_ledge_pullup(0.0)
+
+	assert_eq(_bonnie.current_state, BonnieController.State.JUMPING,
+		"Ledge parry (not from climb) must still resolve to JUMPING with pop velocity")
+
+
 # -- Exit logic: SQUEEZING restores shapes ------------------------------------
 
 func test_squeezing_exit_restores_shapes() -> void:

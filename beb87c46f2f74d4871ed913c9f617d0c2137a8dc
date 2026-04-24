@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:beb87c46f2f74d4871ed913c9f617d0c2137a8dc
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+Climbing top-edge mount redesigned (Session 010): _at_climb_top flag set each frame when top-face normal detected (normal.y < -0.5). E press while _at_climb_top=true triggers LEDGE_PULLUP with _pullup_from_climb=true. Failsafe auto-mount if contact lost entirely without E press. LEDGE_PULLUP now branches: climb mount → small forward nudge (pullup_mount_velocity=80) + FALLING so gravity settles BONNIE on surface. Ledge parry pop unchanged. New vars: _at_climb_top, _pullup_from_climb, pullup_mount_velocity.

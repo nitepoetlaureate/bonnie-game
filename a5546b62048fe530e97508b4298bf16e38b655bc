@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:a5546b62048fe530e97508b4298bf16e38b655bc
+edge targets-path path:tests/unit/test_bonnie_controller.gd
+
+177 unit tests passing (Session 010). Added regression suite for climb mount: _at_climb_top flag, E-at-ledge mount path, failsafe auto-mount, claw burst guard, _pullup_from_climb reset, climb resolve → FALLING, ledge parry resolve → JUMPING unchanged.

@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:f5de664eb61170b24b2c970711a797eac4cd2e01
+edge targets-path path:src/core/chaos_config.gd
+
+ChaosConfig: CONSTRAINT chaos_ceiling < feeding_threshold - hunger_threshold_reduction or charm-required proof breaks. Defaults: ceiling=0.65, threshold=0.85, npc_reaction_base=0.04, cascade_multiplier=1.5.

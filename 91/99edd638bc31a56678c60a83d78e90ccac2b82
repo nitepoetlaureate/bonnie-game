@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:9199edd638bc31a56678c60a83d78e90ccac2b82
+edge targets-path path:src/core/chaos_manager.gd
+
+ChaosManager (System 13): dual-subtotal formula meter_value=clamp(clamp(CS,0,ceil)+XS,0,1). chaos_subtotal capped at chaos_ceiling=0.65. charm_subtotal uncapped. Sliding combo window. feeding_threshold_reached signal is permission only.

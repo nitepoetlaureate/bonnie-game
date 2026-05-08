@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:baa47f513c2b575fc0cc1744c1c60cca4198dc46
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+BonnieController updated in Session 011 with System #7 (Interactive Object) integration. Added: interactive_config export, config load in _ready(), object push in _handle_running (run formula §4.2), object push in _handle_sliding (slide formula §4.1), _apply_landing_radial_impulse called once on ROUGH_LANDING entry (§4.3), _rough_landing_impulse_fired flag. BonnieController passes base force; receive_impact applies mass_factor internally.

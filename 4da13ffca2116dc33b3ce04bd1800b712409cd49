@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:4da13ffca2116dc33b3ce04bd1800b712409cd49
+edge targets-path path:src/level/level_manager.gd
+
+LevelManager Sprint 2: BFS adjacency graph (_adjacency Dict), NPC room registry (Node->StringName flat map). New public API: get_adjacent_rooms(), get_cascade_attenuation(), register_npc(), unregister_npc(), update_npc_room(), get_npcs_in_room(). Signal: npc_room_changed. build_adjacency_graph() reads Room.adjacent_rooms arrays.

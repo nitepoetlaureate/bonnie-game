@@ -1,4 +1,4 @@
 kind context
 edge explains commit:1e9d2788ea809e69d2a07aa047939d4558e15fa4
 
-S2-009 + S2-010: LevelManager BFS adjacency graph + NPC registry. build_adjacency_graph() reads Room.adjacent_rooms. get_cascade_attenuation() BFS tiers [1.0, 0.5, 0.2, 0.0]. NPC registry Node->StringName flat map. 13 new tests in test_level_manager.gd. ADR-006 Sprint 2 section added.
+Session: Implement Interactive Object System (System #7). 7 files written: interactive_object_config.gd (Resource with 9 tuning knobs), interactive_object.gd (RigidBody2D with receive_impact sole entry, two signals, displaced flag, liquid timer), InteractiveObject.tscn, interactive_object_config.tres, test_interactive_object.gd (56 tests), plus BonnieController updated with slide/run/rough_landing object interaction and _apply_landing_radial_impulse helper, and test_bonnie_controller.gd extended with 12 more interactive object formula tests. Architecture: BonnieController passes raw base force; receive_impact applies mass_factor internally. Landing radial impulse fires once per ROUGH_LANDING entry via _rough_landing_impulse_fired flag. See design/gdd/interactive-object-system.md.

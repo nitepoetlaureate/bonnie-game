@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:3f173878528ca34c1b803c4d987edd3b9405e786
+edge targets-path path:src/social/social_config.gd
+
+SocialConfig: all Social System tuning knobs. Key defaults: rub_goodwill_rate=0.02, meow_goodwill_bump=0.03, purr_goodwill_rate=0.025, chaos_goodwill_penalty=0.05, goodwill_decay_rate=0.005/s, comfort_boost=0.10.

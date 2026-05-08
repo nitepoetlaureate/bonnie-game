@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:6aeb26d1d107782cb25c6d7f71bc14837b3fcdb3
+edge targets-path path:src/ai/npc_config.gd
+
+NpcConfig: all 11 GDD §4 tuning knobs with defaults. awareness_threshold=0.25, reaction_threshold=0.60, awareness_window=6.0s, reaction_duration=4.0s, cascade_bleed_factor=0.40, cascade_max_depth=2.

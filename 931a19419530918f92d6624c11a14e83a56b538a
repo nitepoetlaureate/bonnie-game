@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:931a19419530918f92d6624c11a14e83a56b538a
+edge targets-path path:src/ai/npc_state.gd
+
+NpcState: shared data contract between NPC System (9) and Social System (12). StringName current_behavior (not enum — C4 constraint). NPC owns: emotional_level, current_behavior, active_stimuli, visible_to_bonnie. Social owns: goodwill, last_interaction_type, comfort_receptivity.

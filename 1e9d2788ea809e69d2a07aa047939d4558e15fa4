@@ -1,0 +1,4 @@
+kind context
+edge explains commit:1e9d2788ea809e69d2a07aa047939d4558e15fa4
+
+S2-009 + S2-010: LevelManager BFS adjacency graph + NPC registry. build_adjacency_graph() reads Room.adjacent_rooms. get_cascade_attenuation() BFS tiers [1.0, 0.5, 0.2, 0.0]. NPC registry Node->StringName flat map. 13 new tests in test_level_manager.gd. ADR-006 Sprint 2 section added.

@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:ed8793486c2a9dde207ada37bddef7fc27ea3043
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+BonnieController Sprint 2: _handle_running and _handle_sliding dispatch receive_impact() to InteractiveObject colliders. _handle_rough_landing fires radial impulse via _apply_landing_radial_impulse() once per landing (guarded by _rough_landing_impulse_fired). interactive_config: InteractiveObjectConfig loaded from assets/data/interactive_object_config.tres. Base force passed; InteractiveObject applies mass_factor.

@@ -1,0 +1,4 @@
+kind context
+edge explains commit:eaa2b4f22e3d59196046da408528993bec7c27e2
+
+S2-007 + S2-009 + S2-010: InteractiveObject system (RigidBody2D, receive_impact, two signals, displaced flag, config resource), BonnieController integration (slide/run/rough_landing dispatch), LevelManager BFS + NPC registry (13 new tests). 1354 lines added.

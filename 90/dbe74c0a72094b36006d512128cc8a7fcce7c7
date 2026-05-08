@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:90dbe74c0a72094b36006d512128cc8a7fcce7c7
+edge targets-path path:src/social/social_manager.gd
+
+SocialManager (System 12): governs goodwill for all 5 charm verbs (rub/meow/sit/purr/gift), chaos penalties, goodwill decay. Charm deltas scaled by comfort_receptivity; chaos penalties unscaled. Writes only goodwill/last_interaction_type/comfort_receptivity on NpcState.

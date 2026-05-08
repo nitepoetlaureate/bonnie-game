@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:ea8e2320acc692e549eab13824b9510f17659000
+edge targets-path path:src/gameplay/interactive_object.gd
+
+InteractiveObject extends RigidBody2D. receive_impact(force) sole entry, mass_factor applied internally. displaced flag gates signals. Two signals: object_displaced (ChaosManager), object_displaced_stimulus (NpcController). reset() restores rest_transform. add_to_group(InteractiveObject) enables rough-landing query.

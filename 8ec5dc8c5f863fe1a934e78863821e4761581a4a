@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:8ec5dc8c5f863fe1a934e78863821e4761581a4a
+edge targets-path path:src/ai/npc_controller.gd
+
+NpcController (System 9): 4-state FSM ROUTINE/AWARE/REACTING/RECOVERING. Timer-based exits. receive_stimulus() sole entry point. Cascade depth tracked in _last_received_cascade_depth. npc_reacted(npc_state, cascade_depth) signal for ChaosManager.

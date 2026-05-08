@@ -1,5 +1,0 @@
-kind summary
-edge applies-to blob:4c3a4c0c1c3ba3bd971e81c1fb90b3ae79943e43
-edge targets-path path:src/level/level_02_apartment.tscn
-
-GATE 4 wired: ChaosManager (inline ChaosConfig_gate4), FlowerPot at x=450, GrumpyOwner NpcController at x=850. Connections: object_displaced→on_object_displaced, npc_reacted→on_npc_reacted. ChaosMeterUI wired via LevelManager._wire_chaos_meter_ui(). Gate 4 config: object_displacement_base=0.15, npc_reaction_base=0.08 — revert after GATE 4 pass.

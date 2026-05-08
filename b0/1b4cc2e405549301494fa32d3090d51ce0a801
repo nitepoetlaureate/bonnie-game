@@ -1,0 +1,4 @@
+kind context
+edge explains commit:b01b4cc2e405549301494fa32d3090d51ce0a801
+
+GATE 4 scene wiring: ChaosManager + FlowerPot + GrumpyOwner added to level_02_apartment. LevelManager._wire_chaos_meter_ui() deferred-wires ChaosMeterUI after scene ready. GATE 4 playtest config (base=0.15, npc=0.08) inlined as sub_resource — tune back to defaults after GATE 4 pass.

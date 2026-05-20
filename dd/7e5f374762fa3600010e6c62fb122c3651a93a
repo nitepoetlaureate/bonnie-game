@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:dd7e5f374762fa3600010e6c62fb122c3651a93a
+edge targets-path path:src/gameplay/interactive_object_config.gd
+
+Interactive object tuning. run_interaction_threshold=120 (was 220; walking now pushes). run_force_multiplier=2.5 (was 1.5). Combined with FlowerPot mass=0.5 and friction=0.15, objects fly on impact.

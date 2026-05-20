@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:7b5fb28455beca2012bfe2308018dd1744a0509b
+edge targets-path path:src/level/level_02_apartment.tscn
+
+GATE 4 scene: SocialManager node added (Session 015). Full signal wiring: FlowerPot→ChaosManager (object_displaced), FlowerPot→GrumpyOwner (object_displaced_stimulus), GrumpyOwner→ChaosManager (npc_reacted). SocialManager+ChaosMeterUI wired programmatically by LevelManager._ready().

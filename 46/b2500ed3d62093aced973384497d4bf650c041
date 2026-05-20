@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:46b2500ed3d62093aced973384497d4bf650c041
+edge targets-path path:src/level/level_manager.gd
+
+LevelManager now owns runtime wiring: caches BONNIE+camera refs, tracks BONNIE room position each physics frame, wires ChaosMeterUI and SocialManager, updates camera bounds on room transitions. All Dictionaries typed. Docstring matches actual scene structure.

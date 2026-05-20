@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:796df24f3f458c6a11355074ca81201c1569ee58
+edge targets-path path:src/level/level_02_apartment.tscn
+
+FlowerPot: mass=0.5, PhysicsMaterial friction=0.15/bounce=0.1, linear_damp=0.5. Walking pushes, running launches. PhysMat_flowerpot SubResource.

@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:7a14d370d0177cdf8bd31a98fe4ca7f36e63a9eb
+edge targets-path path:design/art-bible.md
+
+Art bible v1.0: 48-64 indexed colors (SNES-authentic), hybrid perspective (isometric bg + side-view gameplay), Philly row house aesthetic, top-left light, 16x32 character sprites with 1px outline, 3-layer parallax per room.

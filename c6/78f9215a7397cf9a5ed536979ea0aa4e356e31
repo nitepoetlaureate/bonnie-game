@@ -1,5 +1,6 @@
-kind summary
+kind decision
+title look-ahead-ownership
 edge applies-to blob:c678f9215a7397cf9a5ed536979ea0aa4e356e31
 edge targets-path path:src/camera/bonnie_camera.gd
 
-State-aware camera. zoom_normal=2.0 (SNES proportions). Look-ahead distances as individual exports (was dict on BonnieController). get_look_ahead_for_state(StringName)->float. Vertical offset scales with _current_zoom. Recon zoom 2.0→0.33.
+Look-ahead distances moved from BonnieController const dict to BonnieCamera exports. Camera owns the values (tunable in Inspector). BonnieController delegates via STATE_NAME_MAP. Rationale: dont touch BONNIE controls constraint.

@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:03f9a1b607f26a0027aae432b699a70249e7c99d
+edge targets-path path:src/ai/npc_controller.gd
+
+NpcController now generates proximity stimulus from BONNIE's presence (state-dependent intensity: sneaking=low, running=high). Debug label shows FSM state, emotional_level, goodwill (F3 toggle). Caches BONNIE ref via group lookup.

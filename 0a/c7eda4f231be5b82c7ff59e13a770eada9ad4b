@@ -1,0 +1,4 @@
+kind context
+edge explains commit:0ac7eda4f231be5b82c7ff59e13a770eada9ad4b
+
+Session 016: Visual overhaul Phase 1+2. Camera zoom_normal 1.0→2.0 (SNES framing). Look-ahead moved from BonnieController to BonnieCamera exports (halved for 2x zoom). FlowerPot physics: mass 0.5, friction 0.15, threshold 120, force 2.5. Art bible at design/art-bible.md. BONNIE movement untouched.

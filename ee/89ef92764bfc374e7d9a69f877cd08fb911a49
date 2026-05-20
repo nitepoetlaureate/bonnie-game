@@ -1,0 +1,4 @@
+kind context
+edge explains commit:ee89ef92764bfc374e7d9a69f877cd08fb911a49
+
+Session 015: Full codebase audit found 19 issues blocking genuine GATE 4 playtest. Fixed 18: SocialManager wired into level scene, BONNIE proximity stimulus connected to NPC, camera room-clamping enabled, stretch/aspect=keep for pillarboxing, AudioManager autoload check fixed, interactive object audio events registered, all Dictionaries typed, debug labels added (F3), playtest checklist written. Tuning values intentionally hot (7.5x displacement) for playtest visibility. 7 non-blocking issues deferred to post-playtest pass.

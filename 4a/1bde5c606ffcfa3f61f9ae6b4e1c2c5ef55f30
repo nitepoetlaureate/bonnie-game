@@ -1,0 +1,5 @@
+kind observation
+edge applies-to tree:4a1bde5c606ffcfa3f61f9ae6b4e1c2c5ef55f30
+edge targets-treepath treepath:.
+
+Session 015 identified 7 non-blocking issues deferred to post-playtest: (1) social_manager.gd refs undefined states GROGGY/CLOSED_OFF/ASLEEP/FED, (2) goodwill decay doesn't reset last_interaction_type, (3) LOOK_AHEAD_BY_STATE untyped dict, (4-5) test quality issues in test_audio_manager/test_bonnie_controller, (6-7) missing Acceptance Criteria in 2 GDDs + NPC scope ambiguity text.

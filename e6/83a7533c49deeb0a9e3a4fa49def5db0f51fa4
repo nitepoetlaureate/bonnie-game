@@ -1,0 +1,5 @@
+kind warning
+edge applies-to blob:e683a7533c49deeb0a9e3a4fa49def5db0f51fa4
+edge targets-path path:src/gameplay/interactive_object.gd
+
+AudioManager check was Engine.has_singleton (always false for autoloads). Fixed to has_node('/root/AudioManager'). If this pattern appears elsewhere, same fix applies.

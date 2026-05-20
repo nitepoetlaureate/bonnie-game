@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:149c851063bded5adbe0f231fd27dbb170782252
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+13-state traversal controller. LOOK_AHEAD_BY_STATE removed — replaced with STATE_NAME_MAP + camera delegation via _camera ref. get_look_ahead_distance() returns 0.0 if no camera. Movement physics UNTOUCHED.

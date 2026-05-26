@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:4e98023d0520669bab266c6cc44a4dbb7e4949eb
+edge targets-path path:assets/art/sprites/bonnie/bonnie_sprite.aseprite
+
+BONNIE canonical sprite. 16x32px, 26 frames, 4 layers (Layer 1=body, outline=auto 1px #0A0A0A, details=eye+nose, effects=dust/stars). 12 tags: idle(1-4) walk(5-8) run(9-12) slide(13-14) jump(15-16) fall(17) land(18) sneak(19-20) climb(21-22) daze(23) rough_landing(24) ledge_pullup(25-26). Art bible palette, top-left lighting.

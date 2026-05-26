@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:7959d1291070268c7fe225f4c4975a8fa195bdfc
+edge targets-path path:src/gameplay/bonnie_controller.gd
+
+Animation dispatch (lines 396-416) updated S017: maps each State to own animation name (was 3 buckets). SQUEEZING reuses sneak. No movement/physics changes.

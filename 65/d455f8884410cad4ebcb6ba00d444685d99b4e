@@ -1,0 +1,4 @@
+kind context
+edge explains commit:65d455f8884410cad4ebcb6ba00d444685d99b4e
+
+Session 017: Phase 3 complete. 26-frame BONNIE black cat sprite (16x32, 4 layers, 12 animation tags). Replaced orange placeholder. Animation dispatch updated from 3-bucket to per-state. Tests updated. Aseprite MCP workflow: draw_pixels → apply_outline → draw details → create_tag per animation.

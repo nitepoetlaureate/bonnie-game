@@ -1,0 +1,5 @@
+kind summary
+edge applies-to blob:514c28c38f4686ce0b017650fd4498da918c5871
+edge targets-path path:src/gameplay/bonnie_controller.tscn
+
+S017: 26 AtlasTextures (f0-f25) from bonnie_sprite.png. 12 SpriteFrames animations with per-animation FPS. Replaced bonnie_placeholder.png reference.
